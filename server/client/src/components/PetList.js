@@ -20,9 +20,9 @@ class PetList extends Component {
             <div className="card-image">
               <img src={window.location.origin + '/images/'+ pets.profilephotoLink} />
               <span className="card-title black">{pets.name}</span>
-              <a className="btn-floating halfway-fab waves-effect waves-light red"><i className="material-icons">add</i></a>
+              <a className="btn-floating halfway-fab waves-effect waves-light black"><i className="material-icons">add</i></a>
             </div>
-            <div className="card-content">
+            <div className="card-content">  
               <p>{pets.description}</p>
             </div>
           </div>
