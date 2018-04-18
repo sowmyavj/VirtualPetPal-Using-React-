@@ -22,7 +22,7 @@ class PetProfile extends Component {
                     <div className="col" id="petCard">
                     <div className="card">
                         <div className="card-image">
-                        <img src={window.location.origin + '/images/'+ this.props.activepet.profilephotoLink} /> 
+                        <img src={window.location.origin + '/images/'+ this.props.activepet.profilephotoLink} height="286" width="250"/> 
                         <span className="card-title black">{this.props.activepet.name}</span>
                         </div>
                         <div className="card-content">  
