@@ -26,6 +26,7 @@ class Header extends Component {
                     to={this.props.auth ? '/dashboard' : '/'}
                     className="left brand-logo"
                  >
+                 <i className="material-icons">pets</i>
                     Virtual Pet Pal</Link>
                 <ul className="right">
                     {this.renderContent()}
