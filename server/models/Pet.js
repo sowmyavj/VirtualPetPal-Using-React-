@@ -35,7 +35,7 @@ const init = async()=>{
     }).save();
 
         let pet3=await new Pet({ name: "Comet",
-        typeOfPet : 1,
+        typeOfPet : 0,
         gender : 1,
         noOfTimesToFeed:5,
         noOfTimesToWalk: 1,
@@ -55,7 +55,7 @@ const init = async()=>{
         gender : 1,
         noOfTimesToFeed:4,
         noOfTimesToWalk: 0,
-        profilephotoLink:"5.jpg",
+        profilephotoLink:"6.jpg",
         testimonials:[],
         description: "I love fish!"}).save();
     //var pet5 = makePetDoc('Hero', "Cat","M", 4,0,["5.jpg"],[])

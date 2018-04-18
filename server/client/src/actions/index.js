@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_USER, FETCH_ALL_PETS,FETCH_CATS, FETCH_DOGS } from './types';
+import { FETCH_USER, FETCH_ALL_PETS, FETCH_FILTER,FETCH_SINGLE_PET } from './types';
 
 export const fetchUser = () => async (dispatch) => {
         //api request to backend server
@@ -30,22 +30,28 @@ export const fetchAllPets = () => async (dispatch) => {
         }); 
     };
 
-    export const fetchDogs = () => async (dispatch) => {
+    export const fetchFilter = (type) => async (dispatch) => {
         //api request to backend server
-        console.log("fetchDogs");
-       let res=await  axios.get('/api/dashboard');
+        console.log("fetchFilter " +type);
+       let res=await  axios.get(`/api/type/${type}`);
+       console.log("fetchFilter");
+       console.log(res);
        dispatch({
-            type: FETCH_DOGS,
+            type: FETCH_FILTER,
             payload: res.data
         }); 
     };
 
-    export const fetchCats = () => async (dispatch) => {
+    
+export const fetchSinglePet = (name) => async (dispatch) => {
         //api request to backend server
-        console.log("fetchCats");
-       let res=await  axios.get('/api/dashboard');
-       dispatch({
-            type: FETCH_CATS,
-            payload: res.data
-        }); 
+        console.log("fetchSinglePet"+ name);
+        const res = await axios.get(`/api/pet/${name}`);
+        console.log("fetchSinglePet222"+res);
+
+        dispatch ({
+          type: FETCH_SINGLE_PET,
+          payload: res.data
+        });
+       
     };

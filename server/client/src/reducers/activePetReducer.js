@@ -1,12 +1,11 @@
-import { FETCH_ALL_PETS } from '../actions/types';
 import { FETCH_SINGLE_PET } from '../actions/types';
 
 
 export default function(state = [], action){
-    //console.log("FETCH_ALL_PETS  "+action);
+    console.log("FETCH_SINGLE_PET  "+action);
     switch(action.type){
-        case FETCH_ALL_PETS: 
-            return action.payload || false; 
+        case FETCH_SINGLE_PET:
+            return action.payload ;
         default: 
             return state;
     }
