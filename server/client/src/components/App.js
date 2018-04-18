@@ -7,9 +7,11 @@ import * as actions  from '../actions';
 import Header from './Header';
 import Dashboard from './Dashboard';
 import Landing from './Landing';
+import PetProfile from './PetProfile';
+
 //const Header =() => <h2>Header </h2>;
 //const Dashboard =() => <h2>Dashboard </h2>;
-const SurveyNew =() => <h2>SurveyNew </h2>;
+//const SurveyNew =() => <h2>SurveyNew </h2>;
 
 class App extends Component{
     componentDidMount(){
@@ -25,7 +27,7 @@ class App extends Component{
                         <Header/>
                         <Route exact path="/" component={Landing}/>
                         <Route exact path="/dashboard" component={Dashboard}/>
-                        <Route path="/surveys/new" component={SurveyNew}/>
+                        <Route exact path="/pet/:name" component={PetProfile}/>
     
                     </div>
                 </BrowserRouter>

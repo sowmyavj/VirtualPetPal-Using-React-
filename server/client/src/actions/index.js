@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_USER, FETCH_ALL_PETS } from './types';
+import { FETCH_USER, FETCH_ALL_PETS, FETCH_SINGLE_PET } from './types';
 
 export const fetchUser = () => async (dispatch) => {
         //api request to backend server
@@ -28,4 +28,18 @@ export const fetchAllPets = () => async (dispatch) => {
             type: FETCH_ALL_PETS,
             payload: res.data
         }); 
+    };
+
+export const fetchSinglePet = (name) => async (dispatch) => {
+        //api request to backend server
+        console.log("fetchSinglePet"+ name);
+        debugger;
+        const res = await axios.get(`/api/pet/${name}`);
+        console.log("fetchSinglePet222"+res);
+
+        dispatch ({
+          type: FETCH_SINGLE_PET,
+          payload: res.data
+        });
+       
     };
