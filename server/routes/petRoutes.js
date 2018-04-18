@@ -14,7 +14,6 @@ module.exports = app => {
         console.log("Request!!!!!!!"+JSON.stringify(req.params));
         let petName=req.params.name;
         //console.log(petName);
-        debugger;
         var query  = Pet.where({ name: petName }); 
         const singlePet =await query.findOne();
             
