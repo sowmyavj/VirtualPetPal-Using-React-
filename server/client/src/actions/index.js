@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_USER, FETCH_ALL_PETS } from './types';
+import { FETCH_USER, FETCH_ALL_PETS,FETCH_CATS, FETCH_DOGS } from './types';
 
 export const fetchUser = () => async (dispatch) => {
         //api request to backend server
@@ -26,6 +26,26 @@ export const fetchAllPets = () => async (dispatch) => {
        let res=await  axios.get('/api/dashboard');
        dispatch({
             type: FETCH_ALL_PETS,
+            payload: res.data
+        }); 
+    };
+
+    export const fetchDogs = () => async (dispatch) => {
+        //api request to backend server
+        console.log("fetchDogs");
+       let res=await  axios.get('/api/dashboard');
+       dispatch({
+            type: FETCH_DOGS,
+            payload: res.data
+        }); 
+    };
+
+    export const fetchCats = () => async (dispatch) => {
+        //api request to backend server
+        console.log("fetchCats");
+       let res=await  axios.get('/api/dashboard');
+       dispatch({
+            type: FETCH_CATS,
             payload: res.data
         }); 
     };

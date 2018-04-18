@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import Payment from'./Payment';
+import Search from'./Search';
 class Header extends Component {
+
+    
     renderContent(){
         switch(this.props.auth){
             case null:
@@ -12,6 +15,9 @@ class Header extends Component {
             default:
                 return [
                 <li key="1"><Payment /></li>,
+                <li key="4"><a href='/search' className="btn blue">
+                Search here!
+            </a> </li>,
                 <li key="3" style={{margin: '0px 10px'}}>Credits: {this.props.auth.credits}</li>,
 
                 <li key="2"><a href='/api/logout'>Logout</a> </li>
@@ -23,6 +29,7 @@ class Header extends Component {
         return (<nav>
             <div className="nav-wrapper" id='pet_header'>
                 <Link
+                    
                     to={this.props.auth ? '/dashboard' : '/'}
                     className="left brand-logo"
                  >

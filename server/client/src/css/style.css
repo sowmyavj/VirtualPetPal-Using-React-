@@ -11,3 +11,28 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+.radio-button-item:hover .radio-dot:before {
+    border-color: #bdde85 !important;
+}
+ 
+.radio-button-item:hover .radio-dot:after {
+    background-color: #bef65b !important;
+}
+
+.checked {
+    background-color: #7d9c47 !important;
+}
+ 
+.radio-button-item > input[type="radio"]:checked+span:after {
+  background-color: #426C2A !important;
+}
+ 
+.radio-button-item > input[type="radio"]:checked+span+span{
+    color: #fff !important;
+}
+
+.not-checked {
+    background-color: #ffffff !important;
+    border-color: #ccc !important;
+}
