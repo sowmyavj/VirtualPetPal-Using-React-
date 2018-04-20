@@ -8,6 +8,7 @@ const PetSchema = new Schema({
     typeOfPet : Number,
     gender : Number,
     noOfTimesToFeed:Number,
+    noOfTimesToPet:Number,
     noOfTimesToWalk: Number,
     profilephotoLink:String,
     testimonials:Array,
@@ -23,7 +24,8 @@ const init = async()=>{
         typeOfPet: 0,
         gender: 1,
         noOfTimesToFeed: 3,
-        noOfTimesToWalk: 0,
+        noOfTimesToWalk: 2,
+        noOfTimesToPet:3,
         profilephotoLink: "1.jpg",
         testimonials: [],
         description: "My Favourite food is cheese!"
@@ -34,6 +36,7 @@ const init = async()=>{
         gender : 1,
         noOfTimesToFeed:4,
         noOfTimesToWalk: 1,
+        noOfTimesToPet:3,
         profilephotoLink:"4.jpg",
         testimonials:[],
         description: "I love chasing other dogs!"}).save();
@@ -45,6 +48,7 @@ const init = async()=>{
         gender : 1,
         noOfTimesToFeed:5,
         noOfTimesToWalk: 1,
+        noOfTimesToPet:4,
         profilephotoLink:"2.jpg",
         testimonials:[],
         description: "I love running around the lawn"}).save();
@@ -54,6 +58,7 @@ const init = async()=>{
         gender : 0,
         noOfTimesToFeed:3,
         noOfTimesToWalk: 2,
+        noOfTimesToPet:2,
         profilephotoLink:"3.jpg",
         testimonials:[],
         description: "I like worms"}).save();
@@ -63,6 +68,7 @@ const init = async()=>{
         gender : 1,
         noOfTimesToFeed:4,
         noOfTimesToWalk: 0,
+        noOfTimesToPet:3,
         profilephotoLink:"6.jpg",
         testimonials:[],
         description: "I love fish!"}).save();
