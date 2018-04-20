@@ -31,7 +31,7 @@ class App extends Component{
                         <Route exact path="/" component={Landing}/>
                         <Route exact path="/dashboard" component={Dashboard}/>
                         <Route exact path="/search" component={Search}/>
-                        <Route exact path="/pet/:name" component={PetProfile}/>
+                        <Route exact path="/pet/:petId" component={PetProfile}/>
                         <Footer/>
                     </div>
                 </BrowserRouter>

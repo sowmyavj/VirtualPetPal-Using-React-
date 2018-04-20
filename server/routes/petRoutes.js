@@ -43,11 +43,11 @@ module.exports = app => {
 
     
 
-    app.get('/api/pet/:name',requireLogin, async(req,res)=>{
+    app.get('/api/pet/:petId',requireLogin, async(req,res)=>{
         console.log("Request!!!!!!!"+JSON.stringify(req.params));
-        let petName=req.params.name;
-        //console.log(petName);
-        var query  = Pet.where({ name: petName }); 
+        let petId=req.params.petId;
+        console.log(petId);
+        var query  = Pet.where({ pet_id: petId }); 
         const singlePet =await query.findOne();
             
         //const singlePet =await Pet.findOne({name : "Charm"});
