@@ -2,12 +2,19 @@ const requireLogin = require('../middlewares/requireLogin');
 const mongoose = require('mongoose');
 
 const Pet = mongoose.model('pets');
+const UserPet = mongoose.model('userpets');
+
 module.exports = app => {
     app.get('/api/dashboard',requireLogin, async(req,res)=>{
-        const pets =await Pet.find();
-        //console.log("pets "+pets);
+        //console.log("Req"+req.user.googleId);
+        const userpets =await UserPet.find({ userGoogleId: req.user.googleId});
+       // console.log("typeof userpets"+typeof(userpets));
+        let petIdlist=[];
+        userpets.forEach(function(p) { petIdlist.push(p.pet_id); } )
+        let pets = await Pet.find({"pet_id": {$in : petIdlist} });
+        //console.log("Dashboard pets "+pets);
         res.send(pets);
-
+        
     });
 
     app.get('/api/type/:type',requireLogin, async(req,res)=>{

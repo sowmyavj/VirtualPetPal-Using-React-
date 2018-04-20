@@ -41,3 +41,22 @@
     bottom: -35px;
     left: 10px;
   }
+.material-icons.red600 { color: red; }
+.material-icons.black600 { color: black; }
+.material-icons.green600 { color: green; }
+
+#petPalFooter {
+    color: black
+}
+
+.list-inline {
+    padding-left: 0;
+    margin-left: -5px;
+    list-style: none;
+  }
+  .list-inline > li {
+    display: inline-block;
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+  
