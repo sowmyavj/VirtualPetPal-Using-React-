@@ -47,7 +47,7 @@ export const fetchSinglePet = (name) => async (dispatch) => {
         //api request to backend server
         console.log("fetchSinglePet"+ name);
         const res = await axios.get(`/api/pet/${name}`);
-        console.log("fetchSinglePet222"+res);
+        //console.log("fetchSinglePet222"+res);
 
         dispatch ({
           type: FETCH_SINGLE_PET,
