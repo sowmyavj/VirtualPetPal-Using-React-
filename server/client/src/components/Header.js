@@ -16,7 +16,7 @@ class Header extends Component {
                 return [
                 <li key="1"><Payment /></li>,
                 
-                <li key="4"><a href='/search' className="btn-floating black">
+                <li key="4"><a href='/search' className="btn-floating black ">
                 <i className="material-icons">search</i>
             </a> </li>,
                 <li key="3" style={{margin: '0px 10px'}}>Credits: {this.props.auth.credits}</li>,
