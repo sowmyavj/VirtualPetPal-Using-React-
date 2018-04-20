@@ -5,6 +5,8 @@ import {connect} from 'react-redux';
 import * as actions  from '../actions';
 
 import Header from './Header';
+import Footer from './Footer';
+
 import Dashboard from './Dashboard';
 import Landing from './Landing';
 import Search from "./Search";
@@ -30,7 +32,7 @@ class App extends Component{
                         <Route exact path="/dashboard" component={Dashboard}/>
                         <Route exact path="/search" component={Search}/>
                         <Route exact path="/pet/:name" component={PetProfile}/>
-    
+                        <Footer/>
                     </div>
                 </BrowserRouter>
             </div>

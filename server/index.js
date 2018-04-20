@@ -6,16 +6,18 @@ const keys = require('./config/keys');
 const bodyParser = require('body-parser');
 require('./models/User'); 
 require('./models/Pet'); 
+require('./models/UserPets'); 
 
 require('./services/passport');
 
 
 //mongoose.connect(keys.mongoURI);
 mongoose.connect(keys.mongoURI,function(){
-    /* Drop the DB */
+		/* Drop the DB */
+		//Drop db
     mongoose.connection.db.dropDatabase();
 });
-const authRoutes = require('./routes/authRoutes');
+const authRoutes = require('./routes/authRoutes');	
 
 const app= express();
 app.use(bodyParser.json());
