@@ -1,12 +1,18 @@
 import React,{Component} from 'react';
 import Background from '../images/b2.jpg';
+var backgroundstyle={
+  width: "100%",
+  height: "610px",
+  backgroundImage: "url(" + Background + ")",
+  backgroundSize: 'cover', overflow: 'hidden',
+}
 
 class Landing extends Component{
     
     render(){
         return(
         <div >
-            <img src={Background} alt="Norway" style={{width: '100%', height:'50%'}} />
+            <div  style={backgroundstyle} />
 
         <div className="centered col s12 m7">
         <div className="card horizontal">

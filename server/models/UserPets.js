@@ -40,14 +40,23 @@ const init = async () => {
         happinessLevel: 10,
         currentDate: new Date()
     }).save();
-  /*   let user3Pet1 = await new userPet({
-        userGoogleId: "114723772229743033814",
+    //105578366045462687191
+    let user3Pet1 = await new userPet({
+        userGoogleId: "105578366045462687191",
         pet_id: "97bya930-167d-453a-9513-b6da678c2c9b",
         noOfTimesFed: 0,
         noOfTimesWalked: 0,
         happinessLevel: 10,
         currentDate: new Date()
-    }).save();  */
+    }).save();  
+    let user3Pet2 = await new userPet({
+        userGoogleId: "105578366045462687191",
+        pet_id: "24bya930-167d-453a-9513-b6da678c2c9b",
+        noOfTimesFed: 0,
+        noOfTimesWalked: 0,
+        happinessLevel: 10,
+        currentDate: new Date()
+    }).save(); 
 
 }
 

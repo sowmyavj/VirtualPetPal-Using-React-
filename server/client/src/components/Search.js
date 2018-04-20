@@ -47,7 +47,7 @@ class Search extends Component {
            
           </RadioGroup>
 
-        <div >
+        <div>
         <PetListSearch
             type={this.state.type}
             
