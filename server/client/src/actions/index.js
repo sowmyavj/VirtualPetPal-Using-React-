@@ -43,10 +43,10 @@ export const fetchAllPets = () => async (dispatch) => {
     };
 
     
-export const fetchSinglePet = (name) => async (dispatch) => {
+export const fetchSinglePet = (petId) => async (dispatch) => {
         //api request to backend server
-        console.log("fetchSinglePet"+ name);
-        const res = await axios.get(`/api/pet/${name}`);
+        console.log("fetchSinglePet"+ petId);
+        const res = await axios.get(`/api/pet/${petId}`);
         //console.log("fetchSinglePet222"+res);
 
         dispatch ({

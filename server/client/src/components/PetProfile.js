@@ -7,11 +7,11 @@ import { Link } from 'react-router-dom';
 
 class PetProfile extends Component {
     componentDidMount() {
-        const { name } = this.props.match.params;
-        console.log("NNNName:" + name);
-        console.log("type:" + typeof (name));
+        const { petId } = this.props.match.params;
+        console.log("PetId:" + petId);
+        console.log("type:" + typeof (petId));
 
-        this.props.fetchSinglePet(name);
+        this.props.fetchSinglePet(petId);
     }
 
     renderSinglePet() {
