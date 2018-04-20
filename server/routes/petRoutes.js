@@ -14,7 +14,7 @@ module.exports = app => {
         let pets = await Pet.find({"pet_id": {$in : petIdlist} });
         //console.log("Dashboard pets "+pets);
         res.send(pets);
-        
+
     });
 
     app.get('/api/type/:type',requireLogin, async(req,res)=>{
@@ -22,12 +22,15 @@ module.exports = app => {
         let type=req.params.type;
         console.log("/api/type/:type "+type);
         let pets=[];
+        const userpets =await UserPet.find({ userGoogleId: req.user.googleId});
+        let petIdlist=[];
+        userpets.forEach(function(p) { petIdlist.push(p.pet_id); } )
         if(type>=0){
-            var query  = Pet.where({ typeOfPet: type }); 
+            var query  = Pet.where({ typeOfPet: type, "pet_id": {$nin : petIdlist} }); 
              pets =await query.find();
         }
         else{
-            pets =await Pet.find();
+            pets =await Pet.find({"pet_id": {$nin : petIdlist}});
         }
        
             
