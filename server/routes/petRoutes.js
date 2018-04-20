@@ -48,10 +48,34 @@ module.exports = app => {
         let petId=req.params.petId;
         console.log(petId);
         var query  = Pet.where({ pet_id: petId }); 
-        const singlePet =await query.findOne();
+        let x =await query.findOne();
+        let singlePet={};
+        singlePet.testimonials=x.testimonials;
+        x._id=x._id;
+        singlePet.pet_id=x.pet_id;
+        singlePet.name=x.name;
+        singlePet.typeOfPet=x.typeOfPet;
+        singlePet.gender=x.gender;
+        singlePet.noOfTimesToFeed=x.noOfTimesToFeed;
+        singlePet.noOfTimesToWalk=x.noOfTimesToWalk;
+        singlePet.profilephotoLink=x.profilephotoLink;
+        singlePet.description=x.description;
+
+        const userpets =await UserPet.find({ userGoogleId: req.user.googleId});
+        let petIdlist=[];
+        userpets.forEach(function(p) { petIdlist.push(p.pet_id); } )
+        if(petIdlist.indexOf(singlePet.pet_id)>-1){
+            console.log("This is users pet");
+            singlePet['userspet']=true;
+           
+        }
+        else{
+            console.log("This is not users pet");
+            singlePet['userspet']=false;
+        }
             
         //const singlePet =await Pet.findOne({name : "Charm"});
-        console.log("pets "+singlePet);
+        console.log(singlePet);
         res.send(singlePet);
     });
 
