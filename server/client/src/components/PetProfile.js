@@ -36,7 +36,7 @@ class PetProfile extends Component {
                                         <i className="material-icons black600">directions_walk</i>
                                     </Link>
                                     <Link to="/pet" className="btn-floating  waves-effect waves-light #f5f5f5 grey lighten-4">
-                                        <i className="material-icons green600">local_drink</i>
+                                        <i className="material-icons green600">local_dining</i>
                                     </Link>
                                 </span>
                             </div>
@@ -46,11 +46,11 @@ class PetProfile extends Component {
 
                                         <input type="range" id="test5" min="0" max="100" value="10" disabled color="blue" />
                                         <br /><br /><br />
-                                        <button className="btn-floating btn-large waves-effect halfway-fab waves-light blue" >
-                                            <i className="material-icons">sentiment_very_satisfied</i>
+                                        <button className="btn-floating btn-large waves-effect halfway-fab waves-light green" >
+                                            <i className="material-icons">mood</i>
                                         </button>
-                                        <button className="fab-button btn-floating btn-large waves-effect halfway-fab waves-light #90caf9 blue lighten-3" >
-                                            <i className="material-icons">sentiment_dissatisfied</i>
+                                        <button className="fab-button btn-floating btn-large waves-effect halfway-fab waves-light #90caf9 red lighten-2" >
+                                            <i className="material-icons">mood_bad</i>
                                         </button>
                                     </span>
                                 </p>
