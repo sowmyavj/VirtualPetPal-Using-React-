@@ -5,9 +5,9 @@ const passport = require('passport');
 const keys = require('./config/keys');
 const bodyParser = require('body-parser');
 require('./models/User'); 
-require('./models/Pet'); 
-require('./models/UserPets'); 
-
+//require('./models/Pet'); 
+//require('./models/UserPets'); 
+require('./models/initDb'); 
 require('./services/passport');
 
 

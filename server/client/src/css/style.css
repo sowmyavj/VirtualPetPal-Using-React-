@@ -55,8 +55,27 @@
     list-style: none;
   }
   .list-inline > li {
-    display: inline-block;
+    display: inline-block; 
     padding-right: 5px;
     padding-left: 5px;
   }
+ /*  #favourite_icon{
+    padding-left: 10px;
+
+  }
+  #favourite_btn{
+    padding-left: 10px;
+
+  } */
+  #progressbar {
+    background-color: black;
+    border-radius: 13px; /* (height of inner div) / 2 + padding */
+    padding: 3px;
+  }
   
+  #progressbar > div {
+     background-color: orange;
+     width: 40%; /* Adjust with JavaScript */
+     height: 20px;
+     border-radius: 10px;
+  }

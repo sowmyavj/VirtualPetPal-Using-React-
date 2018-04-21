@@ -29,27 +29,31 @@ class PetProfile extends Component {
                                     <p>{this.props.activepet.description}</p>
                                     
                                       {this.props.activepet.userspet == true &&
-                                            <span>
-                                             <Link to="/pet" className="btn-floating  waves-effect waves-light #f5f5f5 grey lighten-4">
-                                             <i className="material-icons red600">favorite</i>
-                                         </Link>
-     
-                                         <Link to="/pet" className="btn-floating  waves-effect waves-light #f5f5f5 grey lighten-4" style={{ margin: '0px 10px' }}>
-                                             <i className="material-icons black600">directions_walk</i>
-                                         </Link>
-                                         <Link to="/pet" className="btn-floating  waves-effect waves-light #f5f5f5 grey lighten-4">
-                                             <i className="material-icons green600">local_dining</i>
-                                         </Link>
-                                         </span>
-                                        
+                                      <div>
+                                            <Link to="/pet" id="favourite_btn" className="btn-floating  waves-effect waves-light #f5f5f5 grey lighten-4"
+                                             style={{ margin: '5px' }}>
+                                             <i className="material-icons red600" id="favourite_icon"  >favorite</i>
+    
+                                            </Link>
+                                            <progress value="70" max="100">70 %</progress>
+                                            <br/>
+                                            <Link to="/pet" className="btn-floating  waves-effect waves-light #f5f5f5 grey lighten-4" style={{ margin: '5px' }}>
+                                                <i className="material-icons black600" id="walk_icon">directions_walk</i>
+                                            </Link>
+                                            <progress value="70" max="100">70 %</progress>
+                                            <br/>
+                                            <Link to="/pet" className="btn-floating  waves-effect waves-light #f5f5f5 grey lighten-4" style={{ margin: '5px' }}>
+                                             <i className="material-icons green600" id="local_dining">local_dining</i>
+                                            </Link>
+                                            <progress value="70" max="100">70 %</progress>
+
+                                        </div>
                                       }
                                        {this.props.activepet.userspet == false &&
                                             <span>
                                              <Link to="/pet" className="btn-floating  waves-effect waves-light ">
                                              <i className="material-icons black">add</i>
-                                         </Link>
-     
-                                         
+                                         </Link>                                         
                                          </span>
                                         
                                       }
