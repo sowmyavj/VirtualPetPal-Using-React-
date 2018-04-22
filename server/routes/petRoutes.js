@@ -74,9 +74,9 @@ module.exports = app => {
     
     });
     app.get('/api/pet/:petId',requireLogin, async(req,res)=>{
-        console.log("Request!!!!!!!"+JSON.stringify(req.params));
+        //console.log("Request!!!!!!!"+JSON.stringify(req.params));
         let petId=req.params.petId;
-        console.log(petId);
+        //console.log(petId);
         var query  = Pet.where({ pet_id: petId }); 
         let x =await query.findOne();
         let singlePet={};
@@ -105,26 +105,97 @@ module.exports = app => {
         }
             
         //const singlePet =await Pet.findOne({name : "Charm"});
-        console.log(singlePet);
+        //console.log(singlePet);
         res.send(singlePet);
     });
 
     app.post('/api/pet/feed/:petId',requireLogin, async(req,res)=>{
+        //console.log("inside post user pet");
         let petId=req.params.petId;
         let userId = req.user.googleId;
-        const updatePetFeed = UserPetModel.feedUserPet(userId,petId);
+        const updatePetFeed = await UserPetModel.feedUserPet(userId,petId);
+        let userpet ={};
+        let userpetInfo= await UserPetModel.getUserPet(userId, petId);
+        userpet._id= userpetInfo._id;
+        userpet.userGoogleId=userpetInfo.userGoogleId;
+        userpet.pet_id= userpetInfo.pet_id;
+        userpet.noOfTimesFed = userpetInfo.noOfTimesFed;
+        userpet.noOfTimesPetted = userpetInfo.noOfTimesPetted;
+        userpet.noOfTimesWalked = userpetInfo.noOfTimesWalked;
+        userpet.happinessLevel = userpetInfo.happinessLevel;
+        userpet.currentDate = userpetInfo.currentDate;
+        userpet.__v = userpetInfo.__v ;
+
+
+        let pet = await PetModel.getPet(petId);
+        let feedProgress= await UserPetModel.getfedProgress(pet.noOfTimesToFeed, userpet.noOfTimesFed)
+        //console.log("feedProgress "+feedProgress);
+        let walkProgress= await UserPetModel.getWalkProgress(pet.noOfTimesToWalk, userpet.noOfTimesWalked)
+        let petProgress= await UserPetModel.getPetProgress(pet.noOfTimesToPet, userpet.noOfTimesPetted)
+
+        userpet.feedProgress = feedProgress;
+        userpet.walkProgress = walkProgress;
+        userpet.petProgress = petProgress;
+        //console.log("post userpet"+userpet);
+        res.send(userpet);
     });
 
     app.post('/api/pet/pet/:petId',requireLogin, async(req,res)=>{
         let petId=req.params.petId;
         let userId = req.user.googleId;
-        const updatePetFeed = UserPetModel.petUserPet(userId,petId);
+        const updatePetFeed = await UserPetModel.petUserPet(userId,petId);
+        let userpet ={};
+        let userpetInfo= await UserPetModel.getUserPet(userId, petId);
+        userpet._id= userpetInfo._id;
+        userpet.userGoogleId=userpetInfo.userGoogleId;
+        userpet.pet_id= userpetInfo.pet_id;
+        userpet.noOfTimesFed = userpetInfo.noOfTimesFed;
+        userpet.noOfTimesPetted = userpetInfo.noOfTimesPetted;
+        userpet.noOfTimesWalked = userpetInfo.noOfTimesWalked;
+        userpet.happinessLevel = userpetInfo.happinessLevel;
+        userpet.currentDate = userpetInfo.currentDate;
+        userpet.__v = userpetInfo.__v ;
+
+
+        let pet = await PetModel.getPet(petId);
+        let feedProgress= await UserPetModel.getfedProgress(pet.noOfTimesToFeed, userpet.noOfTimesFed)
+        //console.log("feedProgress "+feedProgress);
+        let walkProgress= await UserPetModel.getWalkProgress(pet.noOfTimesToWalk, userpet.noOfTimesWalked)
+        let petProgress= await UserPetModel.getPetProgress(pet.noOfTimesToPet, userpet.noOfTimesPetted)
+
+        userpet.feedProgress = feedProgress;
+        userpet.walkProgress = walkProgress;
+        userpet.petProgress = petProgress;
+        res.send(userpet);
     });
 
     app.post('/api/pet/walk/:petId',requireLogin, async(req,res)=>{
         let petId=req.params.petId;
         let userId = req.user.googleId;
-        const updatePetFeed = UserPetModel.walkUserPet(userId,petId);
+        const updatePetFeed = await UserPetModel.walkUserPet(userId,petId);
+        let userpet ={};
+        let userpetInfo=await UserPetModel.getUserPet(userId, petId);
+        userpet._id= userpetInfo._id;
+        userpet.userGoogleId=userpetInfo.userGoogleId;
+        userpet.pet_id= userpetInfo.pet_id;
+        userpet.noOfTimesFed = userpetInfo.noOfTimesFed;
+        userpet.noOfTimesPetted = userpetInfo.noOfTimesPetted;
+        userpet.noOfTimesWalked = userpetInfo.noOfTimesWalked;
+        userpet.happinessLevel = userpetInfo.happinessLevel;
+        userpet.currentDate = userpetInfo.currentDate;
+        userpet.__v = userpetInfo.__v ;
+
+
+        let pet = await PetModel.getPet(petId);
+        let feedProgress= await UserPetModel.getfedProgress(pet.noOfTimesToFeed, userpet.noOfTimesFed)
+        //console.log("feedProgress "+feedProgress);
+        let walkProgress= await UserPetModel.getWalkProgress(pet.noOfTimesToWalk, userpet.noOfTimesWalked)
+        let petProgress= await UserPetModel.getPetProgress(pet.noOfTimesToPet, userpet.noOfTimesPetted)
+
+        userpet.feedProgress = feedProgress;
+        userpet.walkProgress = walkProgress;
+        userpet.petProgress = petProgress;
+        res.send(userpet);
     });
 
 };

@@ -72,10 +72,10 @@ export const feedPet = (petId) => async (dispatch) => {
         //api request to backend server
         console.log("feedPet"+ petId);
         const res = await axios.post(`/api/pet/feed/${petId}`);
-        //console.log("fetchSinglePet222"+res);
+        console.log("feedPet222"+JSON.stringify(res));
 
         dispatch ({
-          type: FEED_PET,
+          type: FETCH_USER_PET,
           payload: res.data
         });
        
@@ -85,10 +85,10 @@ export const petMyPet = (petId) => async (dispatch) => {
         //api request to backend server
         console.log("petMyPet"+ petId);
         const res = await axios.post(`/api/pet/pet/${petId}`);
-        //console.log("fetchSinglePet222"+res);
+        console.log("petMyPet222"+JSON.stringify(res));
 
         dispatch ({
-          type: PET_MY_PET,
+          type: FETCH_USER_PET,
           payload: res.data
         });
        
@@ -101,7 +101,7 @@ export const petMyPet = (petId) => async (dispatch) => {
         //console.log("fetchSinglePet222"+res);
 
         dispatch ({
-          type: WALK_PET,
+          type: FETCH_USER_PET,
           payload: res.data
         });
        

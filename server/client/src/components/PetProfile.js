@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import FeedPet from './FeedPet';
 import PetMyPet from './PetMyPet';
 import WalkPet from './WalkPet';
+import Progress from './Progress';
 
 class PetProfile extends Component {
     componentDidMount() {
@@ -41,12 +42,17 @@ class PetProfile extends Component {
                                       <div>
                                             <PetMyPet petMyPet={this.props.petMyPet} petId={this.props.activepet.pet_id}
                                             petProgress={this.props.activeUserPet.petProgress}/>
+                                            <Progress progress={this.props.activeUserPet.petProgress} petAction={"Pet"}/>
                                             <br/>
                                             <WalkPet walkPet={this.props.walkPet} petId={this.props.activepet.pet_id}
                                             walkProgress={this.props.activeUserPet.walkProgress}/>
+                                            <Progress progress={this.props.activeUserPet.walkProgress} petAction={"Walk"}/>
+
                                             <br/>
                                             <FeedPet feedPet={this.props.feedPet} petId={this.props.activepet.pet_id}
                                             feedProgress={this.props.activeUserPet.feedProgress}/>
+                                            <Progress progress={this.props.activeUserPet.petProgress} petAction={"Feed"}/>
+
                                         </div>
                                       }
                                        {this.props.activepet.userspet == false &&
