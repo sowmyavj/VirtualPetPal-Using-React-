@@ -18,11 +18,11 @@ let exportedMethods = {
         }
        // let execUpdate  = await UserPet.insertOne(userPetInfo);
         let addedPet=await new UserPet(userPetInfo).save();
-        console.log("addedPet "+addedPet);
+        //console.log("addedPet "+addedPet);
         //let addedPetInfo=await getUserPet(userid, petId);
         let query  = UserPet.where({ userGoogleId: userid, "pet_id": petId }); 
         let addedPetInfo =await query.findOne();
-        console.log("addedPetInfo "+addedPetInfo);
+        //console.log("addedPetInfo "+addedPetInfo);
 
         return addedPetInfo;
 

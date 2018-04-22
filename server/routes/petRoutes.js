@@ -225,7 +225,7 @@ module.exports = app => {
         userpet.petProgress = 0;
         userpet['userspet']=true;
 
-        console.log("Post add pet: "+JSON.stringify(userpet));
+        //console.log("Post add pet: "+JSON.stringify(userpet));
         res.send(userpet);
 
     });

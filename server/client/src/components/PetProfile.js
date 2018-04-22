@@ -55,7 +55,7 @@ class PetProfile extends Component {
 
                                         </div>
                                       }
-                                       {this.props.activepet.userspet == false &&
+                                       {this.props.activepet.userspet == false && !showActions &&
                                             <span>
                                              <button onClick={() => this.props.addPet(this.props.activepet.pet_id)} 
                                                  className="btn-floating  waves-effect waves-light ">
