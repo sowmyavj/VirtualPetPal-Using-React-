@@ -19,7 +19,7 @@ import PetProfile from './PetProfile';
 class App extends Component{
     componentDidMount(){
         this.props.fetchUser();
-        this.props.fetchAllPets();
+        //this.props.fetchAllPets();
 
     }
     render(){

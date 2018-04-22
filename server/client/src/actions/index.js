@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_USER, FETCH_ALL_PETS, FETCH_FILTER,FETCH_SINGLE_PET } from './types';
+import { FETCH_USER, FETCH_ALL_PETS, FETCH_FILTER,FETCH_SINGLE_PET,FETCH_USER_PET, PET_MY_PET, FEED_PET, WALK_PET } from './types';
 
 export const fetchUser = () => async (dispatch) => {
         //api request to backend server
@@ -51,6 +51,57 @@ export const fetchSinglePet = (petId) => async (dispatch) => {
 
         dispatch ({
           type: FETCH_SINGLE_PET,
+          payload: res.data
+        });
+       
+    };
+export const fetchUserPet = (petId) => async (dispatch) => {
+        //api request to backend server
+        console.log("fetchUserPet"+ petId);
+        const res = await axios.get(`/api/userpet/${petId}`);
+        console.log("fetchUserPet222"+res);
+
+        dispatch ({
+          type: FETCH_USER_PET,
+          payload: res.data
+        });
+       
+    };
+
+export const feedPet = (petId) => async (dispatch) => {
+        //api request to backend server
+        console.log("feedPet"+ petId);
+        const res = await axios.post(`/api/pet/feed/${petId}`);
+        //console.log("fetchSinglePet222"+res);
+
+        dispatch ({
+          type: FEED_PET,
+          payload: res.data
+        });
+       
+    };
+
+export const petMyPet = (petId) => async (dispatch) => {
+        //api request to backend server
+        console.log("petMyPet"+ petId);
+        const res = await axios.post(`/api/pet/pet/${petId}`);
+        //console.log("fetchSinglePet222"+res);
+
+        dispatch ({
+          type: PET_MY_PET,
+          payload: res.data
+        });
+       
+    };
+    
+    export const walkPet = (petId) => async (dispatch) => {
+        //api request to backend server
+        console.log("walkPet"+ petId);
+        const res = await axios.post(`/api/pet/walk/${petId}`);
+        //console.log("fetchSinglePet222"+res);
+
+        dispatch ({
+          type: WALK_PET,
           payload: res.data
         });
        

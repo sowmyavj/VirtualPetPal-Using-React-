@@ -1,5 +1,7 @@
 const requireLogin = require('../middlewares/requireLogin');
 const mongoose = require('mongoose');
+const UserPetModel = require('../models/UserPets');
+const PetModel = require('../models/Pet');
 
 const Pet = mongoose.model('pets');
 const UserPet = mongoose.model('userpets');
@@ -34,15 +36,43 @@ module.exports = app => {
         }
        
             
-        console.log("cats "+pets);
+        //console.log("cats "+pets);
         res.send(pets);
         
 
     });
+    app.get('/api/userpet/:petId',requireLogin, async(req,res)=>{
+        let petId=req.params.petId;
+        let userId = req.user.googleId;
+        let userpet={};
+        let userpetInfo = await UserPetModel.getUserPet(userId,petId);
+        userpet._id= userpetInfo._id;
+        userpet.userGoogleId=userpetInfo.userGoogleId;
+        userpet.pet_id= userpetInfo.pet_id;
+        userpet.noOfTimesFed = userpetInfo.noOfTimesFed;
+        userpet.noOfTimesPetted = userpetInfo.noOfTimesPetted;
+        userpet.noOfTimesWalked = userpetInfo.noOfTimesWalked;
+        userpet.happinessLevel = userpetInfo.happinessLevel;
+        userpet.currentDate = userpetInfo.currentDate;
+        userpet.__v = userpetInfo.__v ;
 
+
+        let pet = await PetModel.getPet(petId);
+        let feedProgress= await UserPetModel.getfedProgress(pet.noOfTimesToFeed, userpet.noOfTimesFed)
+        //console.log("feedProgress "+feedProgress);
+        let walkProgress= await UserPetModel.getWalkProgress(pet.noOfTimesToWalk, userpet.noOfTimesWalked)
+        let petProgress= await UserPetModel.getPetProgress(pet.noOfTimesToPet, userpet.noOfTimesPetted)
+
+        userpet.feedProgress = feedProgress;
+        userpet.walkProgress = walkProgress;
+        userpet.petProgress = petProgress;
+
+        //console.log("userpet  "+JSON.stringify(userpet));
+
+        res.send(userpet);
 
     
-
+    });
     app.get('/api/pet/:petId',requireLogin, async(req,res)=>{
         console.log("Request!!!!!!!"+JSON.stringify(req.params));
         let petId=req.params.petId;
@@ -77,6 +107,24 @@ module.exports = app => {
         //const singlePet =await Pet.findOne({name : "Charm"});
         console.log(singlePet);
         res.send(singlePet);
+    });
+
+    app.post('/api/pet/feed/:petId',requireLogin, async(req,res)=>{
+        let petId=req.params.petId;
+        let userId = req.user.googleId;
+        const updatePetFeed = UserPetModel.feedUserPet(userId,petId);
+    });
+
+    app.post('/api/pet/pet/:petId',requireLogin, async(req,res)=>{
+        let petId=req.params.petId;
+        let userId = req.user.googleId;
+        const updatePetFeed = UserPetModel.petUserPet(userId,petId);
+    });
+
+    app.post('/api/pet/walk/:petId',requireLogin, async(req,res)=>{
+        let petId=req.params.petId;
+        let userId = req.user.googleId;
+        const updatePetFeed = UserPetModel.walkUserPet(userId,petId);
     });
 
 };

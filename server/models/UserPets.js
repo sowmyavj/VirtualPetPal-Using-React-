@@ -1,64 +1,57 @@
-/* const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-const { Schema } = mongoose;
-//Create UserPet schema
-const UserPetSchema = new Schema({
-    userGoogleId: String,
-    pet_id: String,
-    noOfTimesFed: Number,
-    noOfTimesWalked: Number,
-    happinessLevel: Number,
-    currentDate: Date
-});
+const UserPet = mongoose.model('userpets');
 
-mongoose.model('userpets', UserPetSchema);
-const userPet = mongoose.model('userpets');
+let exportedMethods = {
+    async getfedProgress(noOfTimesToBeFeeded,noOfTimesFed){
+        let feedProgress= Math.round((noOfTimesFed/noOfTimesToBeFeeded)*100);
+        //console.log(feedProgress);
+        //console.log("typeof"+typeof(feedProgress));
+        return feedProgress;
 
-const init = async () => {
-    console.log("UserPet!!");
-    let user1Pet1 = await new userPet({
-        userGoogleId: "104959878843234314059",
-        pet_id: "97bya930-167d-453a-9513-b6da678c2c9b",
-        noOfTimesFed: 2,
-        noOfTimesWalked: 0,
-        happinessLevel: 10,
-        currentDate: new Date()
-    }).save();
-    let user1Pet2 = await new userPet({
-        userGoogleId: "104959878843234314059",
-        pet_id: "24bya930-167d-453a-9513-b6da678c2c9b",
-        noOfTimesFed: 3,
-        noOfTimesWalked: 1,
-        happinessLevel: 50,
-        currentDate: new Date()
-    }).save();
-    let user2Pet1 = await new userPet({
-        userGoogleId: "114723772229743033814",
-        pet_id: "97bya930-167d-453a-9513-b6da678c2c9b",
-        noOfTimesFed: 2,
-        noOfTimesWalked: 0,
-        happinessLevel: 10,
-        currentDate: new Date()
-    }).save();
-    //105578366045462687191
-    let user3Pet1 = await new userPet({
-        userGoogleId: "105578366045462687191",
-        pet_id: "97bya930-167d-453a-9513-b6da678c2c9b",
-        noOfTimesFed: 0,
-        noOfTimesWalked: 0,
-        happinessLevel: 10,
-        currentDate: new Date()
-    }).save();  
-    let user3Pet2 = await new userPet({
-        userGoogleId: "105578366045462687191",
-        pet_id: "24bya930-167d-453a-9513-b6da678c2c9b",
-        noOfTimesFed: 0,
-        noOfTimesWalked: 0,
-        happinessLevel: 10,
-        currentDate: new Date()
-    }).save(); 
+    },
+    async getWalkProgress(noOfTimesToWalk,noOfTimesWalked){
+        let walkProgress= Math.round((noOfTimesWalked/noOfTimesToWalk)*100);
+        //console.log(walkProgress);
+        //console.log("typeof"+typeof(walkProgress));
+        return walkProgress;
 
+    },
+    async getPetProgress(noOfTimesToPet,noOfTimesPetted){
+        let petProgress= Math.round((noOfTimesPetted/noOfTimesToPet)*100);
+       // console.log(petProgress);
+        //console.log("typeof"+typeof(walkProgress));
+        return petProgress;
+
+    },
+    
+    async getUserPet(user_id, pet_id){
+        console.log("Inside getUserPet"+user_id+" "+pet_id);
+
+        let query  = UserPet.where({ userGoogleId: user_id, "pet_id": pet_id }); 
+        let userPet =await query.findOne();   
+        return userPet;
+    },
+    async feedUserPet(user_id, pet_id){
+        console.log("Inside feedUserpet"+user_id+" "+pet_id)
+        let execUpdate  = await UserPet.updateOne({ userGoogleId: user_id, "pet_id": pet_id }, 
+        {$inc : { noOfTimesFed : 1 }}); 
+        console.log("execUpdate "+JSON.stringify(execUpdate));
+
+    },
+    async walkUserPet(user_id, pet_id){
+        console.log("Inside walkUserPet"+user_id+" "+pet_id)
+        let execUpdate  = await UserPet.updateOne({ userGoogleId: user_id, "pet_id": pet_id }, 
+        {$inc : { noOfTimesWalked : 1 }}); 
+        console.log("execUpdate "+JSON.stringify(execUpdate));
+    },
+    async petUserPet(user_id, pet_id){
+        console.log("Inside petUserpet"+user_id+" "+pet_id)
+        let execUpdate  = await UserPet.updateOne({ userGoogleId: user_id, "pet_id": pet_id }, 
+        {$inc : { noOfTimesPetted : 1 }}); 
+        console.log("execUpdate "+JSON.stringify(execUpdate));
+    }
+  
 }
 
-init();
- */
+module.exports = exportedMethods;

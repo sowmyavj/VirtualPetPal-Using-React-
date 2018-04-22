@@ -2,7 +2,7 @@ import { FETCH_SINGLE_PET } from '../actions/types';
 
 
 export default function(state = [], action){
-    console.log("FETCH_SINGLE_PET  "+action);
+    console.log("FETCH_SINGLE_PET  "+JSON.stringify(action));
     switch(action.type){
         case FETCH_SINGLE_PET:
             return action.payload ;

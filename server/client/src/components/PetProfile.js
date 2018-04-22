@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchSinglePet } from '../actions';
+import { fetchSinglePet,fetchUserPet } from '../actions';
+import { feedPet, petMyPet, walkPet } from "../actions";
+
 import '../css/style.css';
 import { Link } from 'react-router-dom';
-
+import FeedPet from './FeedPet';
+import PetMyPet from './PetMyPet';
+import WalkPet from './WalkPet';
 
 class PetProfile extends Component {
     componentDidMount() {
@@ -12,11 +16,16 @@ class PetProfile extends Component {
         console.log("type:" + typeof (petId));
 
         this.props.fetchSinglePet(petId);
+        this.props.fetchUserPet(petId);
+
     }
 
     renderSinglePet() {
+        if(this.props.activepet.userspet){
+            console.log("progresss" + this.props.activepet.noOfTimesToPet+" "+this.props.activeUserPet.noOfTimesPetted);
+
+        }
         if (this.props.activepet) {
-            
                 return (
                     <div className="col m4">
                         <div className="col" id="petCard">
@@ -30,23 +39,14 @@ class PetProfile extends Component {
                                     
                                       {this.props.activepet.userspet == true &&
                                       <div>
-                                            <Link to="/pet" id="favourite_btn" className="btn-floating  waves-effect waves-light #f5f5f5 grey lighten-4"
-                                             style={{ margin: '5px' }}>
-                                             <i className="material-icons red600" id="favourite_icon"  >favorite</i>
-    
-                                            </Link>
-                                            <progress value="70" max="100">70 %</progress>
+                                            <PetMyPet petMyPet={this.props.petMyPet} petId={this.props.activepet.pet_id}
+                                            petProgress={this.props.activeUserPet.petProgress}/>
                                             <br/>
-                                            <Link to="/pet" className="btn-floating  waves-effect waves-light #f5f5f5 grey lighten-4" style={{ margin: '5px' }}>
-                                                <i className="material-icons black600" id="walk_icon">directions_walk</i>
-                                            </Link>
-                                            <progress value="70" max="100">70 %</progress>
+                                            <WalkPet walkPet={this.props.walkPet} petId={this.props.activepet.pet_id}
+                                            walkProgress={this.props.activeUserPet.walkProgress}/>
                                             <br/>
-                                            <Link to="/pet" className="btn-floating  waves-effect waves-light #f5f5f5 grey lighten-4" style={{ margin: '5px' }}>
-                                             <i className="material-icons green600" id="local_dining">local_dining</i>
-                                            </Link>
-                                            <progress value="70" max="100">70 %</progress>
-
+                                            <FeedPet feedPet={this.props.feedPet} petId={this.props.activepet.pet_id}
+                                            feedProgress={this.props.activeUserPet.feedProgress}/>
                                         </div>
                                       }
                                        {this.props.activepet.userspet == false &&
@@ -55,7 +55,6 @@ class PetProfile extends Component {
                                              <i className="material-icons black">add</i>
                                          </Link>                                         
                                          </span>
-                                        
                                       }
                                    
                                 </div>
@@ -63,7 +62,7 @@ class PetProfile extends Component {
                                     <p className="range-field">
                                         <span>
     
-                                            <input type="range" id="test5" min="0" max="100" value="10" disabled color="blue" />
+                                            <input type="range" id="test5" min="0" max="100" value={this.props.activeUserPet.happinessLevel ? this.props.activeUserPet.happinessLevel :0} disabled color="blue" />
                                             <br /><br /><br />
                                             <button className="btn-floating btn-large waves-effect halfway-fab waves-light green" >
                                                 <i className="material-icons">mood</i>
@@ -85,7 +84,8 @@ class PetProfile extends Component {
     }
     render() {
         //const { pet } = this.props;
-        console.log("this.props" + this.props.activepet);
+        console.log("this.props" + JSON.stringify(this.props.activeUserPet));
+
         return (
             <div>
                 <div className="row" >
@@ -98,12 +98,18 @@ class PetProfile extends Component {
 }
 
 
-function mapStateToProps({ activepet }) {
-    return { activepet };
+function mapStateToProps({ activepet,activeUserPet }) {
+    console.log("Inside petprofile mapstatetoprops "+JSON.stringify(activepet));
+    console.log("Inside petprofile mapstatetoprops activeUserPet "+JSON.stringify(activeUserPet));
+
+    return { activepet : activepet,
+        activeUserPet : activeUserPet        
+    };
 }
 
 /* function mapStateToProps({ pets }, ownProps) {
     console.log("own"+ownProps.match.params.name);
     return { pet: pets[ownProps.match.params.name] };
   } */
-export default connect(mapStateToProps, { fetchSinglePet })(PetProfile);
+//export default connect(mapStateToProps, { fetchSinglePet,fetchUserPet, feedPet, petMyPet, walkPet })(PetProfile);
+export default connect(mapStateToProps,{fetchSinglePet,fetchUserPet, feedPet, petMyPet, walkPet})(PetProfile);
