@@ -23,7 +23,7 @@ class PetProfile extends Component {
 
     renderSinglePet(activeUserPet, showActions) {
         if(this.props.activepet.userspet){
-            console.log("progresss" + this.props.activepet.noOfTimesToPet+" "+activeUserPet.noOfTimesPetted);
+            //console.log("progresss" + this.props.activepet.noOfTimesToPet+" "+activeUserPet.noOfTimesPetted);
 
         }
         if (this.props.activepet) {
@@ -93,7 +93,7 @@ class PetProfile extends Component {
         const { activeUserPet } = this.props;
        // console.log(props);
        let showActions = false;
-        console.log("activeUserPet999"+JSON.stringify(activeUserPet));
+        //console.log("activeUserPet999"+JSON.stringify(activeUserPet));
         if(Object.keys(activeUserPet).length > 0){
             showActions= true;
         }
