@@ -1,8 +1,33 @@
 const mongoose = require('mongoose');
+const Pet = require('./Pet');
 
 const UserPet = mongoose.model('userpets');
 
 let exportedMethods = {
+
+    async addPet(userid, petId){
+        console.log("data model: addPet"+userid+"  "+petId);
+        let userPetInfo = {
+            userGoogleId: userid,
+            pet_id: petId,
+            noOfTimesFed: 0,
+            noOfTimesPetted:1,
+            noOfTimesWalked: 0,
+            happinessLevel: 10,
+            currentDate: new Date()
+        }
+       // let execUpdate  = await UserPet.insertOne(userPetInfo);
+        let addedPet=await new UserPet(userPetInfo).save();
+        console.log("addedPet "+addedPet);
+        //let addedPetInfo=await getUserPet(userid, petId);
+        let query  = UserPet.where({ userGoogleId: userid, "pet_id": petId }); 
+        let addedPetInfo =await query.findOne();
+        console.log("addedPetInfo "+addedPetInfo);
+
+        return addedPetInfo;
+
+
+    },
     async getfedProgress(noOfTimesToBeFeeded,noOfTimesFed){
         let feedProgress= Math.round((noOfTimesFed/noOfTimesToBeFeeded)*100);
         //console.log(feedProgress);

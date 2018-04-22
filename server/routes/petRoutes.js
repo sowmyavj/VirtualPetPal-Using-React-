@@ -66,6 +66,7 @@ module.exports = app => {
         userpet.feedProgress = feedProgress;
         userpet.walkProgress = walkProgress;
         userpet.petProgress = petProgress;
+        userpet['userspet']=true;
 
         //console.log("userpet  "+JSON.stringify(userpet));
 
@@ -136,6 +137,8 @@ module.exports = app => {
         userpet.feedProgress = feedProgress;
         userpet.walkProgress = walkProgress;
         userpet.petProgress = petProgress;
+        userpet['userspet']=true;
+
         //console.log("post userpet"+userpet);
         res.send(userpet);
     });
@@ -166,6 +169,8 @@ module.exports = app => {
         userpet.feedProgress = feedProgress;
         userpet.walkProgress = walkProgress;
         userpet.petProgress = petProgress;
+        userpet['userspet']=true;
+
         res.send(userpet);
     });
 
@@ -195,7 +200,34 @@ module.exports = app => {
         userpet.feedProgress = feedProgress;
         userpet.walkProgress = walkProgress;
         userpet.petProgress = petProgress;
+        userpet['userspet']=true;
+
         res.send(userpet);
+    });
+    app.post('/api/pet/add/:petId',requireLogin, async(req,res)=>{
+
+        let petId=req.params.petId;
+        let userId = req.user.googleId;
+        console.log("Server route addPet "+petId);
+        let userpet ={};
+
+        const addedUserPetInfo = await UserPetModel.addPet(userId,petId);
+        userpet._id= addedUserPetInfo._id;
+        userpet.userGoogleId=addedUserPetInfo.userGoogleId;
+        userpet.pet_id= addedUserPetInfo.pet_id;
+        userpet.noOfTimesFed = addedUserPetInfo.noOfTimesFed;
+        userpet.noOfTimesPetted = addedUserPetInfo.noOfTimesPetted;
+        userpet.noOfTimesWalked = addedUserPetInfo.noOfTimesWalked;
+        userpet.happinessLevel = addedUserPetInfo.happinessLevel;
+        userpet.currentDate = addedUserPetInfo.currentDate;
+        userpet.feedProgress = 0;
+        userpet.walkProgress = 0;
+        userpet.petProgress = 0;
+        userpet['userspet']=true;
+
+        console.log("Post add pet: "+JSON.stringify(userpet));
+        res.send(userpet);
+
     });
 
 };

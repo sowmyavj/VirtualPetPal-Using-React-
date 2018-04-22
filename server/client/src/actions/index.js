@@ -106,3 +106,16 @@ export const petMyPet = (petId) => async (dispatch) => {
         });
        
     };
+
+    export const addPet = (petId) => async (dispatch) => {
+        //api request to backend server
+        console.log("addPet"+ petId);
+        const res = await axios.post(`/api/pet/add/${petId}`);
+        //console.log("fetchSinglePet222"+res);
+
+        dispatch ({
+          type: FETCH_USER_PET,
+          payload: res.data
+        });
+       
+    };

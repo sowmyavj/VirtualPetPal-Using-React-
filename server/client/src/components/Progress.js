@@ -28,7 +28,7 @@ class  Progress extends Component {
 }
 
 const mapStateToProps = state => {
-    console.log("Progress state"+JSON.stringify(state));
+    //console.log("Progress state"+JSON.stringify(state));
     return {
       feedprogress: state.activeUserPet.feedProgress,
       petprogress: state.activeUserPet.petProgress,

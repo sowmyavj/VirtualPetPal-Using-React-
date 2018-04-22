@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchSinglePet,fetchUserPet } from '../actions';
-import { feedPet, petMyPet, walkPet } from "../actions";
+import { addPet, feedPet, petMyPet, walkPet } from "../actions";
 
 import '../css/style.css';
 import { Link } from 'react-router-dom';
@@ -21,9 +21,9 @@ class PetProfile extends Component {
 
     }
 
-    renderSinglePet() {
+    renderSinglePet(activeUserPet, showActions) {
         if(this.props.activepet.userspet){
-            console.log("progresss" + this.props.activepet.noOfTimesToPet+" "+this.props.activeUserPet.noOfTimesPetted);
+            console.log("progresss" + this.props.activepet.noOfTimesToPet+" "+activeUserPet.noOfTimesPetted);
 
         }
         if (this.props.activepet) {
@@ -38,28 +38,29 @@ class PetProfile extends Component {
                                 <div className="card-content">
                                     <p>{this.props.activepet.description}</p>
                                     
-                                      {this.props.activepet.userspet == true &&
+                                      {(this.props.activepet.userspet == true || showActions) &&
                                       <div>
                                             <PetMyPet petMyPet={this.props.petMyPet} petId={this.props.activepet.pet_id}
-                                            petProgress={this.props.activeUserPet.petProgress}/>
-                                            <Progress progress={this.props.activeUserPet.petProgress} petAction={"Pet"}/>
+                                            petProgress={activeUserPet.petProgress}/>
+                                            <Progress progress={activeUserPet.petProgress} petAction={"Pet"}/>
                                             <br/>
                                             <WalkPet walkPet={this.props.walkPet} petId={this.props.activepet.pet_id}
-                                            walkProgress={this.props.activeUserPet.walkProgress}/>
-                                            <Progress progress={this.props.activeUserPet.walkProgress} petAction={"Walk"}/>
+                                            walkProgress={activeUserPet.walkProgress}/>
+                                            <Progress progress={activeUserPet.walkProgress} petAction={"Walk"}/>
 
                                             <br/>
                                             <FeedPet feedPet={this.props.feedPet} petId={this.props.activepet.pet_id}
-                                            feedProgress={this.props.activeUserPet.feedProgress}/>
-                                            <Progress progress={this.props.activeUserPet.petProgress} petAction={"Feed"}/>
+                                            feedProgress={activeUserPet.feedProgress}/>
+                                            <Progress progress={activeUserPet.petProgress} petAction={"Feed"}/>
 
                                         </div>
                                       }
                                        {this.props.activepet.userspet == false &&
                                             <span>
-                                             <Link to="/pet" className="btn-floating  waves-effect waves-light ">
+                                             <button onClick={() => this.props.addPet(this.props.activepet.pet_id)} 
+                                                 className="btn-floating  waves-effect waves-light ">
                                              <i className="material-icons black">add</i>
-                                         </Link>                                         
+                                         </button>                                         
                                          </span>
                                       }
                                    
@@ -68,7 +69,7 @@ class PetProfile extends Component {
                                     <p className="range-field">
                                         <span>
     
-                                            <input type="range" id="test5" min="0" max="100" value={this.props.activeUserPet.happinessLevel ? this.props.activeUserPet.happinessLevel :0} disabled color="blue" />
+                                            <input type="range" id="test5" min="0" max="100" value={activeUserPet.happinessLevel ? activeUserPet.happinessLevel :0} disabled color="blue" />
                                             <br /><br /><br />
                                             <button className="btn-floating btn-large waves-effect halfway-fab waves-light green" >
                                                 <i className="material-icons">mood</i>
@@ -89,13 +90,21 @@ class PetProfile extends Component {
         }
     }
     render() {
-        //const { pet } = this.props;
-        console.log("this.props" + JSON.stringify(this.props.activeUserPet));
+        const { activeUserPet } = this.props;
+       // console.log(props);
+       let showActions = false;
+        console.log("activeUserPet999"+JSON.stringify(activeUserPet));
+        if(Object.keys(activeUserPet).length > 0){
+            showActions= true;
+        }
+        //console.log("this.props" + JSON.stringify(this.props.activeUserPet));
+        //console.log("this.props" + JSON.stringify(this.props.addPet));
+        //console.log("this.props" + JSON.stringify(this.props.feedPet));
 
         return (
             <div>
                 <div className="row" >
-                    {this.renderSinglePet()}
+                    {this.renderSinglePet(activeUserPet, showActions)}
                 </div>
             </div>
         );
@@ -105,8 +114,10 @@ class PetProfile extends Component {
 
 
 function mapStateToProps({ activepet,activeUserPet }) {
-    console.log("Inside petprofile mapstatetoprops "+JSON.stringify(activepet));
-    console.log("Inside petprofile mapstatetoprops activeUserPet "+JSON.stringify(activeUserPet));
+    //console.log("Inside petprofile mapstatetoprops "+JSON.stringify(activepet));
+    //console.log("Inside petprofile mapstatetoprops activeUserPet "+JSON.stringify(activeUserPet));
+    //console.log("Inside petprofile mapstatetoprops activeUserPet length "+Object.keys(activeUserPet).length);
+    //console.log("Inside petprofile mapstatetoprops activeUserPet typeof "+typeof(activeUserPet));
 
     return { activepet : activepet,
         activeUserPet : activeUserPet        
@@ -118,4 +129,4 @@ function mapStateToProps({ activepet,activeUserPet }) {
     return { pet: pets[ownProps.match.params.name] };
   } */
 //export default connect(mapStateToProps, { fetchSinglePet,fetchUserPet, feedPet, petMyPet, walkPet })(PetProfile);
-export default connect(mapStateToProps,{fetchSinglePet,fetchUserPet, feedPet, petMyPet, walkPet})(PetProfile);
+export default connect(mapStateToProps,{fetchSinglePet,fetchUserPet, feedPet, petMyPet, walkPet, addPet})(PetProfile);
