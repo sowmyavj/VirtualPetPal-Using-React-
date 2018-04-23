@@ -13,7 +13,7 @@ let exportedMethods = {
             noOfTimesFed: 0,
             noOfTimesPetted:1,
             noOfTimesWalked: 0,
-            happinessLevel: 10,
+            happinessLevel: 0,
             currentDate: new Date()
         }
        // let execUpdate  = await UserPet.insertOne(userPetInfo);
@@ -74,7 +74,28 @@ let exportedMethods = {
         console.log("Inside petUserpet"+user_id+" "+pet_id)
         let execUpdate  = await UserPet.updateOne({ userGoogleId: user_id, "pet_id": pet_id }, 
         {$inc : { noOfTimesPetted : 1 }}); 
+       // await updateUserPetHappiness(user_id,pet_id);
        // console.log("execUpdate "+JSON.stringify(execUpdate));
+    },
+
+    async updateUserPetHappiness(user_id, pet_id){
+        console.log("updateUserPetHappiness ");
+        let query1  = UserPet.where({ userGoogleId: user_id, "pet_id": pet_id }); 
+        let userPet1 =await query1.findOne();
+
+        console.log(JSON.stringify(userPet1));
+        let x=userPet1.noOfTimesFed+userPet1.noOfTimesPetted+userPet1.noOfTimesWalked;
+       // let y=userPet1.noOfTimesToFeed+userPet1.noOfTimesToPet+userPet1.noOfTimesToWalk
+        //let happiness=(x/100)*y;
+        console.log("Inside updateUserPetHappiness"+user_id+" "+pet_id)
+        console.log("x"+x)
+        //console.log("y"+y)
+        let z  = await UserPet.updateOne({ userGoogleId: user_id, "pet_id": pet_id }, 
+        {happinessLevel : x }); 
+
+        
+        console.log("updateUserPetHappiness end ");
+        //console.log(JSON.stringify(z));
     }
   
 }

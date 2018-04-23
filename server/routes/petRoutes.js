@@ -89,6 +89,7 @@ module.exports = app => {
         singlePet.gender=x.gender;
         singlePet.noOfTimesToFeed=x.noOfTimesToFeed;
         singlePet.noOfTimesToWalk=x.noOfTimesToWalk;
+        singlePet.noOfTimesToPet=x.noOfTimesToPet;
         singlePet.profilephotoLink=x.profilephotoLink;
         singlePet.description=x.description;
 
@@ -115,6 +116,7 @@ module.exports = app => {
         let petId=req.params.petId;
         let userId = req.user.googleId;
         const updatePetFeed = await UserPetModel.feedUserPet(userId,petId);
+        await UserPetModel.updateUserPetHappiness(userId,petId);
         let userpet ={};
         let userpetInfo= await UserPetModel.getUserPet(userId, petId);
         userpet._id= userpetInfo._id;
@@ -144,9 +146,13 @@ module.exports = app => {
     });
 
     app.post('/api/pet/pet/:petId',requireLogin, async(req,res)=>{
+        // console.log("/api/pet/pet/:petId ");
         let petId=req.params.petId;
         let userId = req.user.googleId;
+        
         const updatePetFeed = await UserPetModel.petUserPet(userId,petId);
+        await UserPetModel.updateUserPetHappiness(userId,petId);
+        // console.log("/api/pet/pet/:petId 111 "+updatePetFeed);
         let userpet ={};
         let userpetInfo= await UserPetModel.getUserPet(userId, petId);
         userpet._id= userpetInfo._id;
@@ -178,6 +184,7 @@ module.exports = app => {
         let petId=req.params.petId;
         let userId = req.user.googleId;
         const updatePetFeed = await UserPetModel.walkUserPet(userId,petId);
+        await UserPetModel.updateUserPetHappiness(userId,petId);
         let userpet ={};
         let userpetInfo=await UserPetModel.getUserPet(userId, petId);
         userpet._id= userpetInfo._id;

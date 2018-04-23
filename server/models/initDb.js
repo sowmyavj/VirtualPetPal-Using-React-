@@ -108,7 +108,7 @@ const initUserPets = async () => {
         noOfTimesFed: 2,
         noOfTimesPetted:1,
         noOfTimesWalked: 0,
-        happinessLevel: 10,
+        happinessLevel: 3,
         currentDate: new Date()
     }).save();
     let user1Pet2 = await new userPet({
@@ -117,7 +117,7 @@ const initUserPets = async () => {
         noOfTimesFed: 3,
         noOfTimesPetted:0,
         noOfTimesWalked: 1,
-        happinessLevel: 50,
+        happinessLevel: 4,
         currentDate: new Date()
     }).save();
     let user2Pet1 = await new userPet({
@@ -126,7 +126,7 @@ const initUserPets = async () => {
         noOfTimesFed: 2,
         noOfTimesPetted:1,
         noOfTimesWalked: 0,
-        happinessLevel: 10,
+        happinessLevel: 3,
         currentDate: new Date()
     }).save();
     //105578366045462687191
@@ -136,7 +136,7 @@ const initUserPets = async () => {
         noOfTimesFed: 0,
         noOfTimesPetted:2,
         noOfTimesWalked: 0,
-        happinessLevel: 10,
+        happinessLevel: 2,
         currentDate: new Date()
     }).save();  
     let user3Pet2 = await new userPet({
@@ -145,7 +145,7 @@ const initUserPets = async () => {
         noOfTimesFed: 0,
         noOfTimesPetted:1,
         noOfTimesWalked: 0,
-        happinessLevel: 10,
+        happinessLevel: 1,
         currentDate: new Date()
     }).save(); 
 

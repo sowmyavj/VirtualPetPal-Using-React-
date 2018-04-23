@@ -27,6 +27,9 @@ class PetProfile extends Component {
 
         }
         if (this.props.activepet) {
+            //console.log("Active pet is");
+            //console.log(activeUserPet);
+           // console.log(this.props.activepet);
                 return (
                     <div className="col m4">
                         <div className="col" id="petCard">
@@ -69,7 +72,8 @@ class PetProfile extends Component {
                                     <p className="range-field">
                                         <span>
     
-                                            <input type="range" id="test5" min="0" max="100" value={activeUserPet.happinessLevel ? activeUserPet.happinessLevel :0} disabled color="blue" />
+                                            <input type="range" id="test5" min="0" max={this.props.activepet.noOfTimesToFeed +this.props.activepet.noOfTimesToWalk+this.props.activepet.noOfTimesToPet}
+                                                 value={activeUserPet.happinessLevel ? activeUserPet.happinessLevel :0} disabled color="blue" />
                                             <br /><br /><br />
                                             <button className="btn-floating btn-large waves-effect halfway-fab waves-light green" >
                                                 <i className="material-icons">mood</i>
