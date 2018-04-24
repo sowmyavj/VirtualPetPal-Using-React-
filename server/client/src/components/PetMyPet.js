@@ -9,7 +9,7 @@ console.log("feedpet + pet"+petId);
 //const FeedPet = ({ feedPet }) => {
 
     return(
-            <button id="favourite_btn" className="btn-floating  pulse waves-effect waves-light  #fce4ec pink lighten-4"
+            <button id="favourite_btn" className="btn-floating  pulse waves-effect waves-light grey lighten-3"
             style={{ margin: '5px' }}
             onClick={() => petMyPet(petId)}>
                 <i className="material-icons red600" id="favourite_icon"  >favorite</i>
