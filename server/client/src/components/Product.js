@@ -18,7 +18,7 @@ const Product = ({ price, quantity, title,image,onAddToCart }) => (
             <button id="add_btn" className="btn-floating black "
             style={{ margin: '5px' }}
             onClick={onAddToCart}>
-            <i className="material-icons black" id="add_icon"  >add</i>
+            <i className="material-icons black" id="add_icon"  >add_shopping_cart</i>
     </button>
       </div>
       </div>
