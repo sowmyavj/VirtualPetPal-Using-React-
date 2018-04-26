@@ -5,12 +5,24 @@
     color:black
 
 }
+
+
 .centered {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+#treats{
+    color:black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
 
 .radio-button-item:hover .radio-dot:before {
     border-color: #bdde85 !important;
@@ -79,3 +91,4 @@
      height: 20px;
      border-radius: 10px;
   }
+

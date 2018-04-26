@@ -91,7 +91,7 @@ const initPets = async()=>{
         typeOfPet : 1,
         gender : 1,
         noOfTimesToFeed:4,
-        noOfTimesToWalk: 0,
+        noOfTimesToWalk: 1,
         noOfTimesToPet:4,
         profilephotoLink:"5.jpg",
         testimonials:[],

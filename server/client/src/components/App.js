@@ -10,6 +10,7 @@ import Footer from './Footer';
 import Dashboard from './Dashboard';
 import Landing from './Landing';
 import Search from "./Search";
+import CartOuterContainer from "./CartOuterContainer";
 import PetProfile from './PetProfile';
 
 //const Header =() => <h2>Header </h2>;
@@ -31,6 +32,7 @@ class App extends Component{
                         <Route exact path="/" component={Landing}/>
                         <Route exact path="/dashboard" component={Dashboard}/>
                         <Route exact path="/search" component={Search}/>
+                        <Route exact path="/cart" component={CartOuterContainer}/>
                         <Route exact path="/pet/:petId" component={PetProfile}/>
                         <Footer/>
                     </div>

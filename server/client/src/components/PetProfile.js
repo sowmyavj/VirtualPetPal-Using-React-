@@ -9,23 +9,39 @@ import FeedPet from './FeedPet';
 import PetMyPet from './PetMyPet';
 import WalkPet from './WalkPet';
 import Progress from './Progress';
+import TimingSpinner from './TimingSpinner';
+
 
 class PetProfile extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          loading: true, // will be true when pet, walk,feed is running
+        }
+      }
     componentDidMount() {
+        console.log("component did mount start");
         const { petId } = this.props.match.params;
         console.log("PetId:" + petId);
         console.log("type:" + typeof (petId));
 
         this.props.fetchSinglePet(petId);
         this.props.fetchUserPet(petId);
+        console.log("component did mount end");
+
+    }
+    componentDidUpdate() {
+        console.log("component did update start");
+        if(this.state.loading == true){
+            console.log("activeUserPet active");
+        }
+        console.log("component did update end");
 
     }
 
     renderSinglePet(activeUserPet, showActions) {
-        if(this.props.activepet.userspet){
-            //console.log("progresss" + this.props.activepet.noOfTimesToPet+" "+activeUserPet.noOfTimesPetted);
-
-        }
+       
+       
         if (this.props.activepet) {
             //console.log("Active pet is");
             //console.log(activeUserPet);
@@ -94,11 +110,18 @@ class PetProfile extends Component {
         }
     }
     render() {
+        if(this.state.loading){
+            console.log("display loading");
+            // return(
+            //     <TimingSpinner /> 
+            // )
+        }
         const { activeUserPet } = this.props;
        // console.log(props);
        let showActions = false;
         //console.log("activeUserPet999"+JSON.stringify(activeUserPet));
         if(Object.keys(activeUserPet).length > 0){
+            this.state.loading=true;
             showActions= true;
         }
         //console.log("this.props" + JSON.stringify(this.props.activeUserPet));

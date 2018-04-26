@@ -1,5 +1,46 @@
 import axios from 'axios';
+import shop from '../api/shop'
 import { FETCH_USER, FETCH_ALL_PETS, FETCH_FILTER,FETCH_SINGLE_PET,FETCH_USER_PET, PET_MY_PET, FEED_PET, WALK_PET } from './types';
+import { ADD_TO_CART, CHECKOUT_REQUEST, CHECKOUT_SUCCESS,CHECKOUT_FAILURE,RECEIVE_PRODUCTS} from './types';
+
+
+const receiveProducts = products => ({
+    type: RECEIVE_PRODUCTS,
+    products
+  })
+  
+  export const getAllProducts = () => dispatch => {
+    shop.getProducts(products => {
+      dispatch(receiveProducts(products))
+    })
+  }
+  
+  const addToCartUnsafe = productId => ({
+    type: ADD_TO_CART,
+    productId
+  })
+  
+  export const addToCart = productId => async (dispatch, getState) => {
+    if (getState().products.byId[productId].inventory > 0) {
+      dispatch(addToCartUnsafe(productId))
+    }
+  }
+  
+  export const checkout = products => async (dispatch, getState) => {
+    const { cart } = getState()
+  
+    dispatch({
+      type:CHECKOUT_REQUEST
+    })
+    shop.buyProducts(products, () => {
+      dispatch({
+        type: CHECKOUT_SUCCESS,
+        cart
+      })
+      // Replace the line above with line below to rollback on failure:
+      // dispatch({ type: types.CHECKOUT_FAILURE, cart })
+    })
+  }
 
 export const fetchUser = () => async (dispatch) => {
         //api request to backend server

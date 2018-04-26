@@ -20,7 +20,9 @@ class Header extends Component {
                 <i className="material-icons">search</i>
             </a> </li>,
                 <li key="3" style={{margin: '0px 10px'}}>Credits: {this.props.auth.credits}</li>,
-
+                <li key="5"><a href='/cart' className="btn-floating black ">
+                <i className="material-icons">shop</i>
+            </a> </li>,
                 <li key="2"><a href='/api/logout'>Logout</a> </li>
                 ]
         }
