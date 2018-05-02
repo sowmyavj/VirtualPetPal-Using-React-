@@ -270,6 +270,9 @@ module.exports = app => {
             console.log(id);
             console.log(q);
         }
+        console.log("Before:: "+req.user.credits)
+        req.user.credits -= total;
+        console.log("Before:: "+req.user.credits)
        }
        
         res.send(result);

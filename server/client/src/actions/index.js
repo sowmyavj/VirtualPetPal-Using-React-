@@ -30,11 +30,7 @@ const receiveProducts = products => ({
   export const checkout = products => async (dispatch, getState) => {
     
     console.log("checkout called");
-    let state=getState();
-
-    console.log(state.auth.credits);
-    console.log(state);
-    console.log(products);
+    
     let total=0
     for (var i = 0; i < products.length; i++) { 
       let price=products[i].price;
@@ -49,20 +45,19 @@ const receiveProducts = products => ({
     'total':total,
     'credits':state.auth.credits
    };
-  // console.log("total");
-  // console.log(total);
-  // if(state.auth.credits<total)
-  // {
-  //   console.log("not enough credits")
-  //   dispatch({
-  //     type:CHECKOUT_FAILURE
-  //   })
-  // }
-  // console.log("credits are enough")
+
     let res=await  axios.post('/api/addgoodies',config);
+
     const { cart } = getState()
     console.log("result is")
     console.log(res)
+
+    let state=getState();
+
+    console.log(state.auth.credits);
+    console.log(state);
+    console.log(products);
+    
     if(res.data.error)
     {
       console.log("cannot do checkout now")
