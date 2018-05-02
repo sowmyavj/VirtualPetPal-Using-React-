@@ -242,14 +242,24 @@ module.exports = app => {
     app.post('/api/addgoodies',requireLogin, async(req,res)=>{
 
         console.log("/api/addgoodies ");
-       // let products=req.params.products;
-        // let userId = req.user.googleId;
-        // console.log(req.user);
+       
         let user=req.user;
         let products=req.body.products;
-        //console.log(user);
-        //console.log(products);
-       // console.log(products[0]);
+        let body=req.body;
+        let total=req.body.total;
+        let credits=req.body.credits;
+    //     //console.log(user);
+    //     //console.log(products);
+       console.log(total);
+       console.log(credits);
+       let result={}
+       if(credits<total){
+           console.log("Not enough credits")
+           result.error="Not enoug credits";
+           
+       }
+       else{
+        console.log(" enough credits")
         for (var i = 0; i < products.length; i++) { 
             let goodie ={};
             let id=products[i].id;
@@ -260,7 +270,9 @@ module.exports = app => {
             console.log(id);
             console.log(q);
         }
-        res.send({});
+       }
+       
+        res.send(result);
         
 
     });

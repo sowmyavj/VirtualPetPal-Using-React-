@@ -2,6 +2,7 @@ import axios from 'axios';
 import shop from '../api/shop'
 import { FETCH_USER, FETCH_ALL_PETS, FETCH_FILTER,FETCH_SINGLE_PET,FETCH_USER_PET, PET_MY_PET, FEED_PET, WALK_PET } from './types';
 import { ADD_TO_CART, CHECKOUT_REQUEST, CHECKOUT_SUCCESS,CHECKOUT_FAILURE,RECEIVE_PRODUCTS} from './types';
+import { SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION } from 'constants';
 
 
 const receiveProducts = products => ({
@@ -27,25 +28,69 @@ const receiveProducts = products => ({
   }
   
   export const checkout = products => async (dispatch, getState) => {
-    var config = {
-     'products': products 
-    };
+    
     console.log("checkout called");
-    console.log(getState());
+    let state=getState();
+
+    console.log(state.auth.credits);
+    console.log(state);
+    console.log(products);
+    let total=0
+    for (var i = 0; i < products.length; i++) { 
+      let price=products[i].price;
+      let q=products[i].quantity;
+      total+=(q*price);
+      
+      console.log(price);
+      console.log(q);
+  }
+  var config = {
+    'products': products ,
+    'total':total,
+    'credits':state.auth.credits
+   };
+  // console.log("total");
+  // console.log(total);
+  // if(state.auth.credits<total)
+  // {
+  //   console.log("not enough credits")
+  //   dispatch({
+  //     type:CHECKOUT_FAILURE
+  //   })
+  // }
+  // console.log("credits are enough")
     let res=await  axios.post('/api/addgoodies',config);
     const { cart } = getState()
-  
-    dispatch({
-      type:CHECKOUT_REQUEST
-    })
-    shop.buyProducts(products, () => {
-      dispatch({
-        type: CHECKOUT_SUCCESS,
-        cart
+    console.log("result is")
+    console.log(res)
+    if(res.data.error)
+    {
+      console.log("cannot do checkout now")
+      shop.buyProducts(products, () => {
+        
+        dispatch({
+          type: CHECKOUT_FAILURE,
+          cart
+        })
+       
       })
-      // Replace the line above with line below to rollback on failure:
-      // dispatch({ type: types.CHECKOUT_FAILURE, cart })
-    })
+    }
+    else{
+      console.log("can do checkout now")
+      dispatch({
+        type:CHECKOUT_REQUEST
+      })
+      shop.buyProducts(products, () => {
+        dispatch({
+          type: CHECKOUT_SUCCESS,
+          cart
+        })
+        // Replace the line above with line below to rollback on failure:
+        // dispatch({ type: types.CHECKOUT_FAILURE, cart })
+      })
+    }
+  
+   
   }
 
 export const fetchUser = () => async (dispatch) => {
