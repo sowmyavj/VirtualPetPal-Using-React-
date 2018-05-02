@@ -4,10 +4,9 @@ import petsReducer from './petsReducer';
 import activePetReducer from './activePetReducer';
 import filterReducer from './filterReducer';
 import activeUserPetReducer from './activeUserPetReducer';
+import userGoodiesReducer from './userGoodiesReducer';
 import cart, * as fromCart from './cart'
 import products, * as fromProducts from './products'
-
-
 
 export default combineReducers({
     auth: authReducer,
@@ -16,7 +15,8 @@ export default combineReducers({
     filterpets:filterReducer,
     activeUserPet :activeUserPetReducer,
     cart,
-    products
+    products,
+    userGoodies: userGoodiesReducer
 });
 
 const getAddedIds = state => fromCart.getAddedIds(state.cart)

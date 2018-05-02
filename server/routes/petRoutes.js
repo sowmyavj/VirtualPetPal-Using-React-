@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const UserPetModel = require('../models/UserPets');
 const PetModel = require('../models/Pet');
 const GoodieModel = require('../models/UserGoodies');
+const UserModel = require('../models/User');
 
 const Pet = mongoose.model('pets');
 const UserPet = mongoose.model('userpets');
@@ -248,21 +249,44 @@ module.exports = app => {
         let user=req.user;
         let products=req.body.products;
         //console.log(user);
-        //console.log(products);
-       // console.log(products[0]);
+        console.log(products);
+        console.log(products[0]);
+        let userCredits=await UserModel.getUserCredits(user.googleId);
+        let total_price=0;
         for (var i = 0; i < products.length; i++) { 
-            let goodie ={};
             let id=products[i].id;
-            let q=products[i].quantity
-            let addedgoodie = await GoodieModel.addGoodie(user.googleId,id,q);
-            console.log(user);
-            console.log(products);
-            console.log(id);
-            console.log(q);
-        }
-        res.send({});
-        
+            let quantity=products[i].quantity;
+            let price = products[i].price;
+            total_price += (price * quantity);
 
+        }
+        console.log("Total price"+total_price);
+        if(total_price <= userCredits){
+            for (var i = 0; i < products.length; i++) { 
+                let goodie ={};
+                let id=products[i].id;
+                let q=products[i].quantity
+                let addedgoodie = await GoodieModel.addGoodie(user.googleId,id,q);
+                //console.log(user);
+                //console.log(products);
+                //console.log(id);
+                //console.log(q);
+            }
+            let userGoodies = await GoodieModel.getUserGoodie(user.googleId);
+            let userGoodies_JSON={};
+            userGoodies_JSON._id=userGoodies._id,
+            userGoodies_JSON.userGoogleId=userGoodies.userGoogleId,
+            userGoodies_JSON.goodie_id=userGoodies.goodie_id,
+            userGoodies_JSON.quantity=userGoodies.quantity,
+            userGoodies_JSON.__v=userGoodies.__v;
+
+            let updateCredits=await UserModel.updateUserCredits(user.googleId, total_price);
+            res.send(userGoodies_JSON);
+
+        }else{
+            res.send({});
+
+        }
     });
 
 };

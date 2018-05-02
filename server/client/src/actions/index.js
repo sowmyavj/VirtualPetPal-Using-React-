@@ -1,7 +1,7 @@
 import axios from 'axios';
 import shop from '../api/shop'
 import { FETCH_USER, FETCH_ALL_PETS, FETCH_FILTER,FETCH_SINGLE_PET,FETCH_USER_PET, PET_MY_PET, FEED_PET, WALK_PET } from './types';
-import { ADD_TO_CART, CHECKOUT_REQUEST, CHECKOUT_SUCCESS,CHECKOUT_FAILURE,RECEIVE_PRODUCTS} from './types';
+import { ADD_TO_CART, CHECKOUT_REQUEST, CHECKOUT_SUCCESS,CHECKOUT_FAILURE,RECEIVE_PRODUCTS, GET_NO_OF_USER_GOODIES} from './types';
 
 
 const receiveProducts = products => ({
@@ -9,6 +9,7 @@ const receiveProducts = products => ({
     products
   })
   
+ 
   export const getAllProducts = () => dispatch => {
     shop.getProducts(products => {
       dispatch(receiveProducts(products))
@@ -35,13 +36,13 @@ const receiveProducts = products => ({
     let res=await  axios.post('/api/addgoodies',config);
     const { cart } = getState()
   
-    dispatch({
+   dispatch({
       type:CHECKOUT_REQUEST
-    })
+    }) 
     shop.buyProducts(products, () => {
       dispatch({
         type: CHECKOUT_SUCCESS,
-        cart
+        payload: res.data
       })
       // Replace the line above with line below to rollback on failure:
       // dispatch({ type: types.CHECKOUT_FAILURE, cart })
@@ -104,9 +105,9 @@ export const fetchSinglePet = (petId) => async (dispatch) => {
     };
 export const fetchUserPet = (petId) => async (dispatch) => {
         //api request to backend server
-        console.log("fetchUserPet"+ petId);
+        //console.log("fetchUserPet"+ petId);
         const res = await axios.get(`/api/userpet/${petId}`);
-        console.log("fetchUserPet222"+res);
+       // console.log("fetchUserPet"+res);
 
         dispatch ({
           type: FETCH_USER_PET,
@@ -114,6 +115,18 @@ export const fetchUserPet = (petId) => async (dispatch) => {
         });
        
     };
+export const getNoOfUserGoodies = () => async (dispatch) => {
+      //api request to backend server
+      console.log("getNoOfUserGoodies");
+      const res = await axios.get(`/api/user/goodies`);
+     console.log("getNoOfUserGoodies"+JSON.stringify(res));
+
+      dispatch ({
+        type: GET_NO_OF_USER_GOODIES,
+        payload: res.data
+      });
+     
+  };
 
 export const feedPet = (petId) => async (dispatch) => {
         //api request to backend server

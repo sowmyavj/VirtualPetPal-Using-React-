@@ -29,7 +29,7 @@ const Cart  = ({ products, total, onCheckoutClicked }) => {
     <div>
        <ReactTooltip />
       <h3>Your Cart</h3>
-      <div class="row">{nodes}</div>
+      <div className="row">{nodes}</div>
       <p>Total: &#36;{total}</p>
       <button className="  pulse waves-effect waves-light " onClick={onCheckoutClicked}
         disabled={hasProducts ? '' : 'disabled'}>

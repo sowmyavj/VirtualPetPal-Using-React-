@@ -1,7 +1,8 @@
 import {
   ADD_TO_CART,
   CHECKOUT_REQUEST,
-  CHECKOUT_FAILURE
+  CHECKOUT_FAILURE,
+  CHECKOUT_SUCCESS
 } from '../actions/types'
 
 const initialState = {
@@ -38,16 +39,24 @@ export const getQuantity = (state, productId) =>
 
 export const getAddedIds = state => state.addedIds
 
+
 const cart = (state = initialState, action) => {
+  console.log("action "+ JSON.stringify(action))
   switch (action.type) {
     case CHECKOUT_REQUEST:
       return initialState
     case CHECKOUT_FAILURE:
       return action.cart
-    default:
+    case CHECKOUT_SUCCESS:
       return {
         addedIds: addedIds(state.addedIds, action),
         quantityById: quantityById(state.quantityById, action)
+                }
+
+    default:
+      return {
+        addedIds: addedIds(state.addedIds, action),
+        quantityById: quantityById(state.quantityById, action)      
       }
   }
 }
