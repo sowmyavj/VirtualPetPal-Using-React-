@@ -10,25 +10,29 @@ let exportedMethods = {
         let addedGoodie  = UserGoodies.where({ "userGoogleId": userid, "goodie_id": goodie_id }); 
         let a =await addedGoodie.findOne();
         // console.log("found");
-        // console.log(a);
+        //console.log(a);
         let userGoodieInfo = {
             userGoogleId: userid,
             goodie_id: goodie_id,
             quantity: 0
            
         }
+        let res;
         if(a){
             console.log("User already has this goodie");
             userGoodieInfo.quantity=a.quantity+quantity;
+            console.log("userGoodieInfo.quantity "+userGoodieInfo.quantity);
+            res=await UserGoodies.updateOne({ "userGoogleId": userid,"goodie_id":goodie_id  }, 
+            {$set : { quantity : userGoodieInfo.quantity }});
+
+            //console.log("res"+res);
+            
         }
         else{
             console.log("User does not have this goodie");
             userGoodieInfo.quantity=quantity;
+            res=await new UserGoodies(userGoodieInfo).save();
         }
-            
-        
-      
-        let res=await new UserGoodies(userGoodieInfo).save();
        
         
        console.log("returning")
