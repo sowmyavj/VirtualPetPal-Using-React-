@@ -11,7 +11,8 @@ class Search extends Component {
 
     constructor(props) {
         super(props);
-       
+        console.log("Search page")
+        console.log(this.props)
         this.state = {
             type: -1
             
@@ -20,7 +21,7 @@ class Search extends Component {
       }
 
     onChange = (selected)=> {
-       
+     
         
         this.setState({
             type: selected,
@@ -36,8 +37,9 @@ class Search extends Component {
         return (
          
               
-            <div> 
-            <RadioGroup onChange={ this.onChange } horizontal>
+            <div > 
+              <br/>
+            <RadioGroup id="search" onChange={ this.onChange } horizontal>
             <RadioButton value="1">
               Cat
             </RadioButton>

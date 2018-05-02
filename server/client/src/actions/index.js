@@ -27,6 +27,12 @@ const receiveProducts = products => ({
   }
   
   export const checkout = products => async (dispatch, getState) => {
+    var config = {
+     'products': products 
+    };
+    console.log("checkout called");
+    console.log(getState());
+    let res=await  axios.post('/api/addgoodies',config);
     const { cart } = getState()
   
     dispatch({

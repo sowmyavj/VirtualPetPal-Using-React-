@@ -58,7 +58,9 @@
 .material-icons.green600 { color: green; }
 
 #petPalFooter {
-    color: black
+    color: black;
+    margin-left: 20;
+    margin-top: 20
 }
 
 .list-inline {
@@ -92,3 +94,23 @@
      border-radius: 10px;
   }
 
+  #search  {
+    background-color: black;
+    text-emphasis: 10px;
+    border-radius: 20px;
+    display: block;
+    padding-left: 30px;
+    padding-right: 30px;
+    font-size:20px;
+    font-style: bold;
+    line-height: 17px;
+    
+   
+   }
+
+ #search [type="radio"]:checked+label:after {
+    border-color: #e91e63;
+    background-color: #e91e63;
+    line-height: 17px;
+    
+}

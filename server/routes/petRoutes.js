@@ -2,6 +2,7 @@ const requireLogin = require('../middlewares/requireLogin');
 const mongoose = require('mongoose');
 const UserPetModel = require('../models/UserPets');
 const PetModel = require('../models/Pet');
+const GoodieModel = require('../models/UserGoodies');
 
 const Pet = mongoose.model('pets');
 const UserPet = mongoose.model('userpets');
@@ -235,6 +236,32 @@ module.exports = app => {
 
         //console.log("Post add pet: "+JSON.stringify(userpet));
         res.send(userpet);
+
+    });
+
+    app.post('/api/addgoodies',requireLogin, async(req,res)=>{
+
+        console.log("/api/addgoodies ");
+       // let products=req.params.products;
+        // let userId = req.user.googleId;
+        // console.log(req.user);
+        let user=req.user;
+        let products=req.body.products;
+        //console.log(user);
+        //console.log(products);
+       // console.log(products[0]);
+        for (var i = 0; i < products.length; i++) { 
+            let goodie ={};
+            let id=products[i].id;
+            let q=products[i].quantity
+            let addedgoodie = await GoodieModel.addGoodie(user.googleId,id,q);
+            console.log(user);
+            console.log(products);
+            console.log(id);
+            console.log(q);
+        }
+        res.send({});
+        
 
     });
 

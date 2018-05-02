@@ -30,7 +30,18 @@ const UserPetSchema = new Schema({
 mongoose.model('userpets', UserPetSchema);
 const userPet = mongoose.model('userpets');
 
+const UserGoodieSchema = new Schema({
+    userGoogleId: String,
+    goodie_id: String,
+    quantity: Number
+   
+});
+
+mongoose.model('usergoodies', UserGoodieSchema);
+const userGoodie = mongoose.model('usergoodies');
+
 const initPets = async()=>{
+    console.log("Init pets")
     const Pet = mongoose.model('pets');
     let pet1 = await new Pet({
         name: "Tom",

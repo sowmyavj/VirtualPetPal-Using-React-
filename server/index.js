@@ -15,6 +15,7 @@ require('./services/passport');
 mongoose.connect(keys.mongoURI,function(){
 		/* Drop the DB */
 		//Drop db
+		console.log("dropiing db");
     mongoose.connection.db.dropDatabase();
 });
 const authRoutes = require('./routes/authRoutes');	

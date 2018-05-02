@@ -14,11 +14,11 @@ const Product = ({ price, quantity, title,image,onAddToCart }) => (
         </div>
         <div className="card-content">
             <p>Treats for your pet</p>
-            <p>Price: {price}</p>
+            <p>Price: {price}$</p>
             <button id="add_btn" className="btn-floating black "
             style={{ margin: '5px' }}
             onClick={onAddToCart}>
-            <i className="material-icons black" id="add_icon"  >add_shopping_cart</i>
+            <i className="material-icons black" id="add_icon" data-tip="Add to cart" >add_shopping_cart</i>
     </button>
       </div>
       </div>

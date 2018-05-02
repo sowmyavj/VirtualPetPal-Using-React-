@@ -39,6 +39,8 @@ class PetListSearch extends Component {
   componentWillReceiveProps= async props1 => {
     //alert("component did mount");
     //alert(this.props);
+    console.log("Search page")
+    console.log(this.props)
     console.log("PetListSearch componentWillReceiveProps:: "+ props1.type);
     console.log(this.props.pets);
     

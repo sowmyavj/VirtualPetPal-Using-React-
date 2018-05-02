@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 const CartItem = ({ price, quantity, title,image }) => (
   
-  
+
 <div className="col m2">
 <div className="col" id="petCard">
     <div className="card">
@@ -11,9 +11,7 @@ const CartItem = ({ price, quantity, title,image }) => (
          <div className="card-title"> <span >{title}</span></div>   
         
         <div className="card-content">
-       
-            <p>Treats for your pet</p>
-            <p>Price: {price}</p>
+            <p className="text">Price: {price} $</p>
             <p>Quantity: {quantity}</p>
             
    
