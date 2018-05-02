@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{ Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { checkout,getNoOfUserGoodies } from '../actions'
@@ -6,15 +6,29 @@ import { getTotal, getCartProducts } from '../reducers'
 import Cart from '../components/Cart'
 import Goodies from './Goodies'
 
-const CartContainer = ({ products, total, checkout, noOfgoodies }) => {
-  return(
-    <div>
-     <Cart
-    products={products}
-    total={total}
-    onCheckoutClicked={() => checkout(products)} /> 
-    </div>
-  )
+class CartContainer extends Component  {
+  //checkout(products)
+
+  constructor(props){
+    super(props);
+  }
+  onCheckoutClicked = () => {
+    console.log("this.props.products"+JSON.stringify(this.props.products));
+    this.props.checkout(this.props.products)
+  };
+  render(){
+    return(
+      <div>
+       <Cart
+      products={this.props.products}
+      total={this.props.total}
+      onCheckoutClicked={this.onCheckoutClicked}
+      
+      /> 
+      </div>
+    )
+  }
+ 
 
 }
  
@@ -48,3 +62,4 @@ export default connect(
   mapStateToProps,
   { checkout }
 )(CartContainer)
+//export default connect(mapStateToProps,{fetchSinglePet,fetchUserPet, feedPet, petMyPet, walkPet, addPet})(PetProfile);
