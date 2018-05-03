@@ -75,6 +75,30 @@ let exportedMethods = {
         console.log(query1);
         return res;
     },
+    async decrementUserGoodies(user_id){
+        console.log("decrementUserGoodie"+user_id+" ");
+
+        let query  = UserGoodies.where({ userGoogleId: user_id}); 
+        let res =await query.findOne(); 
+        console.log("decrementUserGoodies res"+res);
+        let query1=[];
+        if(res.quantity>1)
+        {
+
+            console.log("Quantity greater tham 1");
+            res.quantity--;
+            /* query1=await User.updateOne({ "googleId": googleId },
+            {$inc :{credits : amount}}); */
+             query1=await UserGoodies.update({userGoogleId: user_id},res);  
+        }   
+        else{
+            console.log("Quantity NOT greater tham 1");
+             query1=await UserGoodies.deleteOne({userGoogleId: user_id });
+        }
+        //console.log(query1);
+        //let userGoodie=await getUserGoodie(user_id);
+        return res;
+    }
     
   
 }

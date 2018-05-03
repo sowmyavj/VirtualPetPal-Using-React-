@@ -132,7 +132,18 @@ export const getNoOfUserGoodies = () => async (dispatch) => {
       });
      
   };
+  export const useGoodies = (petId) => async (dispatch) => {
+    //api request to backend server
+    console.log("useGoodies"+ petId);
+    const res = await axios.post(`/api/pet/goodies/${petId}`);
+    console.log("useGoodies after db call"+JSON.stringify(res));
 
+    dispatch ({
+      type: FETCH_USER_PET,
+      payload: res.data
+    });
+   
+};
 export const feedPet = (petId) => async (dispatch) => {
         //api request to backend server
         console.log("feedPet"+ petId);

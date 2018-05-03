@@ -52,28 +52,52 @@ let exportedMethods = {
     
     async getUserPet(user_id, pet_id){
         //console.log("Inside getUserPet"+user_id+" "+pet_id);
-
         let query  = UserPet.where({ userGoogleId: user_id, "pet_id": pet_id }); 
         let userPet =await query.findOne();   
         return userPet;
     },
     async feedUserPet(user_id, pet_id){
-        //console.log("Inside feedUserpet"+user_id+" "+pet_id)
-        let execUpdate  = await UserPet.updateOne({ userGoogleId: user_id, "pet_id": pet_id }, 
-        {$inc : { noOfTimesFed : 1 }}); 
-       // console.log("execUpdate "+JSON.stringify(execUpdate));
+        let pet = await Pet.getPet(pet_id);
+        let query  = UserPet.where({ userGoogleId: user_id, "pet_id": pet_id }); 
+        let userPet =await query.findOne();
+        console.log("userPet.noOfTimesFed"+userPet.noOfTimesFed);
+        console.log("pet.noOfTimesToFeed"+pet.noOfTimesToFeed);
 
+        //let feedProgress=  getfedProgress(pet.noOfTimesToFeed, userpet.noOfTimesFed)
+        let feedProgress= Math.round((userPet.noOfTimesFed/pet.noOfTimesToFeed)*100);
+
+        console.log("feedUserPet feedProgress"+feedProgress);
+        if(feedProgress < 100){
+            let execUpdate  = await UserPet.updateOne({ userGoogleId: user_id, "pet_id": pet_id }, 
+        {$inc : { noOfTimesFed : 1 }});
+        }
     },
     async walkUserPet(user_id, pet_id){
         console.log("Inside walkUserPet"+user_id+" "+pet_id)
-        let execUpdate  = await UserPet.updateOne({ userGoogleId: user_id, "pet_id": pet_id }, 
+        let pet = await Pet.getPet(pet_id);
+        let query  = UserPet.where({ userGoogleId: user_id, "pet_id": pet_id }); 
+        let userPet =await query.findOne();
+        let walkProgress= Math.round((userPet.noOfTimesWalked/pet.noOfTimesToWalk)*100);
+        console.log("walkUserPet walkProgress"+walkProgress);
+        if(walkProgress < 100){
+            let execUpdate  = await UserPet.updateOne({ userGoogleId: user_id, "pet_id": pet_id }, 
         {$inc : { noOfTimesWalked : 1 }}); 
+        }
+        
         //console.log("execUpdate "+JSON.stringify(execUpdate));
     },
     async petUserPet(user_id, pet_id){
         console.log("Inside petUserpet"+user_id+" "+pet_id)
-        let execUpdate  = await UserPet.updateOne({ userGoogleId: user_id, "pet_id": pet_id }, 
+        let pet = await Pet.getPet(pet_id);
+        let query  = UserPet.where({ userGoogleId: user_id, "pet_id": pet_id }); 
+        let userPet =await query.findOne();
+        let petProgress= Math.round((userPet.noOfTimesPetted/pet.noOfTimesToPet)*100);
+        console.log("petUserPet petProgress"+petProgress);
+        if(petProgress < 100){
+
+            let execUpdate  = await UserPet.updateOne({ userGoogleId: user_id, "pet_id": pet_id }, 
         {$inc : { noOfTimesPetted : 1 }}); 
+        }
        // await updateUserPetHappiness(user_id,pet_id);
        // console.log("execUpdate "+JSON.stringify(execUpdate));
     },

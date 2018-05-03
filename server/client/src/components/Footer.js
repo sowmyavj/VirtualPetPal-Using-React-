@@ -14,7 +14,8 @@ class Footer extends Component {
                 return [
                 <li key="4"><i className="material-icons red600">favorite</i>Pet Me</li>,
                 <li key="3"><i className="material-icons">directions_walk</i>Walk Me</li>,
-                <li key="3"><i className="material-icons green600">local_dining</i>Feed Me</li>
+                <li key="2"><i className="material-icons green600">local_dining</i>Feed Me</li>,
+                <li key="1"><i className="material-icons purple600">card_giftcard</i>Give Me Goodies</li>
                 ]
         }
     }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchSinglePet,fetchUserPet } from '../actions';
-import { addPet, feedPet, petMyPet, walkPet } from "../actions";
+import { fetchSinglePet,fetchUserPet, getNoOfUserGoodies } from '../actions';
+import { addPet, feedPet, petMyPet, walkPet, useGoodies } from "../actions";
 
 import '../css/style.css';
 import { Link } from 'react-router-dom';
@@ -10,6 +10,7 @@ import PetMyPet from './PetMyPet';
 import WalkPet from './WalkPet';
 import Progress from './Progress';
 import TimingSpinner from './TimingSpinner';
+import UseGoodies from './UseGoodies';
 
 
 
@@ -29,25 +30,23 @@ class PetProfile extends Component {
 
         this.props.fetchSinglePet(petId);
         this.props.fetchUserPet(petId);
+        this.props.getNoOfUserGoodies();
         console.log("component did mount end");
 
     }
     componentDidUpdate() {
-        console.log("component did update start");
         if(this.state.loading == true){
             console.log("activeUserPet active");
         }
-        console.log("component did update end");
-
     }
 
-    renderSinglePet(activeUserPet, showActions) {
-       
+    renderSinglePet(activeUserPet, showActions, showUseGoodies, isHappinessLevelFullfilled) {
+       console.log("isHappinessLevelFullfilled"+isHappinessLevelFullfilled)
        
         if (this.props.activepet) {
-            //console.log("Active pet is");
+            console.log("Active pet is");
             //console.log(activeUserPet);
-           // console.log(this.props.activepet);
+            console.log(this.props.activepet);
                 return (
                     <div className="col m4">
                         <div className="col" id="petCard">
@@ -76,11 +75,17 @@ class PetProfile extends Component {
 
                                         </div>
                                       }
+                                      {(showActions && showUseGoodies) &&
+                                        <UseGoodies useGoodies={this.props.useGoodies}
+                                        petId={this.props.activepet.pet_id}
+                                        isHappinessLevelFullfilled={isHappinessLevelFullfilled}/>
+                                      }
                                        {this.props.activepet.userspet == false && !showActions &&
                                             <span>
                                              <button onClick={() => this.props.addPet(this.props.activepet.pet_id)} 
                                                  className="btn-floating  waves-effect waves-light ">
                                              <i className="material-icons black">add</i>
+                
                                          </button>                                         
                                          </span>
                                       }
@@ -118,13 +123,23 @@ class PetProfile extends Component {
             //     <TimingSpinner /> 
             // )
         }
-        const { activeUserPet } = this.props;
+        const { activeUserPet, userGoodies, activepet} = this.props;
        // console.log(props);
        let showActions = false;
-        //console.log("activeUserPet999"+JSON.stringify(activeUserPet));
+       let showUseGoodies = false;
+       let isHappinessLevelFullfilled = false;
+        //console.log("activepet999"+JSON.stringify(activepet));
         if(Object.keys(activeUserPet).length > 0){
             this.state.loading=true;
             showActions= true;
+            if(activeUserPet.happinessLevel===(activepet.noOfTimesToFeed+activepet.noOfTimesToWalk+activepet.noOfTimesToPet ))
+            {
+                isHappinessLevelFullfilled=true;
+            }
+        }
+        if(Object.keys(userGoodies).length > 0){
+            this.state.loading=true;
+            showUseGoodies= true;
         }
         //console.log("this.props" + JSON.stringify(this.props.activeUserPet));
         //console.log("this.props" + JSON.stringify(this.props.addPet));
@@ -133,7 +148,7 @@ class PetProfile extends Component {
         return (
             <div>
                 <div className="row" >
-                    {this.renderSinglePet(activeUserPet, showActions)}
+                    {this.renderSinglePet(activeUserPet, showActions, showUseGoodies, isHappinessLevelFullfilled)}
                 </div>
             </div>
         );
@@ -142,14 +157,15 @@ class PetProfile extends Component {
 }
 
 
-function mapStateToProps({ activepet,activeUserPet }) {
-    //console.log("Inside petprofile mapstatetoprops "+JSON.stringify(activepet));
-    //console.log("Inside petprofile mapstatetoprops activeUserPet "+JSON.stringify(activeUserPet));
+function mapStateToProps({ activepet,activeUserPet, userGoodies }) {
+    //console.log("Inside petprofile mapstatetoprops userGoodies "+JSON.stringify(userGoodies));
+    console.log("Inside petprofile mapstatetoprops activeUserPet "+JSON.stringify(activeUserPet));
     //console.log("Inside petprofile mapstatetoprops activeUserPet length "+Object.keys(activeUserPet).length);
     //console.log("Inside petprofile mapstatetoprops activeUserPet typeof "+typeof(activeUserPet));
 
     return { activepet : activepet,
-        activeUserPet : activeUserPet        
+        activeUserPet : activeUserPet,
+        userGoodies :   userGoodies     
     };
 }
 
@@ -158,4 +174,5 @@ function mapStateToProps({ activepet,activeUserPet }) {
     return { pet: pets[ownProps.match.params.name] };
   } */
 //export default connect(mapStateToProps, { fetchSinglePet,fetchUserPet, feedPet, petMyPet, walkPet })(PetProfile);
-export default connect(mapStateToProps,{fetchSinglePet,fetchUserPet, feedPet, petMyPet, walkPet, addPet})(PetProfile);
+export default connect(mapStateToProps,{fetchSinglePet,fetchUserPet, feedPet, petMyPet, walkPet, addPet, getNoOfUserGoodies,
+    useGoodies})(PetProfile);
