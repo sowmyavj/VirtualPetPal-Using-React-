@@ -1,8 +1,7 @@
 import axios from 'axios';
 import shop from '../api/shop'
 import { FETCH_USER, FETCH_ALL_PETS, FETCH_FILTER,FETCH_SINGLE_PET,FETCH_USER_PET, PET_MY_PET, FEED_PET, WALK_PET } from './types';
-import { ADD_TO_CART, CHECKOUT_REQUEST, CHECKOUT_SUCCESS,CHECKOUT_FAILURE,RECEIVE_PRODUCTS} from './types';
-import { SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION } from 'constants';
+import { ADD_TO_CART, CHECKOUT_REQUEST, CHECKOUT_SUCCESS,CHECKOUT_FAILURE,RECEIVE_PRODUCTS, GET_NO_OF_USER_GOODIES} from './types';
 
 
 const receiveProducts = products => ({
@@ -10,6 +9,7 @@ const receiveProducts = products => ({
     products
   })
   
+ 
   export const getAllProducts = () => dispatch => {
     shop.getProducts(products => {
       dispatch(receiveProducts(products))
@@ -22,70 +22,36 @@ const receiveProducts = products => ({
   })
   
   export const addToCart = productId => async (dispatch, getState) => {
+    var config = {
+      'id': productId 
+     };
+     console.log("addToCart called "+ productId);
+    let res=await  axios.post('/api/addToCart',config);
     if (getState().products.byId[productId].inventory > 0) {
       dispatch(addToCartUnsafe(productId))
     }
   }
   
   export const checkout = products => async (dispatch, getState) => {
-    
+    var config = {
+     'products': products 
+    };
     console.log("checkout called");
-    
-    let total=0
-    for (var i = 0; i < products.length; i++) { 
-      let price=products[i].price;
-      let q=products[i].quantity;
-      total+=(q*price);
-      
-      console.log(price);
-      console.log(q);
-  }
-  var config = {
-    'products': products ,
-    'total':total,
-    'credits':state.auth.credits
-   };
-
+    console.log(getState());
     let res=await  axios.post('/api/addgoodies',config);
-
     const { cart } = getState()
-    console.log("result is")
-    console.log(res)
-
-    let state=getState();
-
-    console.log(state.auth.credits);
-    console.log(state);
-    console.log(products);
-    
-    if(res.data.error)
-    {
-      console.log("cannot do checkout now")
-      shop.buyProducts(products, () => {
-        
-        dispatch({
-          type: CHECKOUT_FAILURE,
-          cart
-        })
-       
-      })
-    }
-    else{
-      console.log("can do checkout now")
-      dispatch({
-        type:CHECKOUT_REQUEST
-      })
-      shop.buyProducts(products, () => {
-        dispatch({
-          type: CHECKOUT_SUCCESS,
-          cart
-        })
-        // Replace the line above with line below to rollback on failure:
-        // dispatch({ type: types.CHECKOUT_FAILURE, cart })
-      })
-    }
   
-   
+   dispatch({
+      type:CHECKOUT_REQUEST
+    }) 
+    shop.buyProducts(products, () => {
+      dispatch({
+        type: CHECKOUT_SUCCESS,
+        payload: res.data
+      })
+      // Replace the line above with line below to rollback on failure:
+      // dispatch({ type: types.CHECKOUT_FAILURE, cart })
+    })
   }
 
 export const fetchUser = () => async (dispatch) => {
@@ -144,9 +110,9 @@ export const fetchSinglePet = (petId) => async (dispatch) => {
     };
 export const fetchUserPet = (petId) => async (dispatch) => {
         //api request to backend server
-        console.log("fetchUserPet"+ petId);
+        //console.log("fetchUserPet"+ petId);
         const res = await axios.get(`/api/userpet/${petId}`);
-        console.log("fetchUserPet222"+res);
+       // console.log("fetchUserPet"+res);
 
         dispatch ({
           type: FETCH_USER_PET,
@@ -154,6 +120,18 @@ export const fetchUserPet = (petId) => async (dispatch) => {
         });
        
     };
+export const getNoOfUserGoodies = () => async (dispatch) => {
+      //api request to backend server
+      console.log("getNoOfUserGoodies");
+      const res = await axios.get(`/api/user/goodies`);
+     console.log("getNoOfUserGoodies"+JSON.stringify(res));
+
+      dispatch ({
+        type: GET_NO_OF_USER_GOODIES,
+        payload: res.data
+      });
+     
+  };
 
 export const feedPet = (petId) => async (dispatch) => {
         //api request to backend server

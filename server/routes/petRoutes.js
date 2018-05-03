@@ -3,9 +3,17 @@ const mongoose = require('mongoose');
 const UserPetModel = require('../models/UserPets');
 const PetModel = require('../models/Pet');
 const GoodieModel = require('../models/UserGoodies');
+const UserModel = require('../models/User');
 
 const Pet = mongoose.model('pets');
 const UserPet = mongoose.model('userpets');
+
+const redis = require("redis");
+const client = redis.createClient();
+const bluebird = require("bluebird");
+
+bluebird.promisifyAll(redis.RedisClient.prototype);
+bluebird.promisifyAll(redis.Multi.prototype);
 
 module.exports = app => {
     app.get('/api/dashboard',requireLogin, async(req,res)=>{
@@ -240,44 +248,90 @@ module.exports = app => {
     });
 
     app.post('/api/addgoodies',requireLogin, async(req,res)=>{
-
-        console.log("/api/addgoodies ");
        
+        //clearing out the cache
+        let flushed = await client.flushdbAsync();
+        console.log("/api/addgoodies ");
+        console.log(flushed)
+       
+
         let user=req.user;
         let products=req.body.products;
-        let body=req.body;
-        let total=req.body.total;
-        let credits=req.body.credits;
-    //     //console.log(user);
-    //     //console.log(products);
-       console.log(total);
-       console.log(credits);
-       let result={}
-       if(credits<total){
-           console.log("Not enough credits")
-           result.error="Not enoug credits";
-           
-       }
-       else{
-        console.log(" enough credits")
+        //console.log(user);
+        console.log(products);
+        console.log(products[0]);
+        let userCredits=await UserModel.getUserCredits(user.googleId);
+        let total_price=0;
         for (var i = 0; i < products.length; i++) { 
-            let goodie ={};
             let id=products[i].id;
-            let q=products[i].quantity
-            let addedgoodie = await GoodieModel.addGoodie(user.googleId,id,q);
-            console.log(user);
-            console.log(products);
-            console.log(id);
-            console.log(q);
-        }
-        console.log("Before:: "+req.user.credits)
-        req.user.credits -= total;
-        console.log("Before:: "+req.user.credits)
-       }
-       
-        res.send(result);
-        
+            let quantity=products[i].quantity;
+            let price = products[i].price;
+            total_price += (price * quantity);
 
+        }
+        console.log("Total price"+total_price);
+        if(total_price <= userCredits){
+            for (var i = 0; i < products.length; i++) { 
+                let goodie ={};
+                let id=products[i].id;
+                let q=products[i].quantity
+                let addedgoodie = await GoodieModel.addGoodie(user.googleId,id,q);
+                //console.log(user);
+                //console.log(products);
+                //console.log(id);
+                //console.log(q);
+            }
+            let userGoodies = await GoodieModel.getUserGoodie(user.googleId);
+            let userGoodies_JSON={};
+            userGoodies_JSON._id=userGoodies._id,
+            userGoodies_JSON.userGoogleId=userGoodies.userGoogleId,
+            userGoodies_JSON.goodie_id=userGoodies.goodie_id,
+            userGoodies_JSON.quantity=userGoodies.quantity,
+            userGoodies_JSON.__v=userGoodies.__v;
+
+            let updateCredits=await UserModel.updateUserCredits(user.googleId, total_price);
+            res.send(userGoodies_JSON);
+
+        }else{
+            res.send({});
+
+        }
+    });
+
+    app.post('/api/addToCart',requireLogin, async(req,res)=>{
+
+        let user=req.user;
+        let id=req.body.id;
+       
+        
+        let productexists = await client.existsAsync(id);
+        console.log("/api/addToCart ");
+        console.log(productexists)
+        if (productexists == 1) {
+            console.log("productexists" + id);
+           
+            let a=await client.incrAsync(id);
+            console.log(a);
+        }
+        else{
+            console.log("product does not exist" + id);
+            let b= await client.setAsync(id, 1);
+            console.log(b);
+
+        }
+
+        console.log("checking keys")
+       
+        // let keys= await client.keysAsync('*');
+        //   //console.log(keys);
+        //     for(var i = 0, len = keys.length; i < len; i++) {
+        //       console.log(keys[i]);
+        //     }
+          
+            console.log("end /api/addToCart")
+       res.send({});
+       
+       
     });
 
 };
