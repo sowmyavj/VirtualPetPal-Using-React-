@@ -11,6 +11,7 @@ import WalkPet from './WalkPet';
 import Progress from './Progress';
 import TimingSpinner from './TimingSpinner';
 import UseGoodies from './UseGoodies';
+import ReactTooltip from 'react-tooltip'
 
 
 
@@ -54,6 +55,15 @@ class PetProfile extends Component {
                                 <div className="card-image">
                                     <img src={window.location.origin + '/images/' + this.props.activepet.profilephotoLink} height="286" width="250" />
                                     <span className="card-title black">{this.props.activepet.name}</span>
+                                    {this.props.activepet.userspet == false && !showActions &&
+                                            <span>
+                                            <ReactTooltip />
+                                             <button onClick={() => this.props.addPet(this.props.activepet.pet_id)} 
+                                                 className="btn-floating halfway-fab waves-effect waves-light ">
+                                             <i className="material-icons black" data-tip="AddPet">add</i>
+                                         </button>                                         
+                                         </span>
+                                      }
                                 </div>
                                 <div className="card-content">
                                     <p>{this.props.activepet.description}</p>
@@ -80,15 +90,15 @@ class PetProfile extends Component {
                                         petId={this.props.activepet.pet_id}
                                         isHappinessLevelFullfilled={isHappinessLevelFullfilled}/>
                                       }
-                                       {this.props.activepet.userspet == false && !showActions &&
+                                       {/* {this.props.activepet.userspet == false && !showActions &&
                                             <span>
+                                            <ReactTooltip />
                                              <button onClick={() => this.props.addPet(this.props.activepet.pet_id)} 
                                                  className="btn-floating  waves-effect waves-light ">
-                                             <i className="material-icons black">add</i>
-                
+                                             <i className="material-icons black" data-tip="AddPet">add</i>
                                          </button>                                         
                                          </span>
-                                      }
+                                      } */}
                                    
                                 </div>
                                 <form action="#">

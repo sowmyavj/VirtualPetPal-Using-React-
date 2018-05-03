@@ -22,7 +22,7 @@ class PetList extends Component {
               <img src={window.location.origin + '/images/'+ pets.profilephotoLink} height="286" width="250"/>
               <span className="card-title black">{pets.name}</span>
               <Link to={`/pet/${pets.pet_id}`} className="btn-floating halfway-fab waves-effect waves-light black">
-                <i className="material-icons">search</i>
+                <i className="material-icons" data-tip="CheckProfile">search</i>
               </Link>
             </div>
             <div className="card-content">  
