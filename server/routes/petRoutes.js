@@ -5,6 +5,8 @@ const UserPetModel = require('../models/UserPets');
 const PetModel = require('../models/Pet');
 const GoodieModel = require('../models/UserGoodies');
 const UserModel = require('../models/User');
+const async = require('async');
+const maxworkers = require('os').cpus().length;
 
 const Pet = mongoose.model('pets');
 const UserPet = mongoose.model('userpets')
@@ -20,14 +22,46 @@ const fs = require('fs');
 
 bluebird.promisifyAll(redis.RedisClient.prototype);
 bluebird.promisifyAll(redis.Multi.prototype);
-bluebird.promisifyAll(im)
+bluebird.promisifyAll(fs);
+
 
 let petImagesFetched=false;
 let productImagesFetched=false;
 
+function resize(params) {
+    console.log("resize")
+    var queue = async.queue(resizeimg, maxworkers);
+  
+    fs.readdir(params.src, function(err, files) {
+      files.forEach(function(file) {
+          console.log("pushing file "+file);
+        queue.push({
+          src: params.src+file,
+          dest: params.dest+file,
+          width: params.width,
+          height: params.height
+        })
+      });
+    });
+  }
+
+  function resizeimg(params, cb) {
+    console.log("resizeimg")
+    var imoptions = {
+      srcPath: params.src,
+      dstPath: params.dest
+    };
+    console.log(imoptions)
+    if (params.width !== undefined) imoptions.width = params.width;
+    if (params.height !== undefined) imoptions.height = params.height;
+    console.log("before im.resize")
+    im.resize(imoptions, cb);
+    console.log("after im.resize")
+  }
+
 const populateImages = async()=>{
     console.log("petImagesFetched "+petImagesFetched);
-       
+    
     if(!petImagesFetched){
         console.log("No images available yet.. fetching")
         petImagesFetched=true;
@@ -40,36 +74,34 @@ const populateImages = async()=>{
             link=link+allpets[i].profilephotoLink+"/download?force=true";
             let filename=path+allpets[i].profilephotoLink+".jpg"
             const url = 'https://unsplash.com/photos/AaEQmoufHLk/download?force=true'
-            var imageRes = await axios({
-                method: 'GET',
-                url: link,
-                responseType: 'stream'
-            })
-           imageRes.data.pipe(fs.createWriteStream(filename));
+        //     var imageRes = await axios({
+        //         method: 'GET',
+        //         url: link,
+        //         responseType: 'stream'
+        //     })
+        //    imageRes.data.pipe(fs.createWriteStream(filename));
             console.log("finsihed writing image" + filename)
-            let r=await im.cropAsync({
-                srcPath: filename,
-                dstPath: filename+"_",
-                width: 200,
-                height: 300,
-                quality: 10,
-                gravity: 10,
-              });
-              console.log(r);
-           
-            
         }
+        console.log(path);
+        console.log(path+"/resized")
+        resize({
+            src: path+"pets/",
+            dest: path,
+            width: 300,
+            height:300
+          });
        console.log("End promise execution");
     }
 }
+
 module.exports = app => {
     app.get('/api/dashboard',requireLogin, async(req,res)=>{
-        console.log("Dashboard")
-    //    populateImages()
+        console.log("Dashboard");
+       populateImages();
        const userpets =await UserPet.find({ userGoogleId: req.user.googleId});
        // console.log("typeof userpets"+typeof(userpets));
         let petIdlist=[];
-        userpets.forEach(function(p) { petIdlist.push(p.pet_id); } )
+        userpets.forEach(function(p) { petIdlist.push(p.pet_id); } );
         let pets = await Pet.find({"pet_id": {$in : petIdlist} });
         //console.log("Dashboard pets "+pets);
         res.send(pets);

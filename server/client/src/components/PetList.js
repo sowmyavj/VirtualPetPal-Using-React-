@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchAllPets,resizeImage } from '../actions';
+import { fetchAllPets } from '../actions';
 import '../css/style.css';
 import { Link } from 'react-router-dom';
 
@@ -19,7 +19,7 @@ class PetList extends Component {
 
           <div className="card" key={pets._id}>
             <div className="card-image">
-              <img src={resizeImage(window.location.origin + '/images/'+ pets.profilephotoLink+".jpg")}  height="286" width="250"/>
+                <img src={window.location.origin + '/images/'+ pets.profilephotoLink+".jpg"}  height="286" width="250"/>
               <span className="card-title black">{pets.name}</span>
               <Link to={`/pet/${pets.pet_id}`} className="btn-floating halfway-fab waves-effect waves-light black">
                 <i className="material-icons" data-tip="CheckProfile">search</i>
