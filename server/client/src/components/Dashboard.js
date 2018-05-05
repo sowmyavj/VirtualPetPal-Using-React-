@@ -7,16 +7,28 @@ import { NotificationContainer, NotificationManager } from 'react-notifications'
 
 class Dashboard extends Component {
   componentDidMount(){
-    console.log("Dashboard");
+    var d = new Date();
+    var n = d.getHours();
+    console.log("Dashboard"+n);
+
+    console.log("Dashboard"+new Date().toLocaleString());
     //this.createNotification('success')()
-    setTimeout(this.createNotification('info'), 3000);
+    let message='Time to Pet your Pets';
+    //n=18;
+    if(n >= 9 && n <= 11 || n >= 14 && n <= 16 || n > 20 && n <= 22  ){
+      message='Time to Feed your Pets';
+    }else if(n >= 18  && n <= 20 ){
+      message='Time to Walk your Pets';
+
+    }
+    setTimeout(this.createNotification('info',message), 3000);
   }
-  createNotification = type => () => {
+  createNotification = (type,message) => () => {
     console.log("createNotification");
 
     switch (type) {
       case 'info':
-        NotificationManager.info('Time to feed your Pet');
+        NotificationManager.info(message);
         break;
       case 'success':
         NotificationManager.success('Success message', 'Title here');
