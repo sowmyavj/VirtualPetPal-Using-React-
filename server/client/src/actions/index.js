@@ -12,16 +12,16 @@ const receiveProducts = products => ({
 
   export const resizeImage = (image) => {
     console.log("resize Image")
-    imagemagick.crop({
-      srcPath: image,
-      dstPath: image+"_",
-      width: 200,
-      height: 400,
-      quality: 10,
-      gravity: 5,
-    }, function(err, stdout, stderr){
+    // imagemagick.crop({
+    //   srcPath: image,
+    //   dstPath: image+"_",
+    //   width: 200,
+    //   height: 400,
+    //   quality: 10,
+    //   gravity: 5,
+    // }, function(err, stdout, stderr){
      
-    })
+    // })
     console.log("after resize Image")
     return image;
   }

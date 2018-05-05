@@ -26,7 +26,7 @@ let petImagesFetched=false;
 let productImagesFetched=false;
 
 const populateImages = async()=>{
-    console.log("petImagesFetched "+petImagesFetched)
+    console.log("petImagesFetched "+petImagesFetched);
        
     if(!petImagesFetched){
         console.log("No images available yet.. fetching")
