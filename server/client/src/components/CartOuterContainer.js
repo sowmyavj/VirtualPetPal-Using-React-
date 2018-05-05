@@ -6,7 +6,7 @@ import CartContainer from './CartContainer'
 import { Component } from 'react';
 import ReactTooltip from 'react-tooltip'
 import Goodies from './Goodies'
-import { getNoOfUserGoodies } from '../actions';
+import { getNoOfUserGoodies, getAllProducts } from '../actions';
 
   class CartOuterContainer extends Component {
     constructor(props) {
@@ -15,6 +15,8 @@ import { getNoOfUserGoodies } from '../actions';
     }
     componentDidMount() {
       console.log("cart outer component did mount start");
+      //dispatch(getAllProducts())
+      //getAllProducts();
       this.props.getNoOfUserGoodies();
       console.log("component did mount end");
   }

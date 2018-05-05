@@ -22,11 +22,11 @@ const receiveProducts = products => ({
   })
   
   export const addToCart = productId => async (dispatch, getState) => {
-    var config = {
-      'id': productId 
-     };
-     console.log("addToCart called "+ productId);
-    let res=await  axios.post('/api/addToCart',config);
+    // var config = {
+    //   'id': productId 
+    //  };
+    //  console.log("addToCart called "+ productId);
+    //let res=await  axios.post('/api/addToCart',config);
     if (getState().products.byId[productId].inventory > 0) {
       dispatch(addToCartUnsafe(productId))
     }
@@ -121,8 +121,10 @@ export const fetchUserPet = (petId) => async (dispatch) => {
        
     };
 export const getNoOfUserGoodies = () => async (dispatch) => {
+      
       //api request to backend server
       console.log("getNoOfUserGoodies");
+     //await getAllProducts();
       const res = await axios.get(`/api/user/goodies`);
      console.log("getNoOfUserGoodies"+JSON.stringify(res));
 

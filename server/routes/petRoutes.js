@@ -334,4 +334,49 @@ module.exports = app => {
        
     });
 
+    app.get('/api/getcart',requireLogin, async(req,res)=>{
+        
+        //console.log(" /api/getcart checking keys");
+        
+        client.keys('*', function (err, keys) {
+            if (err) return console.log(err);
+            if(keys){
+                
+                       // console.log("key:: ")
+                        
+                        for(var i = 0, len = keys.length; i < len; i++) {
+                                  //console.log(keys[i]);
+                                }
+                        res.send(keys);
+                    } 
+                    else{
+                        res.send([]);
+                    }
+                }, 
+            
+        );
+      
+
+    });
+
+    app.get('/api/getcartvalues',requireLogin, (req,res)=>{
+        
+        console.log(" /api/getcartvalues checking keys");
+        
+        let keys= client.keys("*");
+       
+                        var ret={};
+                        for(var i = 0, len = keys.length; i < len; i++) {
+                                  console.log(keys[i]);
+                                  //ret.push(parseInt(keys[i]));
+                                  let value= client.get(keys[i]);
+                                  console.log(keys[i], value)
+                                  ret[keys[i]]=value;
+                                }
+                                console.log(ret)
+                        res.send(ret);
+        }); 
+
+                   
+
 };

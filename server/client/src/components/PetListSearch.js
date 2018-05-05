@@ -122,6 +122,8 @@ class PetListSearch extends Component {
 }
 
 function mapStateToProps({ filterpets }) {
+  console.log("Pet List search state")
+  console.log(this.state) 
   return { filterpets };
 }
 
