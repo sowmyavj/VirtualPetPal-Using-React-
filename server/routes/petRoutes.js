@@ -47,15 +47,15 @@ const populateImages = async()=>{
             })
            imageRes.data.pipe(fs.createWriteStream(filename));
             console.log("finsihed writing image" + filename)
-            // let r=await im.cropAsync({
-            //     srcPath: filename,
-            //     dstPath: filename+"_",
-            //     width: 200,
-            //     height: 300,
-            //     quality: 10,
-            //     gravity: 10,
-            //   });
-            //   console.log(r);
+            let r=await im.cropAsync({
+                srcPath: filename,
+                dstPath: filename+"_",
+                width: 200,
+                height: 300,
+                quality: 10,
+                gravity: 10,
+              });
+              console.log(r);
            
             
         }

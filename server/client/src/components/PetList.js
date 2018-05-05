@@ -19,7 +19,7 @@ class PetList extends Component {
 
           <div className="card" key={pets._id}>
             <div className="card-image">
-              <img src={resizeImage(window.location.origin + '/images/'+ pets.profilephotoLink+".jpg")} alt={window.location.origin + "/images/Not_available.jpg"} height="286" width="250"/>
+              <img src={resizeImage(window.location.origin + '/images/'+ pets.profilephotoLink+".jpg")}  height="286" width="250"/>
               <span className="card-title black">{pets.name}</span>
               <Link to={`/pet/${pets.pet_id}`} className="btn-floating halfway-fab waves-effect waves-light black">
                 <i className="material-icons" data-tip="CheckProfile">search</i>
