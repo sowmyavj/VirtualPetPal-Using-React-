@@ -65,7 +65,7 @@ const populateImages = async()=>{
 module.exports = app => {
     app.get('/api/dashboard',requireLogin, async(req,res)=>{
         console.log("Dashboard")
-       populateImages()
+    //    populateImages()
        const userpets =await UserPet.find({ userGoogleId: req.user.googleId});
        // console.log("typeof userpets"+typeof(userpets));
         let petIdlist=[];
