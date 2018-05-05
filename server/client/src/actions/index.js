@@ -1,5 +1,6 @@
 import axios from 'axios';
 import shop from '../api/shop'
+import imagemagick from 'imagemagick'
 import { FETCH_USER, FETCH_ALL_PETS, FETCH_FILTER,FETCH_SINGLE_PET,FETCH_USER_PET, PET_MY_PET, FEED_PET, WALK_PET } from './types';
 import { ADD_TO_CART, CHECKOUT_REQUEST, CHECKOUT_SUCCESS,CHECKOUT_FAILURE,RECEIVE_PRODUCTS, GET_NO_OF_USER_GOODIES} from './types';
 
@@ -8,6 +9,22 @@ const receiveProducts = products => ({
     type: RECEIVE_PRODUCTS,
     products
   })
+
+  export const resizeImage = (image) => {
+    console.log("resize Image")
+    imagemagick.crop({
+      srcPath: image,
+      dstPath: image+"_",
+      width: 200,
+      height: 400,
+      quality: 10,
+      gravity: 5,
+    }, function(err, stdout, stderr){
+     
+    })
+    console.log("after resize Image")
+    return image;
+  }
   
  
   export const getAllProducts = () => dispatch => {

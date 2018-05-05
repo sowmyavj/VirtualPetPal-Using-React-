@@ -51,7 +51,7 @@ const initPets = async()=>{
         noOfTimesToFeed: 3,
         noOfTimesToWalk: 2,
         noOfTimesToPet:3,
-        profilephotoLink: "1.jpg",
+        profilephotoLink: "K4mSJ7kc0As",
         testimonials: [],
         description: "My Favourite food is cheese!"
     }).save();
@@ -62,7 +62,7 @@ const initPets = async()=>{
         noOfTimesToFeed:4,
         noOfTimesToWalk: 1,
         noOfTimesToPet:3,
-        profilephotoLink:"4.jpg",
+        profilephotoLink:"nEqpHsZv9HI",
         testimonials:[],
         description: "I love chasing other dogs!"}).save();
 
@@ -74,7 +74,7 @@ const initPets = async()=>{
         noOfTimesToFeed:5,
         noOfTimesToWalk: 1,
         noOfTimesToPet:4,
-        profilephotoLink:"2.jpg",
+        profilephotoLink:"DziZIYOGAHc",
         testimonials:[],
         description: "I love running around the lawn"}).save();
     let pet4=await new Pet({ name: "Charm",
@@ -84,7 +84,7 @@ const initPets = async()=>{
         noOfTimesToFeed:3,
         noOfTimesToWalk: 2,
         noOfTimesToPet:5,
-        profilephotoLink:"3.jpg",
+        profilephotoLink:"uiJ49cEhEf0",
         testimonials:[],
         description: "I like worms"}).save();
     let pet5=await new Pet({ name: "Hero",
@@ -94,7 +94,7 @@ const initPets = async()=>{
         noOfTimesToFeed:4,
         noOfTimesToWalk: 0,
         noOfTimesToPet:3,
-        profilephotoLink:"6.jpg",
+        profilephotoLink:"OsOQhAzcEKc",
         testimonials:[],
         description: "I love fish!"}).save();
         let pet6=await new Pet({ name: "Felicity",
@@ -104,7 +104,7 @@ const initPets = async()=>{
         noOfTimesToFeed:4,
         noOfTimesToWalk: 1,
         noOfTimesToPet:4,
-        profilephotoLink:"5.jpg",
+        profilephotoLink:"IFxjDdqK_0U",
         testimonials:[],
         description: "I love salmon!"}).save();
     //var pet5 = makePetDoc('Hero', "Cat","M", 4,0,["5.jpg"],[])

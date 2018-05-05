@@ -1,3 +1,4 @@
+const axios = require ('axios');
 const requireLogin = require('../middlewares/requireLogin');
 const mongoose = require('mongoose');
 const UserPetModel = require('../models/UserPets');
@@ -6,19 +7,66 @@ const GoodieModel = require('../models/UserGoodies');
 const UserModel = require('../models/User');
 
 const Pet = mongoose.model('pets');
-const UserPet = mongoose.model('userpets');
+const UserPet = mongoose.model('userpets')
+const http = require('https')
 
 const redis = require("redis");
 const client = redis.createClient();
 const bluebird = require("bluebird");
 
+
+const im = require('imagemagick');
+const fs = require('fs');
+
 bluebird.promisifyAll(redis.RedisClient.prototype);
 bluebird.promisifyAll(redis.Multi.prototype);
+bluebird.promisifyAll(im)
 
+let petImagesFetched=false;
+let productImagesFetched=false;
+
+const populateImages = async()=>{
+    console.log("petImagesFetched "+petImagesFetched)
+       
+    if(!petImagesFetched){
+        console.log("No images available yet.. fetching")
+        petImagesFetched=true;
+        const allpets=await Pet.find();
+        let path=process.cwd();
+        path+="/client/public/images/";
+       for(var i=0;i<allpets.length;i++){
+           
+           let link="https://unsplash.com/photos/";
+            link=link+allpets[i].profilephotoLink+"/download?force=true";
+            let filename=path+allpets[i].profilephotoLink+".jpg"
+            const url = 'https://unsplash.com/photos/AaEQmoufHLk/download?force=true'
+            var imageRes = await axios({
+                method: 'GET',
+                url: link,
+                responseType: 'stream'
+            })
+           imageRes.data.pipe(fs.createWriteStream(filename));
+            console.log("finsihed writing image" + filename)
+            // let r=await im.cropAsync({
+            //     srcPath: filename,
+            //     dstPath: filename+"_",
+            //     width: 200,
+            //     height: 300,
+            //     quality: 10,
+            //     gravity: 10,
+            //   });
+            //   console.log(r);
+           
+            
+        }
+       console.log("End promise execution");
+    }
+}
 module.exports = app => {
     app.get('/api/dashboard',requireLogin, async(req,res)=>{
-        //console.log("Req"+req.user.googleId);
-        const userpets =await UserPet.find({ userGoogleId: req.user.googleId});
+        console.log("Dashboard")
+       populateImages()
+       const userpets =await UserPet.find({ userGoogleId: req.user.googleId});
        // console.log("typeof userpets"+typeof(userpets));
         let petIdlist=[];
         userpets.forEach(function(p) { petIdlist.push(p.pet_id); } )
