@@ -5,6 +5,8 @@ import { createStore, applyMiddleware} from 'redux';
 import reducers from './reducers';
 import 'materialize-css/dist/css/materialize.min.css'
 import 'materialize-css/dist/js/materialize.js'
+import 'react-notifications/dist/react-notifications.css'
+
 import reduxThunk from 'redux-thunk';
 import App from './components/App';
 import { getAllProducts, populateCart } from './actions'
