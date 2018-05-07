@@ -289,6 +289,7 @@ module.exports = app => {
 
 
         let pet = await PetModel.getPet(petId);
+
         let feedProgress= await UserPetModel.getfedProgress(pet.noOfTimesToFeed, userpet.noOfTimesFed)
         //console.log("feedProgress "+feedProgress);
         let walkProgress= await UserPetModel.getWalkProgress(pet.noOfTimesToWalk, userpet.noOfTimesWalked)
