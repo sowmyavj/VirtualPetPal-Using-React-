@@ -34,7 +34,7 @@ function resize(params) {
   
     fs.readdir(params.src, function(err, files) {
       files.forEach(function(file) {
-          console.log("pushing file "+file);
+          console.log("pushing file "+file)
         queue.push({
           src: params.src+file,
           dest: params.dest+file,
@@ -65,30 +65,30 @@ const populateImages = async()=>{
     if(!petImagesFetched){
         console.log("No images available yet.. fetching")
         petImagesFetched=true;
-        const allpets=await Pet.find();
+    //     const allpets=await Pet.find();
         let path=process.cwd();
         path+="/client/public/images/";
-       for(var i=0;i<allpets.length;i++){
+    //    for(var i=0;i<allpets.length;i++){
            
-           let link="https://unsplash.com/photos/";
-            link=link+allpets[i].profilephotoLink+"/download?force=true";
-            let filename=path+allpets[i].profilephotoLink+".jpg"
-            const url = 'https://unsplash.com/photos/AaEQmoufHLk/download?force=true'
-        //     var imageRes = await axios({
-        //         method: 'GET',
-        //         url: link,
-        //         responseType: 'stream'
-        //     })
-        //    imageRes.data.pipe(fs.createWriteStream(filename));
-            console.log("finsihed writing image" + filename)
-        }
+    //        let link="https://unsplash.com/photos/";
+    //         link=link+allpets[i].profilephotoLink+"/download?force=true";
+    //         let filename=path+allpets[i].profilephotoLink+".jpg"
+    //         const url = 'https://unsplash.com/photos/AaEQmoufHLk/download?force=true'
+    //     //     var imageRes = await axios({
+    //     //         method: 'GET',
+    //     //         url: link,
+    //     //         responseType: 'stream'
+    //     //     })
+    //     //    imageRes.data.pipe(fs.createWriteStream(filename));
+    //         console.log("finsihed writing image" + filename)
+    //     }
         console.log(path);
-        console.log(path+"/resized")
+        console.log(path+"/resized");
         resize({
             src: path+"pets/",
             dest: path,
-            width: 300,
-            height:300
+            width: 375,
+            height:286
           });
        console.log("End promise execution");
     }

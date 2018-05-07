@@ -1,5 +1,4 @@
 [
-  {"id": 1, "title": "Dog Treats", "price": 2, "inventory": 12, "image":"dog-food.jpg"},
-  {"id": 2, "title": "Cat Treats", "price": 3, "inventory": 10, "image":"cat-food.jpg"}
+  {"id": 1, "title": "Pet Treats", "price": 2, "inventory": 12, "image":"dog-food.jpg"}
   
 ]

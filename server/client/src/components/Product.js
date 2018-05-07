@@ -13,7 +13,7 @@ const Product = ({ price, quantity, title,image,onAddToCart }) => (
             <span className="card-title black">{title}</span>
         </div>
         <div className="card-content">
-            <p>Treats for your pet</p>
+            <p>This will increase your pets happiness by 1</p>
             <p>Price: {price}$</p>
             <button id="add_btn" className="btn-floating black "
             style={{ margin: '5px' }}
