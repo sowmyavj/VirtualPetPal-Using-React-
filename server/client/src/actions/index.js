@@ -38,9 +38,25 @@ const receiveProducts = products => ({
     };
     console.log("checkout called");
     console.log(getState());
+   // console.log(dispatch);
     let res=await  axios.post('/api/addgoodies',config);
     const { cart } = getState()
-  
+    console.log("getting current user")
+    let res1=await  axios.get('/api/current_user');
+    dispatch({
+         type: FETCH_USER,
+         payload: res1.data
+     }); 
+
+     const res2 = await axios.get(`/api/user/goodies`);
+     console.log("getNoOfUserGoodies"+JSON.stringify(res2));
+
+      dispatch ({
+        type: GET_NO_OF_USER_GOODIES,
+        payload: res2.data
+      });
+
+
    dispatch({
       type:CHECKOUT_REQUEST
     }) 
@@ -56,6 +72,7 @@ const receiveProducts = products => ({
 
 export const fetchUser = () => async (dispatch) => {
         //api request to backend server
+        console.log("Fetch user")
        let res=await  axios.get('/api/current_user');
        dispatch({
             type: FETCH_USER,
@@ -75,7 +92,7 @@ export const handleToken = (token) => async (dispatch) => {
 
 export const fetchAllPets = () => async (dispatch) => {
         //api request to backend server
-        console.log("fetchAllPets");
+        // console.log("fetchAllPets");
        let res=await  axios.get('/api/dashboard');
        dispatch({
             type: FETCH_ALL_PETS,
@@ -85,10 +102,10 @@ export const fetchAllPets = () => async (dispatch) => {
 
     export const fetchFilter = (type) => async (dispatch) => {
         //api request to backend server
-        console.log("fetchFilter " +type);
+        // console.log("fetchFilter " +type);
        let res=await  axios.get(`/api/type/${type}`);
-       console.log("fetchFilter");
-       console.log(res);
+      //  console.log("fetchFilter");
+      //  console.log(res);
        dispatch({
             type: FETCH_FILTER,
             payload: res.data
@@ -98,7 +115,7 @@ export const fetchAllPets = () => async (dispatch) => {
     
 export const fetchSinglePet = (petId) => async (dispatch) => {
         //api request to backend server
-        console.log("fetchSinglePet"+ petId);
+        // console.log("fetchSinglePet"+ petId);
         const res = await axios.get(`/api/pet/${petId}`);
         //console.log("fetchSinglePet222"+res);
 
@@ -148,9 +165,9 @@ export const getNoOfUserGoodies = () => async (dispatch) => {
 };
 export const feedPet = (petId) => async (dispatch) => {
         //api request to backend server
-        console.log("feedPet"+ petId);
+        // console.log("feedPet"+ petId);
         const res = await axios.post(`/api/pet/feed/${petId}`);
-        console.log("feedPet222"+JSON.stringify(res));
+        // console.log("feedPet222"+JSON.stringify(res));
 
         dispatch ({
           type: FETCH_USER_PET,
@@ -161,9 +178,9 @@ export const feedPet = (petId) => async (dispatch) => {
 
 export const petMyPet = (petId) => async (dispatch) => {
         //api request to backend server
-        console.log("petMyPet"+ petId);
+        // console.log("petMyPet"+ petId);
         const res = await axios.post(`/api/pet/pet/${petId}`);
-        console.log("petMyPet222"+JSON.stringify(res));
+        // console.log("petMyPet222"+JSON.stringify(res));
 
         dispatch ({
           type: FETCH_USER_PET,
@@ -187,7 +204,7 @@ export const petMyPet = (petId) => async (dispatch) => {
 
     export const addPet = (petId) => async (dispatch) => {
         //api request to backend server
-        console.log("addPet"+ petId);
+        // console.log("addPet"+ petId);
         const res = await axios.post(`/api/pet/add/${petId}`);
         //console.log("fetchSinglePet222"+res);
 

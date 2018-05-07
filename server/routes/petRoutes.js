@@ -338,7 +338,6 @@ module.exports = app => {
 
         let user=req.user;
         let products=req.body.products;
-        //console.log(user);
         console.log(products);
         console.log(products[0]);
         let userCredits=await UserModel.getUserCredits(user.googleId);
