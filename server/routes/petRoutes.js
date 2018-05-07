@@ -29,12 +29,12 @@ let petImagesFetched=false;
 let productImagesFetched=false;
 
 function resize(params) {
-    console.log("resize")
+    // console.log("resize")
     var queue = async.queue(resizeimg, maxworkers);
   
     fs.readdir(params.src, function(err, files) {
       files.forEach(function(file) {
-          console.log("pushing file "+file)
+        //   console.log("pushing file "+file)
         queue.push({
           src: params.src+file,
           dest: params.dest+file,
@@ -46,24 +46,24 @@ function resize(params) {
   }
 
   function resizeimg(params, cb) {
-    console.log("resizeimg")
+    // console.log("resizeimg")
     var imoptions = {
       srcPath: params.src,
       dstPath: params.dest
     };
-    console.log(imoptions)
+    // console.log(imoptions)
     if (params.width !== undefined) imoptions.width = params.width;
     if (params.height !== undefined) imoptions.height = params.height;
-    console.log("before im.resize")
+    // console.log("before im.resize")
     im.resize(imoptions, cb);
-    console.log("after im.resize")
+    // console.log("after im.resize")
   }
 
 const populateImages = async()=>{
-    console.log("petImagesFetched "+petImagesFetched);
+    // console.log("petImagesFetched "+petImagesFetched);
     
     if(!petImagesFetched){
-        console.log("No images available yet.. fetching")
+        // console.log("No images available yet.. fetching")
         petImagesFetched=true;
     //     const allpets=await Pet.find();
         let path=process.cwd();
@@ -82,15 +82,15 @@ const populateImages = async()=>{
     //     //    imageRes.data.pipe(fs.createWriteStream(filename));
     //         console.log("finsihed writing image" + filename)
     //     }
-        console.log(path);
-        console.log(path+"/resized");
+        // console.log(path);
+        // console.log(path+"/resized");
         resize({
             src: path+"pets/",
             dest: path,
             width: 375,
             height:286
           });
-       console.log("End promise execution");
+    //    console.log("End promise execution");
     }
 }
 
