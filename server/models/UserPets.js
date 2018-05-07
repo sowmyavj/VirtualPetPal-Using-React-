@@ -11,7 +11,7 @@ let exportedMethods = {
             userGoogleId: userid,
             pet_id: petId,
             noOfTimesFed: 0,
-            noOfTimesPetted:1,
+            noOfTimesPetted:0,
             noOfTimesWalked: 0,
             happinessLevel: 0,
             currentDate: new Date()

@@ -68,7 +68,6 @@ const initPets = async()=>{
 
     let pet3=await new Pet({ name: "Comet",
         pet_id : "88bya930-167d-453a-9513-b6da678c9e1b",
-
         typeOfPet : 0,
         gender : 1,
         noOfTimesToFeed:5,
@@ -92,12 +91,12 @@ const initPets = async()=>{
         typeOfPet : 0,
         gender : 1,
         noOfTimesToFeed:4,
-        noOfTimesToWalk: 0,
+        noOfTimesToWalk: 2,
         noOfTimesToPet:3,
         profilephotoLink:"OsOQhAzcEKc",
         testimonials:[],
         description: "I love fish!"}).save();
-        let pet6=await new Pet({ name: "Felicity",
+    let pet6=await new Pet({ name: "Felicity",
         pet_id : "90ppp130-167d-453a-9513-b6da678c9e1b",
         typeOfPet : 1,
         gender : 1,
