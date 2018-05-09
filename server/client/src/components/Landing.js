@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Background from '../images/b2.jpg';
 import '../css/style.css';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 var backgroundstyle = {
   width: "100%",
@@ -10,20 +12,28 @@ var backgroundstyle = {
 }
 
 class Landing extends Component {
-
+  renderContent() {
+    switch (this.props.auth) {
+      case null:
+        return;
+      case false:
+        return <div >
+              <div className="parallax">
+              </div>
+              <div></div>
+              <div className="caption">
+                <span className="border">Signup and experience the joy of caring for a furry friend.</span>
+              </div>
+              <div className="parallax">
+              </div>
+              </div>;
+      default:
+      return <Redirect to="/dashboard" />;
+    }
+  }
   render() {
     return (
-      <div >
-        <div className="parallax">
-        </div>
-        <div></div>
-        <div className="caption">
-          <span className="border">Signup and experience the joy of caring for a furry friend.</span>
-        </div>
-        <div className="parallax">
-        </div>
-
-      </div>
+      <div>{this.renderContent()}</div>
 
     );
 
@@ -32,5 +42,8 @@ class Landing extends Component {
 
 
 }
-
-export default Landing;
+function mapStateToProps(state) {
+  return { auth: state.auth }
+}
+//export default Landing;
+export default connect(mapStateToProps)(Landing);
