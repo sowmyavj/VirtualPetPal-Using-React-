@@ -90,34 +90,23 @@ class PetProfile extends Component {
                                         petId={this.props.activepet.pet_id}
                                         isHappinessLevelFullfilled={isHappinessLevelFullfilled}/>
                                       }
-                                       {/* {this.props.activepet.userspet == false && !showActions &&
-                                            <span>
-                                            <ReactTooltip />
-                                             <button onClick={() => this.props.addPet(this.props.activepet.pet_id)} 
-                                                 className="btn-floating  waves-effect waves-light ">
-                                             <i className="material-icons black" data-tip="AddPet">add</i>
-                                         </button>                                         
-                                         </span>
-                                      } */}
+        
                                    
                                 </div>
-                                <form action="#">
-                                    <p className="range-field">
+                                {(this.props.activepet.userspet == true || showActions) &&
                                         <span>
-    
-                                            <input type="range" id="test5" min="0" max={this.props.activepet.noOfTimesToFeed +this.props.activepet.noOfTimesToWalk+this.props.activepet.noOfTimesToPet}
-                                                 value={activeUserPet.happinessLevel ? activeUserPet.happinessLevel :0} disabled color="blue" />
-                                            <br /><br /><br />
-                                            <button className="btn-floating btn-large waves-effect halfway-fab waves-light green" >
+                                        <button className="btn-floating btn-large   waves-light green" >
                                                 <i className="material-icons">mood</i>
                                             </button>
-                                            <button className="fab-button btn-floating btn-large waves-effect halfway-fab waves-light #90caf9 red lighten-2" >
+                                            <input type="range" className="range-field" min="0" max={this.props.activepet.noOfTimesToFeed +this.props.activepet.noOfTimesToWalk+this.props.activepet.noOfTimesToPet}
+                                                 value={activeUserPet.happinessLevel ? activeUserPet.happinessLevel :0} disabled color="blue" style={{ width: '70%' }}/>
+                                            
+                                            <button className="fab-button btn-floating btn-large waves-light #90caf9 red lighten-2" >
                                                 <i className="material-icons">mood_bad</i>
                                             </button>
                                         </span>
-                                    </p>
+                                }
     
-                                </form>
                             </div>
                         </div>
                     </div>

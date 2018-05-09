@@ -6,7 +6,10 @@
 
 }
 
-
+.range-field {
+    
+    width: 70%;
+}
 .centered {
     position: absolute;
     top: 50%;
@@ -48,7 +51,7 @@
     background-color: #ffffff !important;
     border-color: #ccc !important;
 }
-.fab-button {
+.fab1-button {
     position: absolute;
     bottom: -35px;
     left: 10px;
@@ -145,4 +148,3 @@
     font-size: 25px;
     letter-spacing: 10px;
   }
-  
