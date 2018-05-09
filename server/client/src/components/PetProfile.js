@@ -49,11 +49,14 @@ class PetProfile extends Component {
             //console.log(activeUserPet);
             console.log(this.props.activepet);
                 return (
+                    <div>
                     <div className="col m4">
+                    </div>
+                    <div className="col m6">
                         <div className="col" id="petCard">
                             <div className="card">
                                 <div className="card-image">
-                                    <img src={window.location.origin + '/images/' + this.props.activepet.profilephotoLink+".jpg"} height="286" width="250" 
+                                    <img src={window.location.origin + '/images/' + this.props.activepet.profilephotoLink+".jpg"} 
                                     alt="pet profile picture"/>
                                     <span className="card-title black">{this.props.activepet.name}</span>
                                     {this.props.activepet.userspet == false && !showActions &&
@@ -111,19 +114,14 @@ class PetProfile extends Component {
                             </div>
                         </div>
                     </div>
+                    </div>
                 );
             
             
         }
     }
     render() {
-        if(this.state.loading){
-            console.log("display loading");
-            // return(
-            //     <TimingSpinner /> 
-            // )
-        }
-        const { activeUserPet, userGoodies, activepet} = this.props;
+       const { activeUserPet, userGoodies, activepet} = this.props;
        // console.log(props);
        let showActions = false;
        let showUseGoodies = false;

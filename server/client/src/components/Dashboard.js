@@ -59,16 +59,13 @@ class Dashboard extends Component {
           return <div>
                 <br/>
                 <br/>
-                <NotificationContainer style={style}/>
+                <NotificationContainer/>
                 <PetList />
                 </div> ;
     }
   }
-//const Dashboard = () => {
   render(){
-    //console.log("dashboard auth"+JSON.stringify(this.props.auth))
-    
-        return(
+    return(
         <div>
           {this.renderContent()}
           </div>
