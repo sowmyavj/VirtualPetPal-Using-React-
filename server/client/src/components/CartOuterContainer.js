@@ -42,8 +42,10 @@ class CartOuterContainer extends Component {
   }
 }
 function mapStateToProps(state) {
+  console.log("Cart Outer container map state to props");
+  console.log(state);
   return {
-    noOfgoodies: state.userGoodies.quantity,
+    noOfgoodies: state.userGoodies==false?0:state.userGoodies.quantity,
     auth: state.auth
   };
 }

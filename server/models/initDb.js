@@ -55,7 +55,7 @@ const initPets = async()=>{
         testimonials: [],
         description: "My Favourite food is cheese!"
     }).save();
-    let pet2=await new Pet({ name: "Pluto",
+    let pet2=await new Pet({ name: "Molly",
         pet_id : "24bya930-167d-453a-9513-b6da678c2c9b",
         typeOfPet : 1,
         gender : 1,
@@ -76,7 +76,7 @@ const initPets = async()=>{
         profilephotoLink:"DziZIYOGAHc",
         testimonials:[],
         description: "I love running around the lawn"}).save();
-    let pet4=await new Pet({ name: "Pepper",
+    let pet4=await new Pet({ name: "Pluto",
         pet_id : "12nya930-167d-453a-9513-b6da678c9e1b",
         typeOfPet : 0,
         gender : 0,
@@ -85,7 +85,7 @@ const initPets = async()=>{
         noOfTimesToPet:5,
         profilephotoLink:"uiJ49cEhEf0",
         testimonials:[],
-        description: "I like fetching balls"}).save();
+        description: "I like worms"}).save();
     let pet5=await new Pet({ name: "Hero",
         pet_id : "81yyv130-167d-453a-9513-b6da678c9e1b",
         typeOfPet : 0,
