@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchSinglePet,fetchUserPet, getNoOfUserGoodies } from '../actions';
+import { fetchSinglePet,fetchUserPet, getNoOfUserGoodies, fetchUser } from '../actions';
 import { addPet, feedPet, petMyPet, walkPet, useGoodies } from "../actions";
+import { Redirect } from 'react-router-dom';
 
 import '../css/style.css';
 import { Link } from 'react-router-dom';
@@ -17,26 +18,26 @@ class PetProfile extends Component {
         super(props);
        }
     componentDidMount() {
-        console.log("component did mount start");
+        //console.log("component did mount start");
         const { petId } = this.props.match.params;
-        console.log("PetId:" + petId);
-        console.log("type:" + typeof (petId));
+        //console.log("PetId:" + petId);
+        //console.log("type:" + typeof (petId));
 
         this.props.fetchSinglePet(petId);
         this.props.fetchUserPet(petId);
         this.props.getNoOfUserGoodies();
-        console.log("component did mount end");
+        //console.log("component did mount end");
 
     }
    
 
     renderSinglePet(activeUserPet, showActions, showUseGoodies, isHappinessLevelFullfilled) {
-       console.log("isHappinessLevelFullfilled"+isHappinessLevelFullfilled)
+       //console.log("isHappinessLevelFullfilled"+isHappinessLevelFullfilled)
        
         if (this.props.activepet) {
-            console.log("Active pet is");
-            console.log(this.props.activepet);
-            console.log(this.props);
+            //console.log("Active pet is");
+            //console.log(this.props.activepet);
+            //console.log(this.props);
                 return (
                     <div>
                     <div className="col m4">
@@ -109,6 +110,21 @@ class PetProfile extends Component {
             
         }
     }
+    renderContent(activeUserPet, showActions, showUseGoodies, isHappinessLevelFullfilled) {
+        switch (this.props.auth) {
+          case null:
+            return;
+          case false:
+            return <Redirect to="/" />;
+          default:
+            return <div>
+                    <div className="row" >
+                        {this.renderSinglePet(activeUserPet, showActions, showUseGoodies, isHappinessLevelFullfilled)}
+                    </div>
+                    </div>;
+        }
+      }
+
     render() {
        const { activeUserPet, userGoodies, activepet} = this.props;
        let showActions = false;
@@ -128,9 +144,7 @@ class PetProfile extends Component {
 
         return (
             <div>
-                <div className="row" >
-                    {this.renderSinglePet(activeUserPet, showActions, showUseGoodies, isHappinessLevelFullfilled)}
-                </div>
+            {this.renderContent(activeUserPet, showActions, showUseGoodies, isHappinessLevelFullfilled)}
             </div>
         );
     }
@@ -138,12 +152,13 @@ class PetProfile extends Component {
 }
 
 
-function mapStateToProps({ activepet,activeUserPet, userGoodies }) {
-    console.log("Inside petprofile mapstatetoprops activeUserPet "+JSON.stringify(activeUserPet));
+function mapStateToProps({ activepet,activeUserPet, userGoodies, auth }) {
+    //console.log("Inside petprofile mapstatetoprops auth "+JSON.stringify(auth));
     
     return { activepet : activepet,
         activeUserPet : activeUserPet,
-        userGoodies :   userGoodies     
+        userGoodies :   userGoodies,
+        auth : auth     
     };
 }
 
