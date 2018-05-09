@@ -19,10 +19,7 @@ import ReactTooltip from 'react-tooltip'
 class PetProfile extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-          loading: true, // will be true when pet, walk,feed is running
-        }
-      }
+       }
     componentDidMount() {
         console.log("component did mount start");
         const { petId } = this.props.match.params;
@@ -35,19 +32,15 @@ class PetProfile extends Component {
         console.log("component did mount end");
 
     }
-    componentDidUpdate() {
-        if(this.state.loading == true){
-            console.log("activeUserPet active");
-        }
-    }
+   
 
     renderSinglePet(activeUserPet, showActions, showUseGoodies, isHappinessLevelFullfilled) {
        console.log("isHappinessLevelFullfilled"+isHappinessLevelFullfilled)
        
         if (this.props.activepet) {
             console.log("Active pet is");
-            //console.log(activeUserPet);
             console.log(this.props.activepet);
+            console.log(this.props);
                 return (
                     <div>
                     <div className="col m4">
@@ -122,15 +115,11 @@ class PetProfile extends Component {
     }
     render() {
        const { activeUserPet, userGoodies, activepet} = this.props;
-       // console.log(props);
        let showActions = false;
        let showUseGoodies = false;
        let isHappinessLevelFullfilled = false;
-        //console.log("activepet999"+JSON.stringify(activepet));
-        //console.log("activeUserrrrpet999"+JSON.stringify(activeUserPet));
-
-        if(Object.keys(activeUserPet).length > 0){
-            this.state.loading=true;
+        
+       if(Object.keys(activeUserPet).length > 0){
             showActions= true;
             if(activeUserPet.noOfTimesPetted===(activepet.noOfTimesToPet))
             {
@@ -138,12 +127,8 @@ class PetProfile extends Component {
             }
         }
         if(Object.keys(userGoodies).length > 0){
-            this.state.loading=true;
             showUseGoodies= true;
         }
-        //console.log("this.props" + JSON.stringify(this.props.activeUserPet));
-        //console.log("this.props" + JSON.stringify(this.props.addPet));
-        //console.log("this.props" + JSON.stringify(this.props.feedPet));
 
         return (
             <div>
@@ -158,21 +143,13 @@ class PetProfile extends Component {
 
 
 function mapStateToProps({ activepet,activeUserPet, userGoodies }) {
-    //console.log("Inside petprofile mapstatetoprops userGoodies "+JSON.stringify(userGoodies));
     console.log("Inside petprofile mapstatetoprops activeUserPet "+JSON.stringify(activeUserPet));
-    //console.log("Inside petprofile mapstatetoprops activeUserPet length "+Object.keys(activeUserPet).length);
-    //console.log("Inside petprofile mapstatetoprops activeUserPet typeof "+typeof(activeUserPet));
-
+    
     return { activepet : activepet,
         activeUserPet : activeUserPet,
         userGoodies :   userGoodies     
     };
 }
 
-/* function mapStateToProps({ pets }, ownProps) {
-    console.log("own"+ownProps.match.params.name);
-    return { pet: pets[ownProps.match.params.name] };
-  } */
-//export default connect(mapStateToProps, { fetchSinglePet,fetchUserPet, feedPet, petMyPet, walkPet })(PetProfile);
 export default connect(mapStateToProps,{fetchSinglePet,fetchUserPet, feedPet, petMyPet, walkPet, addPet, getNoOfUserGoodies,
     useGoodies})(PetProfile);
