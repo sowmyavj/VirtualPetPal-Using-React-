@@ -106,8 +106,46 @@ const initPets = async()=>{
         profilephotoLink:"IFxjDdqK_0U",
         testimonials:[],
         description: "I love salmon!"}).save();
-    //var pet5 = makePetDoc('Hero', "Cat","M", 4,0,["5.jpg"],[])
-    //var pet6 = makePetDoc('Felicity', "Cat","F", 3,0,["6.jpg"],[])
+    let pet7=await new Pet({ name: "Poppy",
+        pet_id : "19acq642-167d-453a-9513-b6da678c9e1b",
+        typeOfPet : 1,
+        gender : 1,
+        noOfTimesToFeed:4,
+        noOfTimesToWalk: 1,
+        noOfTimesToPet:4,
+        profilephotoLink:"pKnpMFEf50Y",
+        testimonials:[],
+        description: "I love playing with wool!"}).save();
+    let pet8=await new Pet({ name: "Smudge",
+        pet_id : "73idl002-167d-453a-9513-b6da678c9e1b",
+        typeOfPet : 1,
+        gender : 1,
+        noOfTimesToFeed:4,
+        noOfTimesToWalk: 1,
+        noOfTimesToPet:4,
+        profilephotoLink:"EcsCeS6haJ8",
+        testimonials:[],
+        description: "I love playing with water!"}).save();
+    let pet9=await new Pet({ name: "Jasper",
+        pet_id : "89efg193-167d-453a-9513-b6da678c9e1b",
+        typeOfPet : 1,
+        gender : 1,
+        noOfTimesToFeed:4,
+        noOfTimesToWalk: 1,
+        noOfTimesToPet:4,
+        profilephotoLink:"tzzpfLiRPlA",
+        testimonials:[],
+        description: "I love ruuning around the house!"}).save();
+    let pet10=await new Pet({ name: "Pepper",
+        pet_id : "27ure995-167d-453a-9513-b6da678c9e1b",
+        typeOfPet : 0,
+        gender : 1,
+        noOfTimesToFeed:3,
+        noOfTimesToWalk: 3,
+        noOfTimesToPet:4,
+        profilephotoLink:"bVA2DI7c9e8",
+        testimonials:[],
+        description: "I love going on runs!"}).save();
 
 }
 const initUserPets = async () => {
