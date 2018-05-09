@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Redirect}  from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import ProductsContainer from './ProductsContainer'
 import CartContainer from './CartContainer'
@@ -9,47 +9,43 @@ import ReactTooltip from 'react-tooltip'
 import Goodies from './Goodies'
 import { getNoOfUserGoodies, getAllProducts } from '../actions';
 
-  class CartOuterContainer extends Component {
-    constructor(props) {
-      super(props);
-     
+class CartOuterContainer extends Component {
+  constructor(props) {
+    super(props);
+
+  }
+  componentDidMount() {
+    this.props.getNoOfUserGoodies();
+  }
+  renderContent() {
+    switch (this.props.auth) {
+      case null:
+        return;
+      case false:
+        return <Redirect to="/" />;
+      default:
+        return <div>
+          <ReactTooltip />
+          <ProductsContainer />
+          <hr />
+          <Goodies noOfgoodies={this.props.noOfgoodies} />
+          <CartContainer />
+        </div>;
     }
-    componentDidMount() {
-      //console.log("cart outer component did mount start");
-      //dispatch(getAllProducts())
-      //getAllProducts();
-      this.props.getNoOfUserGoodies();
-      //console.log("component did mount end");
-    }
-    renderContent(){
-      switch(this.props.auth){
-          case null:
-              return;
-          case false:
-            return <Redirect to="/"/>;
-          default:
-            return <div>
-                  <ReactTooltip />
-                  <ProductsContainer />
-                  <hr/>
-                  <Goodies noOfgoodies={this.props.noOfgoodies}/>
-                  <CartContainer />
-                  </div> ;
-      }
-    }
-  render(){
-  return (
-    <div>
-    {this.renderContent()}
-    </div>
-  )
-}}
+  }
+  render() {
+    return (
+      <div>
+        {this.renderContent()}
+      </div>
+    )
+  }
+}
 function mapStateToProps(state) {
-  //console.log("userGoodies "+JSON.stringify(state))
-  return { noOfgoodies : state.userGoodies.quantity,
+  return {
+    noOfgoodies: state.userGoodies.quantity,
     auth: state.auth
   };
 }
 
-//export default CartOuterContainer
-export default connect(mapStateToProps,{getNoOfUserGoodies})(CartOuterContainer);
+export default connect(mapStateToProps, { getNoOfUserGoodies })(CartOuterContainer);

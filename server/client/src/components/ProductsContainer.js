@@ -23,17 +23,17 @@ ProductsContainer.propTypes = {
     title: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     inventory: PropTypes.number.isRequired,
-    image:PropTypes.string.isRequired
+    image: PropTypes.string.isRequired
   })).isRequired,
   addToCart: PropTypes.func.isRequired
 }
 
-function mapStateToProps (state) { 
-  console.log("Products container state"+JSON.stringify(state));
-  return{
+function mapStateToProps(state) {
+  console.log("Products container state" + JSON.stringify(state));
+  return {
     products: getVisibleProducts(state.products)
   }
-  
+
 }
 
 export default connect(

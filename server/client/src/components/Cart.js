@@ -7,7 +7,7 @@ const bluebird = require("bluebird");
 
 
 
-const Cart  = ({ products, total, onCheckoutClicked }) => {
+const Cart = ({ products, total, onCheckoutClicked }) => {
 
   const hasProducts = products.length > 0
   const nodes = hasProducts ? (
@@ -21,25 +21,25 @@ const Cart  = ({ products, total, onCheckoutClicked }) => {
       />
     )
   ) : (
-    <em>Please add some products to cart.</em>
-  )
+      <em>Please add some products to cart.</em>
+    )
 
   return (
-   
+
     <div>
-       <ReactTooltip />
+      <ReactTooltip />
       <h2>Your Cart</h2>
       <div className="row">{nodes}</div>
       <p>Total: &#36;{total}</p>
       <button className="  pulse waves-effect waves-light " onClick={onCheckoutClicked}
         disabled={hasProducts ? '' : 'disabled'}>
-          <i className="medium material-icons " id="shopping_cart"  data-tip="Checkout">shopping_cart</i>
+        <i className="medium material-icons " id="shopping_cart" data-tip="Checkout">shopping_cart</i>
       </button>
-      <br/>
-      <br/>
+      <br />
+      <br />
     </div>
-   
-   
+
+
   )
 }
 

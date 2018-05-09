@@ -1,38 +1,38 @@
-import React,{ Component } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter, Route, Redirect}  from 'react-router-dom';
+import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 
 import { Link } from 'react-router-dom';
 import PetList from './PetList';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 
 var style = {
-  
-      color: '#00829c'
-    
+
+  color: '#00829c'
+
 }
 
 class Dashboard extends Component {
-  componentDidMount(){
+  componentDidMount() {
     var d = new Date();
     var n = d.getHours();
 
-    let message='Time to Pet your Pets';
+    let message = 'Time to Pet your Pets';
     //n=18;
-    if(n >= 9 && n <= 11 || n >= 14 && n <= 16 || n > 20 && n <= 22  ){
-      message='Time to Feed your Pets';
-    }else if(n >= 18  && n <= 20 ){
-      message='Time to Walk your Pets';
+    if (n >= 9 && n <= 11 || n >= 14 && n <= 16 || n > 20 && n <= 22) {
+      message = 'Time to Feed your Pets';
+    } else if (n >= 18 && n <= 20) {
+      message = 'Time to Walk your Pets';
 
     }
-    setTimeout(this.createNotification('info',message), 3000);
+    setTimeout(this.createNotification('info', message), 3000);
   }
-  createNotification = (type,message) => () => {
+  createNotification = (type, message) => () => {
 
     switch (type) {
       case 'info':
         NotificationManager.info(message);
-       
+
         break;
       case 'success':
         NotificationManager.success('Success message', 'Title here');
@@ -49,32 +49,32 @@ class Dashboard extends Component {
         break;
     }
   };
-  renderContent(){
-    switch(this.props.auth){
-        case null:
-            return;
-        case false:
-          return <Redirect to="/"/>;
-        default:
-          return <div>
-                <br/>
-                <br/>
-                <NotificationContainer/>
-                <PetList />
-                </div> ;
+  renderContent() {
+    switch (this.props.auth) {
+      case null:
+        return;
+      case false:
+        return <Redirect to="/" />;
+      default:
+        return <div>
+          <br />
+          <br />
+          <NotificationContainer />
+          <PetList />
+        </div>;
     }
   }
-  render(){
-    return(
-        <div>
-          {this.renderContent()}
-          </div>
+  render() {
+    return (
+      <div>
+        {this.renderContent()}
+      </div>
     );
   }
-  
+
 
 }
-function mapStateToProps(state){
-  return { auth: state.auth}
+function mapStateToProps(state) {
+  return { auth: state.auth }
 }
 export default connect(mapStateToProps)(Dashboard);

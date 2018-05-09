@@ -5,14 +5,6 @@ import Payment from'./Payment';
 import Search from'./Search';
 class Header extends Component {
 
-    componentDidMount(){
-        //console.log("Component did mount :: Header")
-    }
-
-    componentDidUpdate(){
-        //console.log("Component did update :: Header")
-    }
-
     renderContent(){
         switch(this.props.auth){
             case null:

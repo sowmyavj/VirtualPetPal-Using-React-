@@ -7,8 +7,6 @@ import Cart from '../components/Cart'
 import Goodies from './Goodies'
 
 class CartContainer extends Component  {
-  //checkout(products)
-
   constructor(props){
     super(props);
   }
@@ -52,14 +50,8 @@ function mapStateToProps(state) {
     };
 
 }
-/* const mapStateToProps = (state) => (
-  {products: getCartProducts(state),
-    total: getTotal(state)
-  
-}) */
 
 export default connect(
   mapStateToProps,
   { checkout }
 )(CartContainer)
-//export default connect(mapStateToProps,{fetchSinglePet,fetchUserPet, feedPet, petMyPet, walkPet, addPet})(PetProfile);

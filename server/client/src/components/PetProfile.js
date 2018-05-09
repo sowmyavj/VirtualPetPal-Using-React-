@@ -9,12 +9,8 @@ import FeedPet from './FeedPet';
 import PetMyPet from './PetMyPet';
 import WalkPet from './WalkPet';
 import Progress from './Progress';
-import TimingSpinner from './TimingSpinner';
 import UseGoodies from './UseGoodies';
 import ReactTooltip from 'react-tooltip'
-
-
-
 
 class PetProfile extends Component {
     constructor(props) {

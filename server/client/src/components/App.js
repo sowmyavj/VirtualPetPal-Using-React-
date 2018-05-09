@@ -13,10 +13,6 @@ import Search from "./Search";
 import CartOuterContainer from "./CartOuterContainer";
 import PetProfile from './PetProfile';
 
-//const Header =() => <h2>Header </h2>;
-//const Dashboard =() => <h2>Dashboard </h2>;
-//const SurveyNew =() => <h2>SurveyNew </h2>;
-
 class App extends Component{
     componentDidMount(){
         this.props.fetchUser();

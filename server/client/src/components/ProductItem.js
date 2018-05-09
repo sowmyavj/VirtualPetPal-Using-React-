@@ -9,8 +9,8 @@ const ProductItem = ({ product, onAddToCartClicked }) => (
       price={product.price}
       quantity={product.inventory}
       image={product.image}
-      onAddToCart= {onAddToCartClicked} />
-   
+      onAddToCart={onAddToCartClicked} />
+
   </div>
 )
 
@@ -19,7 +19,7 @@ ProductItem.propTypes = {
     title: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     inventory: PropTypes.number.isRequired,
-    image:PropTypes.string.isRequired
+    image: PropTypes.string.isRequired
   }).isRequired,
   onAddToCartClicked: PropTypes.func.isRequired
 }
