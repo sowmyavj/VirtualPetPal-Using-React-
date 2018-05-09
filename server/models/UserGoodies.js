@@ -64,7 +64,7 @@ let exportedMethods = {
         let query1=[];
         if(res.quantity>1)
         {
-            console.log("Quantity greater tham 1");
+            //console.log("Quantity greater tham 1");
             res.quantity--;
              query1=UserGoodies.update({userGoogleId: user_id, "goodie_id":goodie_id },res);  
         }   
@@ -82,22 +82,30 @@ let exportedMethods = {
         let res =await query.findOne(); 
         //console.log("decrementUserGoodies res"+res);
         let query1=[];
-        if(res.quantity>1)
-        {
+        if(res){
+            if(res.quantity>1)
+            {
 
             //console.log("Quantity greater tham 1");
             res.quantity--;
             /* query1=await User.updateOne({ "googleId": googleId },
             {$inc :{credits : amount}}); */
              query1=await UserGoodies.update({userGoogleId: user_id},res);  
-        }   
-        else{
-            //console.log("Quantity NOT greater tham 1");
+             return res;
+            }   
+            else{
+            //console.log("Quantity NOT greater than 1");
              query1=await UserGoodies.deleteOne({userGoogleId: user_id });
+            }
+            //console.log("res"+JSON.stringify(query1));
+            return {"quantity":0};
+            
+        }else{
+            return {};
         }
-        //console.log(query1);
+        
         //let userGoodie=await getUserGoodie(user_id);
-        return res;
+        
     }
     
   

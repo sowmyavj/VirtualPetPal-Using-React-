@@ -109,11 +109,7 @@ let exportedMethods = {
 
         //console.log(JSON.stringify(userPet1));
         let x=userPet1.noOfTimesFed+userPet1.noOfTimesPetted+userPet1.noOfTimesWalked;
-       // let y=userPet1.noOfTimesToFeed+userPet1.noOfTimesToPet+userPet1.noOfTimesToWalk
-        //let happiness=(x/100)*y;
-        //console.log("Inside updateUserPetHappiness"+user_id+" "+pet_id)
-        //console.log("x"+x)
-        //console.log("y"+y)
+     
         let z  = await UserPet.updateOne({ userGoogleId: user_id, "pet_id": pet_id }, 
         {happinessLevel : x }); 
 

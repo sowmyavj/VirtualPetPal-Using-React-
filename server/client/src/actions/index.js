@@ -164,6 +164,13 @@ export const getNoOfUserGoodies = () => async (dispatch) => {
       type: FETCH_USER_PET,
       payload: res.data
     });
+    const res2 = await axios.get(`/api/user/goodies`);
+     //console.log("getNoOfUserGoodies"+JSON.stringify(res));
+
+      dispatch ({
+        type: GET_NO_OF_USER_GOODIES,
+        payload: res2.data
+      });
    
 };
 export const feedPet = (petId) => async (dispatch) => {

@@ -14,9 +14,18 @@ module.exports = app => {
         // console.log("/api/pet/pet/:petId ");
         let petId=req.params.petId;
         let userId = req.user.googleId;
+        let userGoodies = await GoodieModel.getUserGoodie(req.user.googleId);
+        //console.log("userGoodies"+userGoodies)
         
-        const updatePetFeed = await UserPetModel.petUserPet(userId,petId);
-        await UserPetModel.updateUserPetHappiness(userId,petId);
+        if(userGoodies && userGoodies.quantity){
+            let updateUserGoodies = await GoodieModel.decrementUserGoodies(userId);
+            //console.log("updateUserGoodies  "+JSON.stringify(updateUserGoodies));
+            await UserPetModel.updateUserPetHappiness(userId,petId);
+            const updatePetFeed = await UserPetModel.petUserPet(userId,petId);
+
+        }
+        
+       
         // console.log("/api/pet/pet/:petId 111 "+updatePetFeed);
         let userpet ={};
         let userpetInfo= await UserPetModel.getUserPet(userId, petId);
@@ -41,9 +50,6 @@ module.exports = app => {
         userpet.walkProgress = walkProgress;
         userpet.petProgress = petProgress;
         userpet['userspet']=true;
-
-        let updateUserGoodies = await GoodieModel.decrementUserGoodies(userId);
-        //console.log("updateUserGoodies  "+updateUserGoodies);
         res.send(userpet);
     });
 };
