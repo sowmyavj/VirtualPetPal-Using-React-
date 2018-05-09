@@ -6,11 +6,11 @@ import Search from'./Search';
 class Header extends Component {
 
     componentDidMount(){
-        console.log("Component did mount :: Header")
+        //console.log("Component did mount :: Header")
     }
 
     componentDidUpdate(){
-        console.log("Component did update :: Header")
+        //console.log("Component did update :: Header")
     }
 
     renderContent(){
@@ -35,7 +35,7 @@ class Header extends Component {
         }
     }
     render() {
-        //console.log(this.props)
+        //console.log("auth"+JSON.stringify(this.props))
         return (<nav>
             <div className="nav-wrapper" id='pet_header'>
                 <Link

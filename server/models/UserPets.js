@@ -6,7 +6,7 @@ const UserPet = mongoose.model('userpets');
 let exportedMethods = {
 
     async addPet(userid, petId){
-        console.log("data model: addPet"+userid+"  "+petId);
+        //console.log("data model: addPet"+userid+"  "+petId);
         let userPetInfo = {
             userGoogleId: userid,
             pet_id: petId,
@@ -60,25 +60,25 @@ let exportedMethods = {
         let pet = await Pet.getPet(pet_id);
         let query  = UserPet.where({ userGoogleId: user_id, "pet_id": pet_id }); 
         let userPet =await query.findOne();
-        console.log("userPet.noOfTimesFed"+userPet.noOfTimesFed);
-        console.log("pet.noOfTimesToFeed"+pet.noOfTimesToFeed);
+        //console.log("userPet.noOfTimesFed"+userPet.noOfTimesFed);
+        //console.log("pet.noOfTimesToFeed"+pet.noOfTimesToFeed);
 
         //let feedProgress=  getfedProgress(pet.noOfTimesToFeed, userpet.noOfTimesFed)
         let feedProgress= Math.round((userPet.noOfTimesFed/pet.noOfTimesToFeed)*100);
 
-        console.log("feedUserPet feedProgress"+feedProgress);
+       // console.log("feedUserPet feedProgress"+feedProgress);
         if(feedProgress < 100){
             let execUpdate  = await UserPet.updateOne({ userGoogleId: user_id, "pet_id": pet_id }, 
         {$inc : { noOfTimesFed : 1 }});
         }
     },
     async walkUserPet(user_id, pet_id){
-        console.log("Inside walkUserPet"+user_id+" "+pet_id)
+        //console.log("Inside walkUserPet"+user_id+" "+pet_id)
         let pet = await Pet.getPet(pet_id);
         let query  = UserPet.where({ userGoogleId: user_id, "pet_id": pet_id }); 
         let userPet =await query.findOne();
         let walkProgress= Math.round((userPet.noOfTimesWalked/pet.noOfTimesToWalk)*100);
-        console.log("walkUserPet walkProgress"+walkProgress);
+        //console.log("walkUserPet walkProgress"+walkProgress);
         if(walkProgress < 100){
             let execUpdate  = await UserPet.updateOne({ userGoogleId: user_id, "pet_id": pet_id }, 
         {$inc : { noOfTimesWalked : 1 }}); 
@@ -87,12 +87,12 @@ let exportedMethods = {
         //console.log("execUpdate "+JSON.stringify(execUpdate));
     },
     async petUserPet(user_id, pet_id){
-        console.log("Inside petUserpet"+user_id+" "+pet_id)
+       // console.log("Inside petUserpet"+user_id+" "+pet_id)
         let pet = await Pet.getPet(pet_id);
         let query  = UserPet.where({ userGoogleId: user_id, "pet_id": pet_id }); 
         let userPet =await query.findOne();
         let petProgress= Math.round((userPet.noOfTimesPetted/pet.noOfTimesToPet)*100);
-        console.log("petUserPet petProgress"+petProgress);
+        //console.log("petUserPet petProgress"+petProgress);
         if(petProgress < 100){
 
             let execUpdate  = await UserPet.updateOne({ userGoogleId: user_id, "pet_id": pet_id }, 
@@ -103,22 +103,22 @@ let exportedMethods = {
     },
 
     async updateUserPetHappiness(user_id, pet_id){
-        console.log("updateUserPetHappiness ");
+        //console.log("updateUserPetHappiness ");
         let query1  = UserPet.where({ userGoogleId: user_id, "pet_id": pet_id }); 
         let userPet1 =await query1.findOne();
 
-        console.log(JSON.stringify(userPet1));
+        //console.log(JSON.stringify(userPet1));
         let x=userPet1.noOfTimesFed+userPet1.noOfTimesPetted+userPet1.noOfTimesWalked;
        // let y=userPet1.noOfTimesToFeed+userPet1.noOfTimesToPet+userPet1.noOfTimesToWalk
         //let happiness=(x/100)*y;
-        console.log("Inside updateUserPetHappiness"+user_id+" "+pet_id)
-        console.log("x"+x)
+        //console.log("Inside updateUserPetHappiness"+user_id+" "+pet_id)
+        //console.log("x"+x)
         //console.log("y"+y)
         let z  = await UserPet.updateOne({ userGoogleId: user_id, "pet_id": pet_id }, 
         {happinessLevel : x }); 
 
         
-        console.log("updateUserPetHappiness end ");
+        //console.log("updateUserPetHappiness end ");
         //console.log(JSON.stringify(z));
     }
   

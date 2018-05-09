@@ -29,12 +29,10 @@ let petImagesFetched=false;
 let productImagesFetched=false;
 
 function resize(params) {
-    // console.log("resize")
     var queue = async.queue(resizeimg, maxworkers);
   
     fs.readdir(params.src, function(err, files) {
       files.forEach(function(file) {
-        //   console.log("pushing file "+file)
         queue.push({
           src: params.src+file,
           dest: params.dest+file,
@@ -46,21 +44,16 @@ function resize(params) {
   }
 
   function resizeimg(params, cb) {
-    // console.log("resizeimg")
     var imoptions = {
       srcPath: params.src,
       dstPath: params.dest
     };
-    // console.log(imoptions)
     if (params.width !== undefined) imoptions.width = params.width;
     if (params.height !== undefined) imoptions.height = params.height;
-    // console.log("before im.resize")
     im.resize(imoptions, cb);
-    // console.log("after im.resize")
   }
 
 const populateImages = async()=>{
-    // console.log("petImagesFetched "+petImagesFetched);
     
     if(!petImagesFetched){
         // console.log("No images available yet.. fetching")
@@ -96,15 +89,12 @@ const populateImages = async()=>{
 
 module.exports = app => {
     app.get('/api/dashboard',requireLogin, async(req,res)=>{
-        console.log("Dashboard");
-       populateImages();
-       const userpets =await UserPet.find({ userGoogleId: req.user.googleId});
-       // console.log("typeof userpets"+typeof(userpets));
-        let petIdlist=[];
-        userpets.forEach(function(p) { petIdlist.push(p.pet_id); } );
-        let pets = await Pet.find({"pet_id": {$in : petIdlist} });
-        //console.log("Dashboard pets "+pets);
-        res.send(pets);
+            populateImages();
+            const userpets =await UserPet.find({ userGoogleId: req.user.googleId});
+            let petIdlist=[];
+            userpets.forEach(function(p) { petIdlist.push(p.pet_id); } );
+            let pets = await Pet.find({"pet_id": {$in : petIdlist} });
+            res.send(pets);
 
     });
 
@@ -186,12 +176,12 @@ module.exports = app => {
         let petIdlist=[];
         userpets.forEach(function(p) { petIdlist.push(p.pet_id); } )
         if(petIdlist.indexOf(singlePet.pet_id)>-1){
-            console.log("This is users pet");
+            //console.log("This is users pet");
             singlePet['userspet']=true;
            
         }
         else{
-            console.log("This is not users pet");
+            //console.log("This is not users pet");
             singlePet['userspet']=false;
         }
             
@@ -306,7 +296,7 @@ module.exports = app => {
 
         let petId=req.params.petId;
         let userId = req.user.googleId;
-        console.log("Server route addPet "+petId);
+        //console.log("Server route addPet "+petId);
         let userpet ={};
 
         const addedUserPetInfo = await UserPetModel.addPet(userId,petId);
@@ -338,8 +328,8 @@ module.exports = app => {
 
         let user=req.user;
         let products=req.body.products;
-        console.log(products);
-        console.log(products[0]);
+        //console.log(products);
+        //console.log(products[0]);
         let userCredits=await UserModel.getUserCredits(user.googleId);
         let total_price=0;
         for (var i = 0; i < products.length; i++) { 
@@ -391,16 +381,16 @@ module.exports = app => {
             console.log("productexists" + id);
            
             let a=await client.incrAsync(id);
-            console.log(a);
+            //console.log(a);
         }
         else{
             console.log("product does not exist" + id);
             let b= await client.setAsync(id, 1);
-            console.log(b);
+           // console.log(b);
 
         }
 
-        console.log("checking keys")
+        //console.log("checking keys")
        
         // let keys= await client.keysAsync('*');
         //   //console.log(keys);
@@ -408,7 +398,7 @@ module.exports = app => {
         //       console.log(keys[i]);
         //     }
           
-            console.log("end /api/addToCart")
+           // console.log("end /api/addToCart")
        res.send({});
        
        

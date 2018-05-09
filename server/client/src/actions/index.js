@@ -36,12 +36,12 @@ const receiveProducts = products => ({
     var config = {
      'products': products 
     };
-    console.log("checkout called");
-    console.log(getState());
+    //console.log("checkout called");
+    //console.log(getState());
    // console.log(dispatch);
     let res=await  axios.post('/api/addgoodies',config);
     const { cart } = getState()
-    console.log("getting current user")
+    //console.log("getting current user")
     let res1=await  axios.get('/api/current_user');
     dispatch({
          type: FETCH_USER,
@@ -49,7 +49,7 @@ const receiveProducts = products => ({
      }); 
 
      const res2 = await axios.get(`/api/user/goodies`);
-     console.log("getNoOfUserGoodies"+JSON.stringify(res2));
+     //console.log("getNoOfUserGoodies"+JSON.stringify(res2));
 
       dispatch ({
         type: GET_NO_OF_USER_GOODIES,
@@ -72,8 +72,10 @@ const receiveProducts = products => ({
 
 export const fetchUser = () => async (dispatch) => {
         //api request to backend server
-        console.log("Fetch user")
+        //console.log("Fetch user")
        let res=await  axios.get('/api/current_user');
+       //console.log("Fet"+JSON.stringify(res))
+
        dispatch({
             type: FETCH_USER,
             payload: res.data
@@ -94,6 +96,7 @@ export const fetchAllPets = () => async (dispatch) => {
         //api request to backend server
         // console.log("fetchAllPets");
        let res=await  axios.get('/api/dashboard');
+
        dispatch({
             type: FETCH_ALL_PETS,
             payload: res.data
@@ -140,10 +143,10 @@ export const fetchUserPet = (petId) => async (dispatch) => {
 export const getNoOfUserGoodies = () => async (dispatch) => {
       
       //api request to backend server
-      console.log("getNoOfUserGoodies");
+      //console.log("getNoOfUserGoodies");
      //await getAllProducts();
       const res = await axios.get(`/api/user/goodies`);
-     console.log("getNoOfUserGoodies"+JSON.stringify(res));
+     //console.log("getNoOfUserGoodies"+JSON.stringify(res));
 
       dispatch ({
         type: GET_NO_OF_USER_GOODIES,
@@ -153,9 +156,9 @@ export const getNoOfUserGoodies = () => async (dispatch) => {
   };
   export const useGoodies = (petId) => async (dispatch) => {
     //api request to backend server
-    console.log("useGoodies"+ petId);
+    //console.log("useGoodies"+ petId);
     const res = await axios.post(`/api/pet/goodies/${petId}`);
-    console.log("useGoodies after db call"+JSON.stringify(res));
+    //console.log("useGoodies after db call"+JSON.stringify(res));
 
     dispatch ({
       type: FETCH_USER_PET,

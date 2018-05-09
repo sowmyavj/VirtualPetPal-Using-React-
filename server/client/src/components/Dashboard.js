@@ -1,5 +1,6 @@
 import React,{ Component } from 'react';
 import { connect } from 'react-redux';
+import { BrowserRouter, Route, Redirect}  from 'react-router-dom';
 
 import { Link } from 'react-router-dom';
 import PetList from './PetList';
@@ -9,10 +10,7 @@ class Dashboard extends Component {
   componentDidMount(){
     var d = new Date();
     var n = d.getHours();
-    console.log("Dashboard"+n);
 
-    console.log("Dashboard"+new Date().toLocaleString());
-    //this.createNotification('success')()
     let message='Time to Pet your Pets';
     //n=18;
     if(n >= 9 && n <= 11 || n >= 14 && n <= 16 || n > 20 && n <= 22  ){
@@ -24,7 +22,6 @@ class Dashboard extends Component {
     setTimeout(this.createNotification('info',message), 3000);
   }
   createNotification = (type,message) => () => {
-    console.log("createNotification");
 
     switch (type) {
       case 'info':
@@ -45,26 +42,35 @@ class Dashboard extends Component {
         break;
     }
   };
+  renderContent(){
+    switch(this.props.auth){
+        case null:
+            return;
+        case false:
+          return <Redirect to="/"/>;
+        default:
+          return <div>
+                <br/>
+                <br/>
+                <NotificationContainer/>
+                <PetList />
+                </div> ;
+    }
+  }
 //const Dashboard = () => {
   render(){
-    return (
+    //console.log("dashboard auth"+JSON.stringify(this.props.auth))
     
-      <div>
-        <br/>
-        <br/>
-       {/*  <button className="btn btn-info" onClick={this.createNotification('info')}>
-            Info
-          </button> */}
-          <NotificationContainer/>
-
-        <PetList />
-        <div className="fixed-action-btn">
-        </div>
-      </div>
+        return(
+        <div>
+          {this.renderContent()}
+          </div>
     );
   }
   
 
 }
-
-export default Dashboard;
+function mapStateToProps(state){
+  return { auth: state.auth}
+}
+export default connect(mapStateToProps)(Dashboard);

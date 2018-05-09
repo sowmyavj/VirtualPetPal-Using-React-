@@ -3,6 +3,7 @@ import { RadioGroup, RadioButton } from 'react-radio-buttons';
 import '../css/style.css';
 import { fetchAllPets } from '../actions';
 import PetListSearch from './PetListSearch';
+import { BrowserRouter, Route, Redirect}  from 'react-router-dom';
 
 import {connect} from 'react-redux';
 import * as actions  from '../actions';
@@ -17,7 +18,7 @@ class Search extends Component {
             type: -1
             
           };
-          console.log("Serach constructor"+this.state.type);
+ //         console.log("Search constructor"+this.state.type);
       }
 
     onChange = (selected)=> {
@@ -31,36 +32,42 @@ class Search extends Component {
           console.log("onChange selected"+selected);
         
       };
-     
+     renderContent(){
+        switch(this.props.auth){
+        case null:
+            return;
+        case false:
+          return <Redirect to="/"/>;
+        default:
+          return <div > 
+                  <br/>
+                  <RadioGroup id="search" onChange={ this.onChange } horizontal>
+                  <RadioButton value="1">
+                    Cat
+                  </RadioButton>
+                  <RadioButton value="0" >
+                    Dog
+                  </RadioButton>
+                  </RadioGroup>
+                  <div>
+                    <PetListSearch
+                        type={this.state.type}
+                    />    
+                  </div>
+                </div> ;
+        }
+    }
 
     render(){
         return (
-         
-              
-            <div > 
-              <br/>
-            <RadioGroup id="search" onChange={ this.onChange } horizontal>
-            <RadioButton value="1">
-              Cat
-            </RadioButton>
-            <RadioButton value="0" >
-              Dog
-            </RadioButton>
-           
-          </RadioGroup>
-
-        <div>
-        <PetListSearch
-            type={this.state.type}
-            
-          />    
-        </div>
-          </div>     
-            
+              <div>{this.renderContent()}</div>
           );
     }
 
 
 }
+function mapStateToProps(state){
+  return { auth: state.auth}
+}
 
-export default connect(null,actions) (Search);
+export default connect(mapStateToProps,actions) (Search);

@@ -34,7 +34,7 @@ module.exports = app => {
         let feedProgress= await UserPetModel.getfedProgress(pet.noOfTimesToFeed, userpet.noOfTimesFed)
         //console.log("feedProgress "+feedProgress);
         let walkProgress= await UserPetModel.getWalkProgress(pet.noOfTimesToWalk, userpet.noOfTimesWalked)
-        console.log("feedProgress "+feedProgress);
+        //console.log("feedProgress "+feedProgress);
         let petProgress= await UserPetModel.getPetProgress(pet.noOfTimesToPet, userpet.noOfTimesPetted)
 
         userpet.feedProgress = feedProgress;
@@ -43,7 +43,7 @@ module.exports = app => {
         userpet['userspet']=true;
 
         let updateUserGoodies = await GoodieModel.decrementUserGoodies(userId);
-        console.log("updateUserGoodies  "+updateUserGoodies);
+        //console.log("updateUserGoodies  "+updateUserGoodies);
         res.send(userpet);
     });
 };

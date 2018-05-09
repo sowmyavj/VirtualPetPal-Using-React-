@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 require('./models/User'); 
 //require('./models/Pet'); 
 //require('./models/UserPets'); 
-require('./models/initDb'); 
+const initDB= require('./models/initDb'); 
 require('./services/passport');
 
 
@@ -15,8 +15,11 @@ require('./services/passport');
 mongoose.connect(keys.mongoURI,function(){
 		/* Drop the DB */
 		//Drop db
-		console.log("dropiing db");
-    mongoose.connection.db.dropDatabase();
+		console.log("dropping db"); 
+		mongoose.connection.db.dropDatabase();
+		initDB.initPets();
+		initDB.initUserPets();
+
 });
 const authRoutes = require('./routes/authRoutes');	
 

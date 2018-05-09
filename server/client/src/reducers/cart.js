@@ -41,7 +41,7 @@ export const getAddedIds = state => state.addedIds
 
 
 const cart = (state = initialState, action) => {
-  console.log("action "+ JSON.stringify(action))
+  //console.log("action "+ JSON.stringify(action))
   switch (action.type) {
     case CHECKOUT_REQUEST:
       return initialState
