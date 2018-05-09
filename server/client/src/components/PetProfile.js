@@ -129,10 +129,12 @@ class PetProfile extends Component {
        let showUseGoodies = false;
        let isHappinessLevelFullfilled = false;
         //console.log("activepet999"+JSON.stringify(activepet));
+        //console.log("activeUserrrrpet999"+JSON.stringify(activeUserPet));
+
         if(Object.keys(activeUserPet).length > 0){
             this.state.loading=true;
             showActions= true;
-            if(activeUserPet.happinessLevel===(activepet.noOfTimesToFeed+activepet.noOfTimesToWalk+activepet.noOfTimesToPet ))
+            if(activeUserPet.noOfTimesPetted===(activepet.noOfTimesToPet))
             {
                 isHappinessLevelFullfilled=true;
             }
