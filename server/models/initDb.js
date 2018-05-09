@@ -151,7 +151,7 @@ const initPets = async()=>{
 const initUserPets = async () => {
     console.log("UserPet!!");
     let user1Pet1 = await new userPet({
-        userGoogleId: "104959878843234314059",
+        userGoogleId: "108919778439743763370",
         pet_id: "97bya930-167d-453a-9513-b6da678c2c91",
         noOfTimesFed: 2,
         noOfTimesPetted:1,
@@ -160,12 +160,21 @@ const initUserPets = async () => {
         currentDate: new Date()
     }).save();
     let user1Pet2 = await new userPet({
-        userGoogleId: "104959878843234314059",
+        userGoogleId: "108919778439743763370",
         pet_id: "24bya930-167d-453a-9513-b6da678c2c9b",
         noOfTimesFed: 3,
         noOfTimesPetted:0,
         noOfTimesWalked: 1,
         happinessLevel: 4,
+        currentDate: new Date()
+    }).save();
+    let user1Pet3 = await new userPet({
+        userGoogleId: "108919778439743763370",
+        pet_id: "73idl002-167d-453a-9513-b6da678c9e1b",
+        noOfTimesFed: 0,
+        noOfTimesPetted:0,
+        noOfTimesWalked: 1,
+        happinessLevel: 1,
         currentDate: new Date()
     }).save();
     let user2Pet1 = await new userPet({
