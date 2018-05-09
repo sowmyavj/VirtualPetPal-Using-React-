@@ -53,7 +53,8 @@ class PetProfile extends Component {
                         <div className="col" id="petCard">
                             <div className="card">
                                 <div className="card-image">
-                                    <img src={window.location.origin + '/images/' + this.props.activepet.profilephotoLink+".jpg"} height="286" width="250" />
+                                    <img src={window.location.origin + '/images/' + this.props.activepet.profilephotoLink+".jpg"} height="286" width="250" 
+                                    alt="pet profile picture"/>
                                     <span className="card-title black">{this.props.activepet.name}</span>
                                     {this.props.activepet.userspet == false && !showActions &&
                                             <span>
@@ -95,14 +96,14 @@ class PetProfile extends Component {
                                 </div>
                                 {(this.props.activepet.userspet == true || showActions) &&
                                         <span>
-                                        <button className="btn-floating btn-large   waves-light green" >
-                                                <i className="material-icons">mood</i>
+                                        <button className="btn-floating btn-large   waves-light #90caf9 red lighten-2"  color="red lighten-2" >
+                                                <i className="material-icons">mood_bad</i>
                                             </button>
                                             <input type="range" className="range-field" min="0" max={this.props.activepet.noOfTimesToFeed +this.props.activepet.noOfTimesToWalk+this.props.activepet.noOfTimesToPet}
                                                  value={activeUserPet.happinessLevel ? activeUserPet.happinessLevel :0} disabled color="blue" style={{ width: '70%' }}/>
                                             
-                                            <button className="fab-button btn-floating btn-large waves-light #90caf9 red lighten-2" >
-                                                <i className="material-icons">mood_bad</i>
+                                            <button className="fab-button btn-floating btn-large green darken-2" >
+                                                <i className="material-icons">mood</i>
                                             </button>
                                         </span>
                                 }

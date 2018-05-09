@@ -55,6 +55,7 @@
     position: absolute;
     bottom: -35px;
     left: 10px;
+    color: #3aa93f;
   }
 .material-icons.red600 { color: red; }
 .material-icons.black600 { color: black; }
