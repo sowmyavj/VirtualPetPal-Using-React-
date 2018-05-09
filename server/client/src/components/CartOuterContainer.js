@@ -45,7 +45,7 @@ import { getNoOfUserGoodies, getAllProducts } from '../actions';
   )
 }}
 function mapStateToProps(state) {
-  console.log("userGoodies "+JSON.stringify(state))
+  //console.log("userGoodies "+JSON.stringify(state))
   return { noOfgoodies : state.userGoodies.quantity,
     auth: state.auth
   };
