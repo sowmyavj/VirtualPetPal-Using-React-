@@ -87,7 +87,7 @@ class PetListSearch extends Component {
 
       <div className="card" key={pets._id}>
         <div className="card-image">
-          <img src={window.location.origin + '/images/'+ pets.profilephotoLink+".jpg"} height="286" width="250"/>
+          <img src={window.location.origin + '/images/'+ pets.profilephotoLink+".jpg"} alt="Pet Image here" height="286" width="250"/>
           <span className="card-title black">{pets.name}</span>
           <Link to={`/pet/${pets.pet_id}`} className="btn-floating halfway-fab waves-effect waves-light black">
             <i className="material-icons">search</i>

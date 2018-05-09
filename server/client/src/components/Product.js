@@ -9,7 +9,7 @@ const Product = ({ price, quantity, title,image,onAddToCart }) => (
 <div className="col" id="petCard">
     <div className="card">
         <div className="card-image">
-            <img src={window.location.origin + '/images/' + image} height="286"  />
+            <img src={window.location.origin + '/images/' + image} alt="Product image here" height="286"  />
             <span className="card-title black">{title}</span>
         </div>
         <div className="card-content">

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 
 const Goodies = ({ noOfgoodies }) => (
   <div className="row" >
-  <h3>Existing Pet Goodies:{noOfgoodies}</h3>
+  <h2>Existing Pet Goodies:{noOfgoodies}</h2>
   </div>
 )
 

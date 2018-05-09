@@ -28,7 +28,7 @@ const Cart  = ({ products, total, onCheckoutClicked }) => {
    
     <div>
        <ReactTooltip />
-      <h3>Your Cart</h3>
+      <h2>Your Cart</h2>
       <div className="row">{nodes}</div>
       <p>Total: &#36;{total}</p>
       <button className="  pulse waves-effect waves-light " onClick={onCheckoutClicked}

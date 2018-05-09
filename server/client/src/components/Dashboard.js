@@ -6,6 +6,12 @@ import { Link } from 'react-router-dom';
 import PetList from './PetList';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 
+var style = {
+  
+      color: '#00829c'
+    
+}
+
 class Dashboard extends Component {
   componentDidMount(){
     var d = new Date();
@@ -26,6 +32,7 @@ class Dashboard extends Component {
     switch (type) {
       case 'info':
         NotificationManager.info(message);
+       
         break;
       case 'success':
         NotificationManager.success('Success message', 'Title here');
@@ -52,7 +59,7 @@ class Dashboard extends Component {
           return <div>
                 <br/>
                 <br/>
-                <NotificationContainer/>
+                <NotificationContainer style={style}/>
                 <PetList />
                 </div> ;
     }
