@@ -97,6 +97,7 @@ module.exports = app => {
         let userId = req.user.googleId;
         let userpet = {};
         let userpetInfo = await UserPetModel.getUserPet(userId, petId);
+        if(userpetInfo){
         userpet._id = userpetInfo._id;
         userpet.userGoogleId = userpetInfo.userGoogleId;
         userpet.pet_id = userpetInfo.pet_id;
@@ -106,6 +107,8 @@ module.exports = app => {
         userpet.happinessLevel = userpetInfo.happinessLevel;
         userpet.currentDate = userpetInfo.currentDate;
         userpet.__v = userpetInfo.__v;
+        
+        
 
 
         let pet = await PetModel.getPet(petId);
@@ -117,7 +120,7 @@ module.exports = app => {
         userpet.walkProgress = walkProgress;
         userpet.petProgress = petProgress;
         userpet['userspet'] = true;
-
+        }
         res.send(userpet);
     });
 
@@ -129,7 +132,7 @@ module.exports = app => {
         let x = await query.findOne();
         let singlePet = {};
         singlePet.testimonials = x.testimonials;
-        x._id = x._id;
+        singlePet._id = x._id;
         singlePet.pet_id = x.pet_id;
         singlePet.name = x.name;
         singlePet.typeOfPet = x.typeOfPet;
@@ -139,10 +142,11 @@ module.exports = app => {
         singlePet.noOfTimesToPet = x.noOfTimesToPet;
         singlePet.profilephotoLink = x.profilephotoLink;
         singlePet.description = x.description;
-
-        const userpets = await UserPet.find({ userGoogleId: req.user.googleId });
+        let userpets = await UserPetModel.getUserPets(req.user.googleId);
         let petIdlist = [];
-        userpets.forEach(function (p) { petIdlist.push(p.pet_id); })
+        if(userpets){
+            userpets.forEach(function (p) { petIdlist.push(p.pet_id); })
+        }
         if (petIdlist.indexOf(singlePet.pet_id) > -1) {
             //console.log("This is users pet");
             singlePet['userspet'] = true;

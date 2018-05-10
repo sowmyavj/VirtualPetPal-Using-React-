@@ -12,7 +12,7 @@ class Dashboard extends Component {
 
     let message = 'Time to Pet your Pets';
     //n=18;
-    if (n >= 9 && n <= 11 || n >= 14 && n <= 16 || n > 20 && n <= 22) {
+    if ((n >= 9 && n <= 11) || (n >= 14 && n <= 16) || (n > 20 && n <= 22)) {
       message = 'Time to Feed your Pets';
     } else if (n >= 18 && n <= 20) {
       message = 'Time to Walk your Pets';

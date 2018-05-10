@@ -49,6 +49,12 @@ let exportedMethods = {
         return petProgress;
 
     },
+    async getUserPets(user_id){
+        let query  = UserPet.where({ userGoogleId: user_id }); 
+        let userPets =await query.find();   
+
+        return userPets;
+    },
     
     async getUserPet(user_id, pet_id){
         //console.log("Inside getUserPet"+user_id+" "+pet_id);
