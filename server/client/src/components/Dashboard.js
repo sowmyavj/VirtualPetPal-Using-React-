@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter, Route, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
-import { Link } from 'react-router-dom';
 import PetList from './PetList';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
-
-var style = {
-
-  color: '#00829c'
-
-}
 
 class Dashboard extends Component {
   componentDidMount() {

@@ -1,15 +1,7 @@
 import React, { Component } from 'react';
-import Background from '../images/b2.jpg';
 import '../css/style.css';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-
-var backgroundstyle = {
-  width: "100%",
-  height: "610px",
-  backgroundImage: "url(" + Background + ")",
-  backgroundSize: 'cover', overflow: 'hidden',
-}
 
 class Landing extends Component {
   renderContent() {

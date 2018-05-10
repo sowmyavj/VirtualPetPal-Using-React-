@@ -1,15 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchUserPet, petMyPet, walkPet, feedPet } from "../actions";
-
-import { Link } from 'react-router-dom';
+import { fetchUserPet } from "../actions";
 
 class Progress extends Component {
-  constructor(props) {
-    super(props);
-
-  }
-
   render() {
     const { petAction, feedprogress, petprogress, walkprogress } = this.props;
     const currentProgress = (petAction == "Feed") ? feedprogress : (petAction == "Pet" ? petprogress : walkprogress);

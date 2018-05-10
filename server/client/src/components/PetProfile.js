@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchSinglePet,fetchUserPet, getNoOfUserGoodies, fetchUser } from '../actions';
+import { fetchSinglePet,fetchUserPet, getNoOfUserGoodies } from '../actions';
 import { addPet, feedPet, petMyPet, walkPet, useGoodies } from "../actions";
 import { Redirect } from 'react-router-dom';
 
 import '../css/style.css';
-import { Link } from 'react-router-dom';
 import FeedPet from './FeedPet';
 import PetMyPet from './PetMyPet';
 import WalkPet from './WalkPet';
@@ -14,9 +13,6 @@ import UseGoodies from './UseGoodies';
 import ReactTooltip from 'react-tooltip'
 
 class PetProfile extends Component {
-    constructor(props) {
-        super(props);
-       }
     componentDidMount() {
         //console.log("component did mount start");
         const { petId } = this.props.match.params;

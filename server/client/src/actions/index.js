@@ -1,8 +1,7 @@
 import axios from 'axios';
 import shop from '../api/shop'
-import imagemagick from 'imagemagick'
-import { FETCH_USER, FETCH_ALL_PETS, FETCH_FILTER,FETCH_SINGLE_PET,FETCH_USER_PET, PET_MY_PET, FEED_PET, WALK_PET } from './types';
-import { ADD_TO_CART, CHECKOUT_REQUEST, CHECKOUT_SUCCESS,CHECKOUT_FAILURE,RECEIVE_PRODUCTS, GET_NO_OF_USER_GOODIES} from './types';
+import { FETCH_USER, FETCH_ALL_PETS, FETCH_FILTER,FETCH_SINGLE_PET,FETCH_USER_PET } from './types';
+import { ADD_TO_CART, CHECKOUT_REQUEST, CHECKOUT_SUCCESS,RECEIVE_PRODUCTS, GET_NO_OF_USER_GOODIES} from './types';
 
 
 const receiveProducts = products => ({
@@ -40,8 +39,6 @@ const receiveProducts = products => ({
     //console.log(getState());
    // console.log(dispatch);
     let res=await  axios.post('/api/addgoodies',config);
-    const { cart } = getState()
-    //console.log("getting current user")
     let res1=await  axios.get('/api/current_user');
     dispatch({
          type: FETCH_USER,

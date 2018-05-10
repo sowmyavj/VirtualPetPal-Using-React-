@@ -31,7 +31,7 @@ class PetListSearch extends Component {
 };
 
   componentWillReceiveProps = async props1 => {
-    if (props1.type && this.state.selected != props1.type) {
+    if (props1.type && this.state.selected !== props1.type) {
       await this.props.fetchFilter(props1.type);
       this.setState({
         selected: props1.type
@@ -52,17 +52,6 @@ class PetListSearch extends Component {
   renderPets() {
     console.log("render pets");
     console.log(this.props);
-    let x = [];
-    if (this.props.petdogs) {
-      x = this.props.petdogs;
-    }
-    else if (this.props.petcats) {
-      x = this.props.petcats;
-    }
-    else {
-      x = this.props.pets;
-    }
-
     return this.props.filterpets.reverse().map(pets => {
       return (
         <div className="col m4" key={pets._id}>

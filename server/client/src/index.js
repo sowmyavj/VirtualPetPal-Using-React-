@@ -9,7 +9,7 @@ import 'react-notifications/dist/react-notifications.css'
 
 import reduxThunk from 'redux-thunk';
 import App from './components/App';
-import { getAllProducts, populateCart } from './actions'
+import { getAllProducts } from './actions'
 import './css/style.css';
 
 

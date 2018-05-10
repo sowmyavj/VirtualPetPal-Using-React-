@@ -3,10 +3,6 @@ import PropTypes from 'prop-types'
 import CartItem from './CartItem'
 import ReactTooltip from 'react-tooltip'
 
-const bluebird = require("bluebird");
-
-
-
 const Cart = ({ products, total, onCheckoutClicked }) => {
 
   const hasProducts = products.length > 0

@@ -7,13 +7,9 @@ import CartContainer from './CartContainer'
 import { Component } from 'react';
 import ReactTooltip from 'react-tooltip'
 import Goodies from './Goodies'
-import { getNoOfUserGoodies, getAllProducts } from '../actions';
+import { getNoOfUserGoodies} from '../actions';
 
 class CartOuterContainer extends Component {
-  constructor(props) {
-    super(props);
-
-  }
   componentDidMount() {
     this.props.getNoOfUserGoodies();
   }
@@ -45,7 +41,7 @@ function mapStateToProps(state) {
   console.log("Cart Outer container map state to props");
   console.log(state);
   return {
-    noOfgoodies: state.userGoodies==false?0:state.userGoodies.quantity,
+    noOfgoodies: state.userGoodies===false?0:state.userGoodies.quantity,
     auth: state.auth
   };
 }
