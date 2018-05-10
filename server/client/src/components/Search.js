@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { RadioGroup, RadioButton } from 'react-radio-buttons';
 import '../css/style.css';
-import { fetchAllPets } from '../actions';
 import PetListSearch from './PetListSearch';
-import { BrowserRouter, Route, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import * as actions from '../actions';

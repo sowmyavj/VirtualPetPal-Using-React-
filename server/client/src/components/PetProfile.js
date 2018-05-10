@@ -43,9 +43,9 @@ class PetProfile extends Component {
                             <div className="card">
                                 <div className="card-image">
                                     <img src={window.location.origin + '/images/' + this.props.activepet.profilephotoLink+".jpg"} 
-                                    alt="pet profile picture"/>
+                                    alt="pet profile here"/>
                                     <span className="card-title black">{this.props.activepet.name}</span>
-                                    {this.props.activepet.userspet == false && !showActions &&
+                                    {this.props.activepet.userspet === false && !showActions &&
                                             <span>
                                             <ReactTooltip />
                                              <button onClick={() => this.props.addPet(this.props.activepet.pet_id)} 
@@ -58,7 +58,7 @@ class PetProfile extends Component {
                                 <div className="card-content">
                                     <p>{this.props.activepet.description}</p>
                                     
-                                      {(this.props.activepet.userspet == true || showActions) &&
+                                      {(this.props.activepet.userspet === true || showActions) &&
                                       <div>
                                             <PetMyPet petMyPet={this.props.petMyPet} petId={this.props.activepet.pet_id}
                                             petProgress={activeUserPet.petProgress}/>
@@ -83,7 +83,7 @@ class PetProfile extends Component {
         
                                    
                                 </div>
-                                {(this.props.activepet.userspet == true || showActions) &&
+                                {(this.props.activepet.userspet === true || showActions) &&
                                         <span>
                                         <button className="btn-floating btn-large   waves-light #90caf9 red lighten-2"  color="red lighten-2" >
                                                 <i className="material-icons">mood_bad</i>

@@ -1,15 +1,11 @@
 import React,{ Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { checkout,getNoOfUserGoodies } from '../actions'
+import { checkout} from '../actions'
 import { getTotal, getCartProducts } from '../reducers'
 import Cart from '../components/Cart'
-import Goodies from './Goodies'
 
 class CartContainer extends Component  {
-  constructor(props){
-    super(props);
-  }
   onCheckoutClicked = () => {
     console.log("this.props.products"+JSON.stringify(this.props.products));
     this.props.checkout(this.props.products)

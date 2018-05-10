@@ -5,7 +5,7 @@ import { fetchUserPet } from "../actions";
 class Progress extends Component {
   render() {
     const { petAction, feedprogress, petprogress, walkprogress } = this.props;
-    const currentProgress = (petAction == "Feed") ? feedprogress : (petAction == "Pet" ? petprogress : walkprogress);
+    const currentProgress = (petAction === "Feed") ? feedprogress : (petAction === "Pet" ? petprogress : walkprogress);
     return (
       <progress value={currentProgress} max="100">70 %</progress>
     );
