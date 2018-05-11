@@ -18,13 +18,13 @@ class Dashboard extends Component {
       message = 'Time to Walk your Pets';
 
     }
-    setTimeout(this.createNotification('info', message), 3000);
+    setTimeout(this.createNotification('info', message), 500);
   }
   createNotification = (type, message) => () => {
 
     switch (type) {
       case 'info':
-        NotificationManager.info(message);
+        NotificationManager.info(message, '', 1500);
 
         break;
       case 'success':
