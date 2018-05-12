@@ -32,7 +32,7 @@ class PetProfile extends Component {
        
         if (this.props.activepet) {
             //console.log("Active pet is");
-            //console.log(this.props.activepet);
+            //console.log(this.props.activeUserPet);
             //console.log(this.props);
                 return (
                     <div>
@@ -57,7 +57,13 @@ class PetProfile extends Component {
                                 </div>
                                 <div className="card-content">
                                     <p>{this.props.activepet.description}</p>
-                                    
+                                    {!this.props.activeUserPet.userspet  &&
+                                    <ul>
+                                        <li style={{display: 'inline'}}><i className="material-icons red600" id="favourite_icon"  >favorite</i> <span>&nbsp;</span>{this.props.activepet.noOfTimesToPet}</li>
+                                        <li style={{display: 'inline'}}><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><i className="material-icons black600" id="walk_icon">directions_walk</i> <span>&nbsp;</span> {this.props.activepet.noOfTimesToWalk}</li>
+                                        <li style={{display: 'inline'}}><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><i className="material-icons green600" id="local_dining">local_dining</i> <span>&nbsp;</span> {this.props.activepet.noOfTimesToFeed}</li>
+                                    </ul>
+                                    }
                                       {(this.props.activepet.userspet === true || showActions) &&
                                       <div>
                                             <PetMyPet petMyPet={this.props.petMyPet} petId={this.props.activepet.pet_id}
